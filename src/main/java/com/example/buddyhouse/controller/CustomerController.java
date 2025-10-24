@@ -1,6 +1,6 @@
 package com.example.buddyhouse.controller;
 
-import com.example.buddyhouse.entity.CustomerEntity;
+import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,8 @@ public class CustomerController {
 private  final CustomerService customerService;
 
 @PostMapping
-  public ResponseEntity<CustomerEntity> createCustomer(@RequestBody CustomerEntity customer){
-  CustomerEntity saveCustomer = customerService.createCustomer(customer);
-  return ResponseEntity.ok(saveCustomer);
+  public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto dto){
+  CustomerDto saved = customerService.createCustomer(dto);
+  return ResponseEntity.ok(saved);
 }
-
 }
