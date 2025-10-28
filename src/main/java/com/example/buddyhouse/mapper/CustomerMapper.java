@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class CustomerMapper {
 
   // Entity → DTO に変換するコンストラクタ
-  public CustomerDto createDto(CustomerEntity entity) {
+  public CustomerDto toDto(CustomerEntity entity) {
     CustomerDto dto = new CustomerDto();
     dto.setId(entity.getId());
     dto.setName(entity.getName());
@@ -22,7 +22,7 @@ public class CustomerMapper {
     return dto;
   }
     //DTOからEntityへ変換
-    public CustomerEntity createEntity(CustomerDto dto) {
+    public CustomerEntity toEntity(CustomerDto dto) {
       CustomerEntity entity = new CustomerEntity();
       entity.setName(dto.getName());
       entity.setEmail(dto.getEmail());

@@ -29,7 +29,7 @@ public ResponseEntity<List<CustomersListDto>> getCustomersList(){
   List<CustomersListDto> customers =customerService.getCustomersList();
   return ResponseEntity.ok(customers);
   }
-  @GetMapping
+  @GetMapping("/{id}")
   public ResponseEntity<CustomerDto> getCustomersById(@PathVariable Long id){
   CustomerDto customer = customerService.getCustomersById(id);
   return ResponseEntity.ok(customer);

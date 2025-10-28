@@ -7,31 +7,20 @@ import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.mapper.CustomerMapper;
 import com.example.buddyhouse.repository.CustomerRepository;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-
+@RequiredArgsConstructor
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
   private final CustomerMapper customerMapper;
 
-
-  public CustomerService(CustomerRepository customerRepository,
-      CustomerMapper customerMapper) {
-    this.customerRepository = customerRepository;
-    this.customerMapper = customerMapper;
-
-  }
-
   public CustomerDto createCustomer(CustomerDto dto) {
-    // DTO → Entity
-    CustomerEntity entity = customerMapper.createEntity(dto);
-
-    // DB保存
-    CustomerEntity saved = customerRepository.save(entity);
-
-    return customerMapper.createDto(saved);
+    CustomerEntity entity = customerMapper.toEntity(dto);
+    CustomerEntity saved = customerRepository.save(entity);// DB保存
+    return customerMapper.toDto(saved);
   }
 
 public List<CustomersListDto> getCustomersList(){
@@ -39,7 +28,7 @@ public List<CustomersListDto> getCustomersList(){
   }
   public CustomerDto getCustomersById(Long id){
     CustomerEntity entity = customerRepository.findById(id).orElseThrow(()->new RuntimeException("こきゃくがみつかりません。"));
-return customerMapper.createDto(entity);
+return customerMapper.toDto(entity);
   }
 
 
