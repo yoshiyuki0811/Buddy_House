@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,11 @@ private  final CustomerService customerService;
 public ResponseEntity<List<CustomersListDto>> getCustomersList(){
   List<CustomersListDto> customers =customerService.getCustomersList();
   return ResponseEntity.ok(customers);
+  }
+  @GetMapping
+  public ResponseEntity<CustomerDto> getCustomersById(@PathVariable Long id){
+  CustomerDto customer = customerService.getCustomersById(id);
+  return ResponseEntity.ok(customer);
   }
 
 }

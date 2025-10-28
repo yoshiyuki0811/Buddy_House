@@ -1,6 +1,7 @@
 package com.example.buddyhouse.dto;
 
 
+import com.example.buddyhouse.entity.CustomerEntity;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,5 @@ public class CustomerDto {
   private String phone;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
-
-
-
 
 }

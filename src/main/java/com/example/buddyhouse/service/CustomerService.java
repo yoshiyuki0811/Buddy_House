@@ -10,15 +10,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
+
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
   private final CustomerMapper customerMapper;
 
+
   public CustomerService(CustomerRepository customerRepository,
       CustomerMapper customerMapper) {
     this.customerRepository = customerRepository;
     this.customerMapper = customerMapper;
+
   }
 
   public CustomerDto createCustomer(CustomerDto dto) {
@@ -28,13 +31,17 @@ public class CustomerService {
     // DB保存
     CustomerEntity saved = customerRepository.save(entity);
 
-    // Entity → DTO
     return customerMapper.createDto(saved);
   }
 
 public List<CustomersListDto> getCustomersList(){
     return customerRepository.findAllForList();
   }
+  public CustomerDto getCustomersById(Long id){
+    CustomerEntity entity = customerRepository.findById(id).orElseThrow(()->new RuntimeException("こきゃくがみつかりません。"));
+return customerMapper.createDto(entity);
+  }
+
 
 }
 
