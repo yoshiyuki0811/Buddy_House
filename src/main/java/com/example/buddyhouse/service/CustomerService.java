@@ -2,9 +2,11 @@ package com.example.buddyhouse.service;
 
 
 import com.example.buddyhouse.dto.CustomerDto;
+import com.example.buddyhouse.dto.CustomersListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.mapper.CustomerMapper;
 import com.example.buddyhouse.repository.CustomerRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +32,9 @@ public class CustomerService {
     return customerMapper.createDto(saved);
   }
 
-
+public List<CustomersListDto> getCustomersList(){
+    return customerRepository.findAllForList();
+  }
 
 }
 
