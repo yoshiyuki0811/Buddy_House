@@ -37,6 +37,9 @@ public class CustomerEntity {
   @Column(nullable = false, length = 20)
   private String phone; //電話番号
 
+  @Column(nullable = false,name ="is_deleted")
+  private boolean isDeleted=false;//デフォルトfalse(有効)　削除フラグ
+
   @Column(insertable = false, updatable = false)
   private LocalDateTime createdAt; //登録日時(自動更新)
 

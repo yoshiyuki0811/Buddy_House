@@ -17,6 +17,7 @@ public class CustomerMapper {
     dto.setEmail(entity.getEmail());
     dto.setPhone(entity.getPhone());
     dto.setAddress(entity.getAddress());
+    dto.setDeleted(entity.isDeleted());
     dto.setCreatedAt(entity.getCreatedAt());
     dto.setUpdatedAt(entity.getUpdatedAt());
     return dto;
@@ -28,6 +29,7 @@ public class CustomerMapper {
       entity.setEmail(dto.getEmail());
       entity.setPhone(dto.getPhone());
       entity.setAddress(dto.getAddress());
+      entity.setDeleted(dto.isDeleted());
       entity.setCreatedAt(LocalDateTime.now());
       entity.setUpdatedAt(LocalDateTime.now());
       return entity;
