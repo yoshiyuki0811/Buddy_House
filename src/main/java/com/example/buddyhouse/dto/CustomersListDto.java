@@ -1,8 +1,6 @@
 package com.example.buddyhouse.dto;
 
-
-
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,14 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CustomerDto {
+@AllArgsConstructor
+//顧客情報一覧表示に使う用のDTO
+public class CustomersListDto {
   private Long id;
   private String name;
-  private String address;
-  private String email;
   private String phone;
-  private boolean isDeleted;
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
-
 }
