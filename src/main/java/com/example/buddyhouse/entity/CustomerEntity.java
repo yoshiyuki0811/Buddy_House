@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * 顧客データ
@@ -40,9 +42,11 @@ public class CustomerEntity {
   @Column(nullable = false,name ="is_deleted")
   private boolean isDeleted=false;//デフォルトfalse(有効)　削除フラグ
 
+  @CreationTimestamp
   @Column(insertable = false, updatable = false)
   private LocalDateTime createdAt; //登録日時(自動更新)
 
+  @UpdateTimestamp
   @Column(insertable = false)
   private LocalDateTime updatedAt; //更新日時（自動更新）
 

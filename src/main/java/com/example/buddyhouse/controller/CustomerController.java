@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CustomerController {
 private  final CustomerService customerService;
-
+//
 @PostMapping
   public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto dto){
   CustomerDto saved = customerService.createCustomer(dto);
@@ -37,10 +37,14 @@ public ResponseEntity<List<CustomersListDto>> getCustomersList(){
   }
 @PatchMapping("/{id}/delete")
 public ResponseEntity<CustomerDto> deletedCustomersById(@PathVariable Long id) {
-  CustomerDto deleted = customerService.getCustomersById(id);
+  CustomerDto deleted = customerService.deleteCustomerById(id);
   return ResponseEntity.ok(deleted);
 }
-
+  @PatchMapping("/{id}")
+  public ResponseEntity<CustomerDto> updateCustomersById(@PathVariable Long id,@RequestBody CustomerDto dto) {
+    CustomerDto update = customerService.updateCustomerById(id,dto);
+    return ResponseEntity.ok(update);
+  }
 }
 
 
