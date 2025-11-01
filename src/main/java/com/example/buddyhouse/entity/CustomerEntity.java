@@ -29,7 +29,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class CustomerEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long customer_id; //顧客ID（自動採番）
+  private Long id; //顧客ID（自動採番）
 
   @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,orphanRemoval = true)
   private List<PetsEntity> pets =new ArrayList<>();

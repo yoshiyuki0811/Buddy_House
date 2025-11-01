@@ -25,7 +25,7 @@ public class PetsEntity {
   /** ペットを瞬時に判別するID（自動採番） */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long pets_id;
+  private Long id;
 
   /** 飼い主ID（外部キー） */
   @ManyToOne(fetch = FetchType.LAZY, optional = false)

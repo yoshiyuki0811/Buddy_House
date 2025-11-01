@@ -1,16 +1,15 @@
 package com.example.buddyhouse.mapper;
 
-import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.PetsDto;
-import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.PetsEntity;
-import java.time.LocalDateTime;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PetsMapper {
   // Entity → DTO に変換するコンストラクタ
   public PetsDto toDto(PetsEntity entity) {
     PetsDto dto = new PetsDto();
-    dto.setPets_id(entity.getPets_id());
+    dto.setPets_id(entity.getId());
     dto.setName(entity.getName()) ;
     dto.setBreed(entity.getBreed());
     dto.setWeight(entity.getWeight());
@@ -24,7 +23,7 @@ public class PetsMapper {
   //DTOからEntityへ変換
   public PetsEntity toEntity(PetsDto dto)  {
     PetsEntity entity = new PetsEntity();
-    entity.setPets_id(dto.getPets_id());
+    entity.setId(dto.getPets_id());
     entity.setName(dto.getName());
     entity.setBreed(dto.getBreed());
     entity.setWeight(dto.getWeight());
