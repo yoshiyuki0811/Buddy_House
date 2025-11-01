@@ -7,7 +7,6 @@ import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.mapper.CustomerMapper;
 import com.example.buddyhouse.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

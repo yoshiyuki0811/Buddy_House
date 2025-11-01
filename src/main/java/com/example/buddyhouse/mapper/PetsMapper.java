@@ -1,0 +1,39 @@
+package com.example.buddyhouse.mapper;
+
+import com.example.buddyhouse.dto.CustomerDto;
+import com.example.buddyhouse.dto.PetsDto;
+import com.example.buddyhouse.entity.CustomerEntity;
+import com.example.buddyhouse.entity.PetsEntity;
+import java.time.LocalDateTime;
+
+public class PetsMapper {
+  // Entity → DTO に変換するコンストラクタ
+  public PetsDto toDto(PetsEntity entity) {
+    PetsDto dto = new PetsDto();
+    dto.setPets_id(entity.getPets_id());
+    dto.setName(entity.getName()) ;
+    dto.setBreed(entity.getBreed());
+    dto.setWeight(entity.getWeight());
+    dto.setAge(entity.getAge());
+    dto.setFeature(entity.getFeature());
+    dto.setDeleted(entity.isDeleted());
+    dto.setCreatedAt(entity.getCreatedAt());
+    dto.setUpdatedAt(entity.getUpdatedAt());
+    return dto;
+  }
+  //DTOからEntityへ変換
+  public PetsEntity toEntity(PetsDto dto)  {
+    PetsEntity entity = new PetsEntity();
+    entity.setPets_id(dto.getPets_id());
+    entity.setName(dto.getName());
+    entity.setBreed(dto.getBreed());
+    entity.setWeight(dto.getWeight());
+    entity.setAge(dto.getAge());
+    entity.setFeature(dto.getFeature());
+    entity.setDeleted(dto.isDeleted());
+    entity.setCreatedAt(dto.getCreatedAt());
+    entity.setUpdatedAt(dto.getUpdatedAt());
+
+    return entity;
+  }
+}
