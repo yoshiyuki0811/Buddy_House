@@ -1,6 +1,6 @@
 package com.example.buddyhouse.controller;
 
-import com.example.buddyhouse.dto.CustomerDto;
+
 import com.example.buddyhouse.dto.PetsDto;
 import com.example.buddyhouse.service.PetsService;
 import lombok.RequiredArgsConstructor;

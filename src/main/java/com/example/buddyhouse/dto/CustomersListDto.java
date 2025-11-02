@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 //顧客情報一覧表示に使う用のDTO
 public class CustomersListDto {
-  private Long customer_id;
+  private Long id;
   private String name;
   private String phone;
 }

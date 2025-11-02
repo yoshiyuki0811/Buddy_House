@@ -1,15 +1,24 @@
 package com.example.buddyhouse.mapper;
 
 import com.example.buddyhouse.dto.PetsDto;
+import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.PetsEntity;
+import com.example.buddyhouse.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
+
 public class PetsMapper {
+
+  private final CustomerRepository customerRepository;
+
   // Entity → DTO に変換するコンストラクタ
   public PetsDto toDto(PetsEntity entity) {
     PetsDto dto = new PetsDto();
-    dto.setPets_id(entity.getId());
+    dto.setId(entity.getId());
+    dto.setCustomerId(entity.getCustomer().getId());
     dto.setName(entity.getName()) ;
     dto.setBreed(entity.getBreed());
     dto.setWeight(entity.getWeight());
@@ -23,7 +32,7 @@ public class PetsMapper {
   //DTOからEntityへ変換
   public PetsEntity toEntity(PetsDto dto)  {
     PetsEntity entity = new PetsEntity();
-    entity.setId(dto.getPets_id());
+    entity.setId(dto.getId());
     entity.setName(dto.getName());
     entity.setBreed(dto.getBreed());
     entity.setWeight(dto.getWeight());
@@ -32,6 +41,8 @@ public class PetsMapper {
     entity.setDeleted(dto.isDeleted());
     entity.setCreatedAt(dto.getCreatedAt());
     entity.setUpdatedAt(dto.getUpdatedAt());
+    CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
+    entity.setCustomer(customerRef);
 
     return entity;
   }

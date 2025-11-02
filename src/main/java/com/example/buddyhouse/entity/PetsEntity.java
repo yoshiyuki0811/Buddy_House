@@ -54,7 +54,7 @@ public class PetsEntity {
 
   /** 削除フラグ */
   @Column(nullable = false)
-  private boolean isDeleted = false;
+  private boolean deleted = false;
 
   /** 登録日時 */
   @CreationTimestamp

@@ -25,6 +25,7 @@ public class CustomerService {
   }
 //顧客の一覧を取得
 public List<CustomersListDto> getCustomersList(){
+
     return customerRepository.findAllForList();
   }
   //特定の顧客の詳細取得
@@ -44,7 +45,7 @@ return customerMapper.toDto(entity);
 
     return customerMapper.toDto(updated);
   }
-
+//顧客情報の編集　変更があった場合Dtoのセット
   public CustomerDto updateCustomerById(Long id,CustomerDto customerDto) {
     CustomerEntity entity = customerRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("顧客がみつかりません。"));

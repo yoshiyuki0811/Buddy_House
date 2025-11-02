@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CustomerDto {
-  private Long customer_id;
+  private Long id;
   private String name;
   private String address;
   private String email;
   private String phone;
-  private boolean isDeleted;
+  private boolean deleted;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 

@@ -12,7 +12,7 @@ public class CustomerMapper {
   // Entity → DTO に変換するコンストラクタ
   public CustomerDto toDto(CustomerEntity entity) {
     CustomerDto dto = new CustomerDto();
-    dto.setCustomer_id(entity.getId());
+    dto.setId(entity.getId());
     dto.setName(entity.getName());
     dto.setEmail(entity.getEmail());
     dto.setPhone(entity.getPhone());
@@ -25,7 +25,7 @@ public class CustomerMapper {
     //DTOからEntityへ変換
     public CustomerEntity toEntity(CustomerDto dto) {
       CustomerEntity entity = new CustomerEntity();
-      entity.setId(dto.getCustomer_id());
+      entity.setId(dto.getId());
       entity.setName(dto.getName());
       entity.setEmail(dto.getEmail());
       entity.setPhone(dto.getPhone());
