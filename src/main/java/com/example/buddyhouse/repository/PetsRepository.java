@@ -1,7 +1,6 @@
 package com.example.buddyhouse.repository;
 
 
-import com.example.buddyhouse.dto.CustomersListDto;
 import com.example.buddyhouse.dto.PetsListDto;
 import com.example.buddyhouse.entity.PetsEntity;
 import java.util.List;
@@ -11,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PetsRepository extends JpaRepository<PetsEntity,Long> {
-  @Query("SELECT new com.example.buddyhouse.dto.PetsListDto(c.id,c.CustomerId, c.name, c.breed,c.weight)"+ "FROM PetsEntity c")
-  List<PetsListDto> findAllForList();
+  @Query("SELECT new com.example.buddyhouse.dto.PetsListDto(p.id, p.customer.id, p.name, p.breed, p.weight )"+ "FROM PetsEntity p")
+  List<PetsListDto> findAllPetsList();
 }

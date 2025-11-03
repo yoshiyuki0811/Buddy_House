@@ -30,4 +30,6 @@ public class PetsController {
     List<PetsListDto> pets =petsService.getPetsList();
     return ResponseEntity.ok(pets);
   }
+
+
 }

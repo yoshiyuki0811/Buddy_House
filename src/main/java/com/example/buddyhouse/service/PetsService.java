@@ -1,11 +1,13 @@
 package com.example.buddyhouse.service;
 
 
-import com.example.buddyhouse.dto.CustomersListDto;
+
 import com.example.buddyhouse.dto.PetsDto;
 import com.example.buddyhouse.dto.PetsListDto;
+import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.mapper.PetsMapper;
+import com.example.buddyhouse.repository.CustomerRepository;
 import com.example.buddyhouse.repository.PetsRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PetsService {
+  private final CustomerRepository customerRepository;
   private final PetsRepository petsRepository;
   private final PetsMapper petsMapper;
 
@@ -26,9 +29,9 @@ public class PetsService {
     return petsMapper.toDto(saved);
   }
 
-  public List<PetsListDto> getPetsList(){
+  public List<PetsListDto> getPetsList() {
 
-    return petsRepository.findAllForList();
+    return petsRepository.findAllPetsList();
+
   }
-
 }
