@@ -3,9 +3,11 @@ package com.example.buddyhouse.service;
 
 
 
+import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.PetsDto;
 import com.example.buddyhouse.dto.PetsListDto;
 
+import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.mapper.PetsMapper;
 import com.example.buddyhouse.repository.CustomerRepository;
@@ -47,5 +49,20 @@ private  final CustomerRepository customerRepository;
      customerRepository.findById(customerId)
         .orElseThrow(()->new RuntimeException("顧客ががみつかりません。"));
     return petsRepository.findPetsByCustomerId(customerId);
+  }
+  public PetsDto updatePetsById(Long id,PetsDto petsDto) {
+    PetsEntity entity  = petsRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("顧客がみつかりません。"));
+
+    if (petsDto.getName() != null) entity.setName(petsDto.getName());
+    if (petsDto.getBreed() != null) entity.setBreed(petsDto.getBreed());
+    if (petsDto.getWeight() != null) entity.setWeight(petsDto.getWeight());
+    if (petsDto.getAge() != null) entity.setAge(petsDto.getAge());
+    if (petsDto.getFeature() != null) entity.setFeature(petsDto.getFeature());
+
+
+
+    PetsEntity updated = petsRepository.save(entity);
+    return petsMapper.toDto(updated);
   }
 }
