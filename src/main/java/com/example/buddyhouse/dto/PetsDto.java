@@ -1,6 +1,6 @@
 package com.example.buddyhouse.dto;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
