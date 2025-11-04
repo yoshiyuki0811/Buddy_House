@@ -5,8 +5,10 @@ package com.example.buddyhouse.service;
 
 import com.example.buddyhouse.dto.PetsDto;
 import com.example.buddyhouse.dto.PetsListDto;
+
 import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.mapper.PetsMapper;
+import com.example.buddyhouse.repository.CustomerRepository;
 import com.example.buddyhouse.repository.PetsRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PetsService {
 
+private  final CustomerRepository customerRepository;
   private final PetsRepository petsRepository;
   private final PetsMapper petsMapper;
 
@@ -38,5 +41,11 @@ public class PetsService {
     PetsEntity entity = petsRepository.findById(id)
         .orElseThrow(()->new RuntimeException("ペットがみつかりません。"));
     return petsMapper.toDto(entity);
+  }
+
+  public List<PetsListDto> getPetsListById(Long customerId) {
+     customerRepository.findById(customerId)
+        .orElseThrow(()->new RuntimeException("顧客ががみつかりません。"));
+    return petsRepository.findPetsByCustomerId(customerId);
   }
 }
