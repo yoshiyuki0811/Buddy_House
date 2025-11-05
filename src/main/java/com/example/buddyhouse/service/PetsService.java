@@ -3,11 +3,11 @@ package com.example.buddyhouse.service;
 
 
 
-import com.example.buddyhouse.dto.CustomerDto;
+
 import com.example.buddyhouse.dto.PetsDto;
 import com.example.buddyhouse.dto.PetsListDto;
 
-import com.example.buddyhouse.entity.CustomerEntity;
+
 import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.mapper.PetsMapper;
 import com.example.buddyhouse.repository.CustomerRepository;
@@ -44,25 +44,36 @@ private  final CustomerRepository customerRepository;
         .orElseThrow(()->new RuntimeException("ペットがみつかりません。"));
     return petsMapper.toDto(entity);
   }
-
+  //特定の顧客が登録したペットの一覧を取得
   public List<PetsListDto> getPetsListById(Long customerId) {
      customerRepository.findById(customerId)
         .orElseThrow(()->new RuntimeException("顧客ががみつかりません。"));
     return petsRepository.findPetsByCustomerId(customerId);
   }
+  //ペット情報の編集、更新
   public PetsDto updatePetsById(Long id,PetsDto petsDto) {
     PetsEntity entity  = petsRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("顧客がみつかりません。"));
-
+//変更があった箇所だけ更新する
     if (petsDto.getName() != null) entity.setName(petsDto.getName());
     if (petsDto.getBreed() != null) entity.setBreed(petsDto.getBreed());
     if (petsDto.getWeight() != null) entity.setWeight(petsDto.getWeight());
     if (petsDto.getAge() != null) entity.setAge(petsDto.getAge());
     if (petsDto.getFeature() != null) entity.setFeature(petsDto.getFeature());
 
-
-
     PetsEntity updated = petsRepository.save(entity);
     return petsMapper.toDto(updated);
+  }
+  //ペットテーブルの削除フラグをtrueに変換して登録
+  @Transactional
+  public PetsDto  deletePetsById(Long id){
+    PetsEntity entity = petsRepository.findById(id)
+        .orElseThrow(()->new RuntimeException("顧客がみつかりません。"));
+    entity.setDeleted(true);
+    PetsEntity petsDeleted =petsRepository.save(entity);
+
+    return petsMapper.toDto(petsDeleted);
+
+
   }
 }

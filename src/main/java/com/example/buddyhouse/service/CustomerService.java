@@ -41,9 +41,9 @@ return customerMapper.toDto(entity);
     CustomerEntity entity = customerRepository.findById(id)
         .orElseThrow(()->new RuntimeException("顧客がみつかりません。"));
     entity.setDeleted(true);
-    CustomerEntity updated =customerRepository.save(entity);
+    CustomerEntity deleted =customerRepository.save(entity);
 
-    return customerMapper.toDto(updated);
+    return customerMapper.toDto(deleted);
   }
 //顧客情報の編集　変更があった場合Dtoのセット
   public CustomerDto updateCustomerById(Long id,CustomerDto customerDto) {
