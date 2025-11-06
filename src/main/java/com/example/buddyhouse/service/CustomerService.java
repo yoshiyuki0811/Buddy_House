@@ -25,8 +25,10 @@ public class CustomerService {
   }
 //顧客の一覧を取得
 public List<CustomersListDto> getCustomersList(){
-
-    return customerRepository.findAllForList();
+  List<CustomerEntity> entity = customerRepository.findAll();
+    return entity.stream()
+        .map(customerMapper::toListDto)//Entityから取得した情報をMapperにいれてDto化
+        .toList();//DTOの形になった顧客情報
   }
   //特定の顧客の詳細取得
   public CustomerDto getCustomersById(Long id){
@@ -37,7 +39,7 @@ return customerMapper.toDto(entity);
 
   //顧客情報の論理削除変更して保存
 @Transactional
-  public CustomerDto deleteCustomerById(Long id){
+   public CustomerDto deleteCustomerById(Long id){
     CustomerEntity entity = customerRepository.findById(id)
         .orElseThrow(()->new RuntimeException("顧客がみつかりません。"));
     entity.setDeleted(true);
