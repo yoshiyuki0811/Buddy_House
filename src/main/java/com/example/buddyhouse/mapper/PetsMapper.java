@@ -57,7 +57,7 @@ public class PetsMapper {
     dto.setWeight(entity.getWeight());
     return dto;
   }
-  //DTOからEntityへ変換（全カラム）
+  //DTOからEntityへ変換(ペットリスト用）
   public PetsEntity toListEntity(PetsListDto dto)  {
     PetsEntity entity = new PetsEntity();
     entity.setId(dto.getId());

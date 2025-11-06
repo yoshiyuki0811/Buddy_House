@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# .envをGit管理対象から除外する
+/src/main/resources/.env
+
