@@ -34,8 +34,11 @@ private  final CustomerRepository customerRepository;
   }
 //現在登録されているペットの一覧を取る
   public List<PetsListDto> getPetsList() {
+    List<PetsEntity> entity =petsRepository.findAll();
 
-    return petsRepository.findAllPetsList();
+    return entity
+        .stream().map(petsMapper::toListDto)
+        .toList();
 
   }
   //ペットの詳細情報を取得
