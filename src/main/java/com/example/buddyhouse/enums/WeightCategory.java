@@ -1,10 +1,10 @@
 package com.example.buddyhouse.enums;
 
 public enum WeightCategory {
-  TOY,       // 〜5kg
-  SMALL,     // 5〜10kg
-  MEDIUM,    // 10〜15kg
-  LARGE,     // 15〜20kg
-  GIANT      // 20kg〜
+  Toy,       // 〜5kg
+  Small,     // 5〜10kg
+  Medium,    // 10〜15kg
+  Large,     // 15〜20kg
+  Giant      // 20kg〜
 
 }

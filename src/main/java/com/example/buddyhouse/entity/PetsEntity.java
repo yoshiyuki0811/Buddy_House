@@ -3,6 +3,8 @@ package com.example.buddyhouse.entity;
 import com.example.buddyhouse.enums.WeightCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,7 +43,8 @@ public class PetsEntity {
   @Column(nullable = false, length = 50)
   private String breed;
 
-  /** 体重区分（Toy, Small, Medium, Large, Giant）←一旦フロントで制御する予定 */
+  /**体重区分（Toy, Small, Medium, Large, Giant） */
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 10)
   private WeightCategory weight;
 
