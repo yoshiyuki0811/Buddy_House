@@ -1,5 +1,6 @@
 package com.example.buddyhouse.entity;
 
+import com.example.buddyhouse.enums.WeightCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,7 +43,7 @@ public class PetsEntity {
 
   /** 体重区分（Toy, Small, Medium, Large, Giant）←一旦フロントで制御する予定 */
   @Column(nullable = false, length = 10)
-  private String weight;
+  private WeightCategory weight;
 
   /** 年齢 */
   @Column

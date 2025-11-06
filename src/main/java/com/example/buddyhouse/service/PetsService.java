@@ -49,9 +49,10 @@ private  final CustomerRepository customerRepository;
   }
   //特定の顧客が登録したペットの一覧を取得
   public List<PetsListDto> getPetsListById(Long customerId) {
-     customerRepository.findById(customerId)
-        .orElseThrow(()->new RuntimeException("顧客ががみつかりません。"));
-    return petsRepository.findPetsByCustomerId(customerId);
+   List<PetsEntity>  entity = petsRepository.findAllByCustomerIdAndDeletedFalse(customerId);
+   return entity.stream()
+       .map(petsMapper::toListDto)
+       .toList();
   }
   //ペット情報の編集、更新
   public PetsDto updatePetsById(Long id,PetsDto petsDto) {

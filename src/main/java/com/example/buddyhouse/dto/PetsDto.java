@@ -1,6 +1,7 @@
 package com.example.buddyhouse.dto;
 
 
+import com.example.buddyhouse.enums.WeightCategory;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class PetsDto {
   private Long customerId;
   private String name; //ペット名
   private String breed ; //犬種
-  private String weight; //　体重区分（Toy,Small,Medium,Large,Giant）
+  private WeightCategory weight; //　体重区分（Toy,Small,Medium,Large,Giant）
   private Integer age; //年齢
   private String feature; //特徴や性格メモ
   private boolean deleted; //論理削除フラグ
