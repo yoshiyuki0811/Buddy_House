@@ -4,10 +4,11 @@ import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.CustomersListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-
+@RequiredArgsConstructor
 public class CustomerMapper {
 
   // Entity → DTO に変換するコンストラクタ

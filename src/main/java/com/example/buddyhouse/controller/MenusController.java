@@ -1,0 +1,26 @@
+package com.example.buddyhouse.controller;
+
+import com.example.buddyhouse.dto.MenusDto;
+import com.example.buddyhouse.service.MenusService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequestMapping("/menus")
+@RequiredArgsConstructor
+public class MenusController {
+
+  private  final MenusService  menusService;
+
+  @PostMapping
+  public ResponseEntity<MenusDto> createMenus(@RequestBody MenusDto dto){
+    MenusDto saved = menusService.createMenus(dto);
+    return ResponseEntity.ok(saved);
+  }
+}
+
