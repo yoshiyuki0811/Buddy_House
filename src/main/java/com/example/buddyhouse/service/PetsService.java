@@ -71,7 +71,7 @@ public class PetsService {
   @Transactional
   public PetsDto  deletePetsById(Long id){
     PetsEntity entity = petsRepository.findById(id)
-        .orElseThrow(()->new RuntimeException("顧客がみつかりません。"));
+        .orElseThrow(()->new RuntimeException("ペットがみつかりません。"));
     entity.setDeleted(true);
     PetsEntity petsDeleted =petsRepository.save(entity);
 

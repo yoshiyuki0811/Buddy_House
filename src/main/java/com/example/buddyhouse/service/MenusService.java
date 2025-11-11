@@ -5,6 +5,7 @@ import com.example.buddyhouse.dto.MenusListDto;
 import com.example.buddyhouse.entity.MenusEntity;
 import com.example.buddyhouse.mapper.MenusMapper;
 import com.example.buddyhouse.repository.MenusRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,18 @@ public class MenusService {
         .stream()
         .map(menusMapper::toListDto)
         .toList();
+  }
+  //メニューテーブルの削除フラグをtrueに変換して登録
+  @Transactional
+  public MenusDto deleteMenusById(Long id){
+    MenusEntity entity = menusRepository.findById(id)
+        .orElseThrow(()->new RuntimeException("メニューがみつかりません。"));
+    entity.setDeleted(true);
+    MenusEntity menusDeleted =menusRepository.save(entity);
+
+    return menusMapper.toDto(menusDeleted);
+
+
   }
   }
 
