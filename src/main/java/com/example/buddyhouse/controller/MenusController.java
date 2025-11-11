@@ -1,9 +1,12 @@
 package com.example.buddyhouse.controller;
 
 import com.example.buddyhouse.dto.MenusDto;
+import com.example.buddyhouse.dto.MenusListDto;
 import com.example.buddyhouse.service.MenusService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,13 @@ public class MenusController {
   public ResponseEntity<MenusDto> createMenus(@RequestBody MenusDto dto){
     MenusDto saved = menusService.createMenus(dto);
     return ResponseEntity.ok(saved);
+  }
+
+  @GetMapping
+  public  ResponseEntity<List<MenusListDto>> getAllMenus(){
+    List<MenusListDto> menus = menusService.getAllMenus();
+    return ResponseEntity.ok(menus);
+
   }
 }
 

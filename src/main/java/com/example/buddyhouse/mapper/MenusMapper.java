@@ -1,6 +1,7 @@
 package com.example.buddyhouse.mapper;
 
 import com.example.buddyhouse.dto.MenusDto;
+import com.example.buddyhouse.dto.MenusListDto;
 import com.example.buddyhouse.entity.MenusEntity;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
@@ -32,4 +33,14 @@ public class MenusMapper {
     entity.setUpdatedAt(LocalDateTime.now());
     return entity;
   }
+  // Entity → DTO に変換するコンストラクタ
+  public MenusListDto toListDto(MenusEntity entity) {
+    MenusListDto dto = new MenusListDto();
+    dto.setId(entity.getId());
+    dto.setName(entity.getName());
+    dto.setFeature(entity.getFeature());
+    dto.setActive(entity.isActive());
+    return dto;
+  }
+
 }
