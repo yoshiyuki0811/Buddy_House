@@ -1,17 +1,18 @@
 package com.example.buddyhouse.service;
 
-import com.example.buddyhouse.dto.MenusDto;
 import com.example.buddyhouse.dto.ReservationFrameDto;
-import com.example.buddyhouse.entity.MenusEntity;
+import com.example.buddyhouse.dto.ReservationFrameListDto;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
 import com.example.buddyhouse.mapper.ReservationFrameMapper;
 import com.example.buddyhouse.repository.ReservationFrameRepository;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ReservationFrameService {
 
   private final ReservationFrameRepository reservationFrameRepository;
@@ -23,7 +24,16 @@ public class ReservationFrameService {
     return reservationFrameMapper.toDto(saved);
   }
 
-  @Transactional
+  public List<ReservationFrameListDto> getReservationFrameList() {
+    List<ReservationFrameEntity> entity =reservationFrameRepository.findAll();
+
+    return entity
+        .stream().map(reservationFrameMapper::toListDto)
+        .toList();
+
+  }
+
+
   public ReservationFrameDto deletedReservationFrameById(Long id){
     ReservationFrameEntity entity = reservationFrameRepository.findById(id)
         .orElseThrow(()->new RuntimeException("予約枠がみつかりません。"));
