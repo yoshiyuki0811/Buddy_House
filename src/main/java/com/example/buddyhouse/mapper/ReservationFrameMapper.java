@@ -2,7 +2,6 @@ package com.example.buddyhouse.mapper;
 
 import com.example.buddyhouse.dto.ReservationFrameDto;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
-import lombok.Builder;
 import org.springframework.stereotype.Component;
 @Component
 public class ReservationFrameMapper {
@@ -26,17 +25,18 @@ public class ReservationFrameMapper {
     return dto;
   }
   public ReservationFrameEntity toEntity(ReservationFrameDto dto){
-    return ReservationFrameEntity.builder()
-        .id(dto.getId())
-        .reservationType(dto.getReservationType())
-        .startAt(dto.getStartAt())
-        .endAt(dto.getEndAt())
-        .maxDogs(dto.getMaxDogs())
-        .usedDogs(dto.getUsedDogs())
-        .open(dto.isOpen())
-        .deleted(dto.isDeleted())
-        .createdAt(dto.getCreatedAt())
-        .updatedAt(dto.getUpdatedAt())
-        .build();
+    ReservationFrameEntity entity = new ReservationFrameEntity();
+        entity.setId(dto.getId());
+        entity.setReservationType(dto.getReservationType());
+        entity.setStartAt(dto.getStartAt());
+        entity.setEndAt(dto.getEndAt());
+        entity.setMaxDogs(dto.getMaxDogs());
+        entity.setUsedDogs(dto.getUsedDogs());
+        entity.setOpen(dto.isOpen());
+        entity.setDeleted(dto.isDeleted());
+        entity.setCreatedAt(dto.getCreatedAt());
+        entity.setUpdatedAt(dto.getUpdatedAt());
+        return entity;
+
   }
 }

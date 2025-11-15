@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +21,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name ="reservation_frame")
 public class ReservationFrameEntity {
@@ -48,7 +46,7 @@ public class ReservationFrameEntity {
   private Integer usedDogs;
 
   @Column(name = "is_open", nullable = false)
-  private boolean open=true;//trueが販売中falseが満室
+  private boolean open = true;//trueが販売中falseが満室
 
   /** 削除フラグ */
   @Column(nullable = false)
@@ -57,12 +55,12 @@ public class ReservationFrameEntity {
   /** 登録日時 */
   @CreationTimestamp
   @Column(name = "created_at", nullable = false)
-  private LocalDateTime createdAt = LocalDateTime.now();
+  private LocalDateTime createdAt;
 
   /** 更新日時 */
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
-  private LocalDateTime updatedAt = LocalDateTime.now();
+  private LocalDateTime updatedAt;
 
 
 }
