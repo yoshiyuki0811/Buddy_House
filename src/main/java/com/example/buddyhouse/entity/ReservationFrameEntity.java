@@ -1,12 +1,17 @@
 package com.example.buddyhouse.entity;
 
+import com.example.buddyhouse.enums.ReservationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,28 +21,34 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Table(name ="menus")
-public class MenusEntity {
+@Table(name ="reservation_frame")
+public class ReservationFrameEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /** メニュー名 */
-  @Column(nullable = false, length = 50)
-  private String name;
 
-  @Column(nullable = false)//日帰りならfalse宿泊ならtrue
-  private boolean overnight;   // 日跨ぎするメニューかどうか
+  @Enumerated(EnumType.STRING)//(OVERNIGHT,DAYCARE)
+  @Column(name = "frame_type", nullable = false, length = 20)
+  private ReservationType reservationType;
 
+  @Column(name = "start_at", nullable = false)
+  private LocalDateTime startAt;
 
-  /** メニューの説明、詳細 */
-  @Column(columnDefinition = "TEXT")
-  private String feature;
+  @Column(name = "end_at", nullable = false)
+  private LocalDateTime endAt;
 
-  /** 販売状況フラグ  true＝販売中、false=販売停止中*/
-  @Column(nullable = false)
-  private boolean active = true;
+  @Column(name = "max_dogs", nullable = false)
+  private Integer maxDogs;
+
+  @Column(name = "used_dogs", nullable = false)
+  private Integer usedDogs;
+
+  @Column(name = "is_open", nullable = false)
+  private boolean open=true;//trueが販売中falseが満室
 
   /** 削除フラグ */
   @Column(nullable = false)
@@ -52,9 +63,6 @@ public class MenusEntity {
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt = LocalDateTime.now();
-
-
-
 
 
 }

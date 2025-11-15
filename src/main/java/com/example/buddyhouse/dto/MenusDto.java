@@ -13,6 +13,7 @@ public class MenusDto {
   private String name;
   private String feature;
   private Boolean active;
+  private boolean overnight;
   private boolean deleted;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

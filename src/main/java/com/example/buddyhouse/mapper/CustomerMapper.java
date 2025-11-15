@@ -45,16 +45,6 @@ public class CustomerMapper {
     dto.setPhone(entity.getPhone());
     return dto;
   }
-  //DTOからEntityへ変換(顧客一覧取得用)
-  public CustomerEntity toListEntity(CustomersListDto dto) {
-    CustomerEntity entity = new CustomerEntity();
-    entity.setId(dto.getId());
-    entity.setName(dto.getName());
-    entity.setPhone(dto.getPhone());
-    entity.setCreatedAt(LocalDateTime.now());
-    entity.setUpdatedAt(LocalDateTime.now());
-    return entity;
-  }
   }
 
 

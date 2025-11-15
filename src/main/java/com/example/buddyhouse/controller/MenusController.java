@@ -28,6 +28,14 @@ public class MenusController {
     return ResponseEntity.ok(saved);
   }
 
+  @PostMapping("/stay")
+  public ResponseEntity<MenusDto> createStayMenus(@RequestBody MenusDto dto){
+    dto.setOvernight(true);
+    MenusDto saved = menusService.createMenus(dto);
+    return ResponseEntity.ok(saved);
+  }
+
+
   @GetMapping
   public  ResponseEntity<List<MenusListDto>> getAllMenus(){
     List<MenusListDto> menus = menusService.getAllMenus();
