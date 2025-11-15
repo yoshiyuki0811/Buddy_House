@@ -57,15 +57,15 @@ public class PetsMapper {
     dto.setWeight(entity.getWeight());
     return dto;
   }
-  //DTOからEntityへ変換（ペットリスト用）
-  public PetsEntity toListEntity(PetsListDto dto)  {
-    PetsEntity entity = new PetsEntity();
-    entity.setId(dto.getId());
-    entity.setName(dto.getName());
-    entity.setBreed(dto.getBreed());
-    entity.setWeight(dto.getWeight());
-    CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
-    entity.setCustomer(customerRef);
-    return entity;
-  }
+//  //DTOからEntityへ変換（ペットリスト用）
+//  public PetsEntity toListEntity(PetsListDto dto)  {
+//    PetsEntity entity = new PetsEntity();
+//    entity.setId(dto.getId());
+//    entity.setName(dto.getName());
+//    entity.setBreed(dto.getBreed());
+//    entity.setWeight(dto.getWeight());
+//    CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
+//    entity.setCustomer(customerRef);
+//    return entity;
+//  }
 }

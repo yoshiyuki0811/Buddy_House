@@ -1,9 +1,12 @@
 package com.example.buddyhouse.service;
 
+import com.example.buddyhouse.dto.MenusDto;
 import com.example.buddyhouse.dto.ReservationFrameDto;
+import com.example.buddyhouse.entity.MenusEntity;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
 import com.example.buddyhouse.mapper.ReservationFrameMapper;
 import com.example.buddyhouse.repository.ReservationFrameRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,17 @@ public class ReservationFrameService {
     ReservationFrameEntity entity = reservationFrameMapper.toEntity(dto);
     ReservationFrameEntity saved = reservationFrameRepository.save(entity);
     return reservationFrameMapper.toDto(saved);
+  }
+
+  @Transactional
+  public ReservationFrameDto deletedReservationFrameById(Long id){
+    ReservationFrameEntity entity = reservationFrameRepository.findById(id)
+        .orElseThrow(()->new RuntimeException("予約枠がみつかりません。"));
+    entity.setDeleted(true);
+    ReservationFrameEntity deleted =reservationFrameRepository.save(entity);
+    return reservationFrameMapper.toDto(deleted);
+
+
   }
 
 }
