@@ -66,14 +66,16 @@ public class ReservationFrameEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
-  //論理削除の振る舞い
-  public void delete(){
-    if (deleted) {
-      throw new IllegalStateException("すでに削除済みです。");
+  public void delete() {
+    if (this.deleted) {
+      throw new IllegalStateException("すでに削除済みの予約枠です。");
+    }
+    if (this.usedDogs > 0) {
+      throw new IllegalStateException("すでに予約があるため削除できません。");
     }
     this.deleted = true;
-
   }
+
   public void frameClose(){
     if (closed){
       throw new IllegalStateException("すでに満室です");
