@@ -18,13 +18,13 @@ public class ReservationFrameService {
 
   private final ReservationFrameRepository reservationFrameRepository;
   private final ReservationFrameMapper reservationFrameMapper;
-
+//予約枠の作成
   public ReservationFrameDto createReservationFrame(ReservationFrameDto dto) {
     ReservationFrameEntity entity = reservationFrameMapper.toEntity(dto);
     ReservationFrameEntity saved = reservationFrameRepository.save(entity);
     return reservationFrameMapper.toDto(saved);
   }
-
+//予約枠の一覧取得
   public List<ReservationFrameListDto> getReservationFrameList() {
     List<ReservationFrameEntity> entity =reservationFrameRepository.findAll();
 
@@ -33,6 +33,8 @@ public class ReservationFrameService {
         .toList();
 
   }
+
+  //予約一覧の日付検索
   public List<ReservationFrameListDto> getReservationFrameListByDate(LocalDateTime date) {
     LocalDateTime start =date.toLocalDate().atStartOfDay();
     LocalDateTime end = date.toLocalDate().atTime(23,59,59,999999999);
@@ -43,15 +45,18 @@ public class ReservationFrameService {
 
   }
 
-
+  //予約枠の削除
   public ReservationFrameDto deletedReservationFrameById(Long id){
     ReservationFrameEntity entity = reservationFrameRepository.findById(id)
         .orElseThrow(()->new RuntimeException("予約枠がみつかりません。"));
-    entity.setDeleted(true);
-    ReservationFrameEntity deleted =reservationFrameRepository.save(entity);
-    return reservationFrameMapper.toDto(deleted);
+    entity.delete();
 
-
+    return reservationFrameMapper.toDto(reservationFrameRepository.save(entity));
   }
-
+public ReservationFrameDto closeReservationFrame(Long id){
+ReservationFrameEntity entity = reservationFrameRepository.findById(id)
+    .orElseThrow(()->new RuntimeException("予約枠が見つかりません。"));
+entity.frameClose();
+return reservationFrameMapper.toDto(reservationFrameRepository.save(entity));
+}
 }

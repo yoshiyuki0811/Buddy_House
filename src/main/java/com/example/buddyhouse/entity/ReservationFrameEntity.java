@@ -11,16 +11,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Setter
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name ="reservation_frame")
 public class ReservationFrameEntity {
@@ -46,11 +47,14 @@ public class ReservationFrameEntity {
   private Integer usedDogs;
 
   @Column(name = "is_open", nullable = false)
-  private boolean open = true;//trueが販売中falseが満室
+  @Builder.Default
+  private boolean closed = false;//trueが販売中falseが満室
 
   /** 削除フラグ */
   @Column(nullable = false)
+  @Builder.Default
   private boolean deleted = false;
+
 
   /** 登録日時 */
   @CreationTimestamp
@@ -62,5 +66,25 @@ public class ReservationFrameEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
+  //論理削除の振る舞い
+  public void delete(){
+    if (deleted) {
+      throw new IllegalStateException("すでに削除済みです。");
+    }
+    this.deleted = true;
+
+  }
+  public void frameClose(){
+    if (closed){
+      throw new IllegalStateException("すでに満室です");
+    }
+    this.closed =true;
+  }
+  public void frameOpen(){
+    if (closed){
+      throw new IllegalStateException("すでに空室です");
+    }
+    this.closed =false;
+  }
 
 }

@@ -18,7 +18,7 @@ public class ReservationFrameMapper {
     dto.setEndAt(entity.getEndAt());
     dto.setMaxDogs(entity.getMaxDogs());
     dto.setUsedDogs(entity.getUsedDogs());
-    dto.setOpen(entity.isOpen());
+    dto.setClose(entity.isClosed());
     dto.setDeleted(entity.isDeleted());
     dto.setCreatedAt(entity.getCreatedAt());
     dto.setUpdatedAt(entity.getUpdatedAt());
@@ -37,19 +37,15 @@ public class ReservationFrameMapper {
     dto.setUsedDogs(entity.getUsedDogs());
     return dto;
   }
+  // DtoからEntityに変換
   public ReservationFrameEntity toEntity(ReservationFrameDto dto){
-    ReservationFrameEntity entity = new ReservationFrameEntity();
-        entity.setId(dto.getId());
-        entity.setReservationType(dto.getReservationType());
-        entity.setStartAt(dto.getStartAt());
-        entity.setEndAt(dto.getEndAt());
-        entity.setMaxDogs(dto.getMaxDogs());
-        entity.setUsedDogs(dto.getUsedDogs());
-        entity.setOpen(dto.isOpen());
-        entity.setDeleted(dto.isDeleted());
-        entity.setCreatedAt(dto.getCreatedAt());
-        entity.setUpdatedAt(dto.getUpdatedAt());
-        return entity;
+    return ReservationFrameEntity
+        .builder()
+        .reservationType(dto.getReservationType())
+        .startAt(dto.getStartAt())
+        .endAt(dto.getEndAt())
+        .maxDogs(dto.getMaxDogs())
+        .build();
 
   }
 }

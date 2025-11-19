@@ -18,7 +18,7 @@ public class ReservationFrameDto {
   private LocalDateTime endAt;
   private Integer maxDogs;
   private Integer usedDogs;
-  private boolean open;
+  private boolean close;
   private boolean deleted;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
