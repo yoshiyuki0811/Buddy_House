@@ -53,6 +53,7 @@ public class ReservationFrameService {
 
     return reservationFrameMapper.toDto(reservationFrameRepository.save(entity));
   }
+  //予約枠のクローズ処理
 public ReservationFrameDto closeReservationFrame(Long id){
 ReservationFrameEntity entity = reservationFrameRepository.findById(id)
     .orElseThrow(()->new RuntimeException("予約枠が見つかりません。"));
