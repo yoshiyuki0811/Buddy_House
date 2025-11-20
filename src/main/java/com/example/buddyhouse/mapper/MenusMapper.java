@@ -2,7 +2,7 @@ package com.example.buddyhouse.mapper;
 
 import com.example.buddyhouse.dto.MenusDto;
 import com.example.buddyhouse.dto.MenusListDto;
-import com.example.buddyhouse.entity.MenusEntity;
+import com.example.buddyhouse.entity.MenuEntity;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class MenusMapper {
 
   // Entity → DTO に変換するコンストラクタ
-  public MenusDto toDto(MenusEntity entity) {
+  public MenusDto toDto(MenuEntity entity) {
     MenusDto dto = new MenusDto();
     dto.setId(entity.getId());
     dto.setName(entity.getName());
@@ -23,8 +23,8 @@ public class MenusMapper {
     return dto;
   }
   //DTOからEntityへ変換
-  public MenusEntity toEntity(MenusDto dto) {
-    MenusEntity entity = new MenusEntity();
+  public MenuEntity toEntity(MenusDto dto) {
+    MenuEntity entity = new MenuEntity();
     entity.setId(dto.getId());
     entity.setName(dto.getName());
     if (dto.getActive() != null)  entity.setActive(dto.getActive());   // ← null のときは上書きしない
@@ -36,7 +36,7 @@ public class MenusMapper {
     return entity;
   }
   // Entity → DTO に変換するコンストラクタ
-  public MenusListDto toListDto(MenusEntity entity) {
+  public MenusListDto toListDto(MenuEntity entity) {
     MenusListDto dto = new MenusListDto();
     dto.setId(entity.getId());
     dto.setName(entity.getName());

@@ -2,7 +2,7 @@ package com.example.buddyhouse.service;
 
 import com.example.buddyhouse.dto.MenusDto;
 import com.example.buddyhouse.dto.MenusListDto;
-import com.example.buddyhouse.entity.MenusEntity;
+import com.example.buddyhouse.entity.MenuEntity;
 import com.example.buddyhouse.mapper.MenusMapper;
 import com.example.buddyhouse.repository.MenusRepository;
 import jakarta.transaction.Transactional;
@@ -17,13 +17,13 @@ public class MenusService {
   private final MenusRepository menusRepository;
 //メニューの登録
   public MenusDto createMenus(MenusDto dto){
-    MenusEntity entity = menusMapper.toEntity(dto);
-    MenusEntity saved = menusRepository.save(entity);// DB保存
+    MenuEntity entity = menusMapper.toEntity(dto);
+    MenuEntity saved = menusRepository.save(entity);// DB保存
     return menusMapper.toDto(saved);
   }
 
   public List<MenusListDto> getAllMenus(){
-    List<MenusEntity> entityList = menusRepository.findByActiveTrueAndDeletedFalse();
+    List<MenuEntity> entityList = menusRepository.findByActiveTrueAndDeletedFalse();
     return entityList
         .stream()
         .map(menusMapper::toListDto)
@@ -32,10 +32,10 @@ public class MenusService {
   //メニューテーブルの削除フラグをtrueに変換して登録
   @Transactional
   public MenusDto deleteMenusById(Long id){
-    MenusEntity entity = menusRepository.findById(id)
+    MenuEntity entity = menusRepository.findById(id)
         .orElseThrow(()->new RuntimeException("メニューがみつかりません。"));
     entity.setDeleted(true);
-    MenusEntity menusDeleted =menusRepository.save(entity);
+    MenuEntity menusDeleted =menusRepository.save(entity);
 
     return menusMapper.toDto(menusDeleted);
 
