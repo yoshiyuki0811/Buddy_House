@@ -23,8 +23,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name ="reservation_frame")
+@Table(name = "reservation_frame")
 public class ReservationFrameEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -50,18 +51,24 @@ public class ReservationFrameEntity {
   @Builder.Default
   private boolean closed = false;//trueが販売中falseが満室
 
-  /** 削除フラグ */
+  /**
+   * 削除フラグ
+   */
   @Column(nullable = false)
   @Builder.Default
   private boolean deleted = false;
 
 
-  /** 登録日時 */
+  /**
+   * 登録日時
+   */
   @CreationTimestamp
   @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt;
 
-  /** 更新日時 */
+  /**
+   * 更新日時
+   */
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
@@ -76,17 +83,25 @@ public class ReservationFrameEntity {
     this.deleted = true;
   }
 
-  public void frameClose(){
-    if (closed){
+  public void frameClose() {
+    if (closed) {
       throw new IllegalStateException("すでに満室です");
     }
-    this.closed =true;
+    this.closed = true;
   }
-  public void frameOpen(){
-    if (closed){
+
+  public void frameOpen() {
+    if (closed) {
       throw new IllegalStateException("すでに空室です");
     }
-    this.closed =false;
+    this.closed = false;
+  }
+//予約枠の空きチェックと予約のカウント
+  public void addUsedDogs(int count) {
+    if (this.usedDogs + count > this.maxDogs) {
+      throw new IllegalStateException("枠を超えています");
+    }
+    this.usedDogs += count;
   }
 
 }

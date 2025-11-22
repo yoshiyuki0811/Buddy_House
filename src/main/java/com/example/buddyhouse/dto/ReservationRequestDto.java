@@ -9,20 +9,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class ReservationDto {
-  private Long id;
-
+public class ReservationRequestDto {
   private Long reservationFrameId;
-
   private Long customerId;
-
   private Long menuId;
-
-  private List<Long> petsId;
-
+  private List<Long> petIds;
   private LocalDateTime startAt;
-
   private LocalDateTime endAt;
-
 }

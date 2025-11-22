@@ -17,8 +17,7 @@ public class MenusService {
   private final MenusRepository menusRepository;
 //メニューの登録
   public MenusDto createMenus(MenusDto dto){
-    MenuEntity entity = menusMapper.toEntity(dto);
-    MenuEntity saved = menusRepository.save(entity);// DB保存
+    MenuEntity saved = menusRepository.save(menusMapper.toEntity(dto));// DB保存
     return menusMapper.toDto(saved);
   }
 
