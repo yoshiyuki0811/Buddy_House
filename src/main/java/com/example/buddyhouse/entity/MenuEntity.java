@@ -1,7 +1,10 @@
 package com.example.buddyhouse.entity;
 
+import com.example.buddyhouse.enums.ReservationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,8 +30,9 @@ public class MenuEntity {
   @Column(nullable = false, length = 50)
   private String name;
 
-  @Column(nullable = false)//日帰りならfalse宿泊ならtrue
-  private boolean overnight;   // 日跨ぎするメニューかどうか
+  @Enumerated(EnumType.STRING)//(OVERNIGHT,DAYCARE)
+  @Column(name = "reservation_type", nullable = false, length = 20)
+  private ReservationType reservationType;
 
 
   /** メニューの説明、詳細 */

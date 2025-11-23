@@ -32,11 +32,8 @@ public class ReservationService {
   private final ReservationPetRepository reservationPetRepository;
   private final ReservationMapper reservationMapper;
 
+  @Transactional
   public ReservationDto createReservation(ReservationRequestDto requestDto) {
-    System.out.println("frameId    = " + requestDto.getReservationFrameId());
-    System.out.println("customerId = " + requestDto.getCustomerId());
-    System.out.println("menuId     = " + requestDto.getMenuId());
-    System.out.println("petsIds    = " + requestDto.getPetIds());
 
     //フロントから来たPetsIdが空じゃないかチェック
     List<Long> petsIds = requestDto.getPetIds();
@@ -44,46 +41,37 @@ public class ReservationService {
       throw new IllegalArgumentException("予約するペットが指定されていません");
     }
 //フロントから来た情報をEntityと照合して取ってくる
-      ReservationFrameEntity frame = reservationFrameRepository.findById(requestDto.getReservationFrameId())
-          .orElseThrow(() -> new RuntimeException("予約枠が見つかりません"));
+    ReservationFrameEntity frame = reservationFrameRepository.findById(requestDto.getReservationFrameId())
+        .orElseThrow(() -> new RuntimeException("予約枠が見つかりません"));
 
-      CustomerEntity customer = customerRepository.getReferenceById(requestDto.getCustomerId());
+    CustomerEntity customer = customerRepository.findById(requestDto.getCustomerId())
+        .orElseThrow(() -> new RuntimeException("顧客が見つかりません。"));
 
-      MenuEntity menu = menusRepository.getReferenceById(requestDto.getMenuId());
-
-    //この予約の犬数＝入ってきたペットの数（PetsIdsの数）
-      int numDogs = requestDto.getPetIds().size();
-      //予約枠の空きチェック
-      frame.addUsedDogs(numDogs);
-      reservationFrameRepository.save(frame);
-      //Entityに登録
-      ReservationEntity reservation = ReservationEntity.builder()
-          .frame(frame)
-          .customer(customer)
-          .menu(menu)
-          .startAt(requestDto.getStartAt())
-          .endAt(requestDto.getEndAt())
-          .build();
-      reservationRepository.save(reservation);
+    MenuEntity menu = menusRepository.findById(requestDto.getMenuId())
+        .orElseThrow(() -> new RuntimeException("メニューが見つかりません。"));
+//この予約に来る犬リスト
+    List<PetsEntity> pets = petsRepository.findAllById(requestDto.getPetIds());
+//予約のチェック
+    ReservationEntity reservation = ReservationEntity.create(
+        frame, customer, menu, pets, requestDto.getStartAt(), requestDto.getEndAt());
+    //データベースに保存
+    reservationRepository.save(reservation);
 
 //ペットの数だけDtoを生成→Entityにセーブ
-      for (Long petId : requestDto.getPetIds()) {
-        PetsEntity pet = petsRepository.findById(petId)
-            .orElseThrow(() -> new RuntimeException("ペットが存在しません"));
-        ReservationPetEntity reservationPet = ReservationPetEntity.builder()
-            .reservation(reservation)
-            .pets(pet)
-            .build();
-        reservationPetRepository.save(reservationPet);
-        reservation.getReservationPets().add(reservationPet);
-      }
-      return reservationMapper.toDto(reservation);
-
-
+    for (Long petId : requestDto.getPetIds()) {
+      PetsEntity pet = petsRepository.findById(petId)
+          .orElseThrow(() -> new RuntimeException("ペットが存在しません"));
+      //中間テーブルの生成
+      ReservationPetEntity reservationPet = ReservationPetEntity.create(reservation, pet);
+      reservationPetRepository.save(reservationPet);
+      reservation.getReservationPets().add(reservationPet);
     }
-
+    return reservationMapper.toDto(reservation);
 
 
   }
+
+
+}
 
 

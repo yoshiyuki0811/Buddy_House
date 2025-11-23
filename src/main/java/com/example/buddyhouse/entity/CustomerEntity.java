@@ -47,7 +47,7 @@ public class CustomerEntity {
   private String phone; //電話番号
 
   @Column(nullable = false,name ="deleted")
-  private boolean deleted;//デフォルトfalse(有効)　削除フラグ
+  private boolean deleted=false;//デフォルトfalse(有効)　削除フラグ
 
   @CreationTimestamp
   @Column(insertable = false)

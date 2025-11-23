@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class ReservationFrameEntity {
 
 
   @Enumerated(EnumType.STRING)//(OVERNIGHT,DAYCARE)
-  @Column(name = "frame_type", nullable = false, length = 20)
+  @Column(name = "reservation_type", nullable = false, length = 20)
   private ReservationType reservationType;
 
   @Column(name = "start_at", nullable = false)

@@ -74,5 +74,11 @@ public class ReservationPetEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
+  public static ReservationPetEntity create(ReservationEntity reservation,PetsEntity pet){
+    return ReservationPetEntity.builder()
+        .reservation(reservation)
+        .pets(pet)
+        .build();
+  }
 
 }

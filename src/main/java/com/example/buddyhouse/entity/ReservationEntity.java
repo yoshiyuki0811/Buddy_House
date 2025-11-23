@@ -1,5 +1,6 @@
 package com.example.buddyhouse.entity;
 
+import com.example.buddyhouse.enums.ReservationType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -87,6 +88,37 @@ public class ReservationEntity {
       throw new IllegalStateException("すでに削除済みの予約枠です。");
     }
     this.deleted = true;
+  }
+  public static ReservationEntity create(ReservationFrameEntity frame,
+      CustomerEntity customer,
+      MenuEntity menu,
+      List<PetsEntity> pets,
+      LocalDateTime startAt,
+      LocalDateTime endAt){
+    //開始と終了時間をチェック
+    if (startAt.isAfter(endAt)){
+      throw new IllegalArgumentException("開始時刻が終了時刻より後です");
+    }
+    //枠の範囲での予約かどうか
+    if (startAt.isBefore(frame.getStartAt())||endAt.isAfter(frame.getEndAt())){
+      throw new IllegalArgumentException("予約枠が予約枠の範囲外です");
+    }
+    if (menu.getReservationType() != ReservationType.DAYCARE){
+      throw new IllegalArgumentException("メニューと予約枠のタイプが違います");
+    }
+    frame.addUsedDogs(pets.size());
+
+    return ReservationEntity.builder()
+        .frame(frame)
+        .customer(customer)
+        .menu(menu)
+        .startAt(startAt)
+        .endAt(endAt)
+        .build();
+
+
+
+
   }
 
 }

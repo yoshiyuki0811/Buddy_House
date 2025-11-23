@@ -1,5 +1,6 @@
 package com.example.buddyhouse.dto;
 
+import com.example.buddyhouse.enums.ReservationType;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class MenusDto {
   private String name;
   private String feature;
   private Boolean active;
-  private boolean overnight;
+  private ReservationType reservationType;
   private boolean deleted;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

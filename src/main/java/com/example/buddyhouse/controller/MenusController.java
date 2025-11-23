@@ -2,6 +2,7 @@ package com.example.buddyhouse.controller;
 
 import com.example.buddyhouse.dto.MenusDto;
 import com.example.buddyhouse.dto.MenusListDto;
+import com.example.buddyhouse.enums.ReservationType;
 import com.example.buddyhouse.service.MenusService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,20 +23,15 @@ public class MenusController {
 
   private  final MenusService  menusService;
 
-  @PostMapping
-  public ResponseEntity<MenusDto> createMenus(@RequestBody MenusDto dto){
+  @PostMapping("/{type}")
+  public ResponseEntity<MenusDto> createMenus(
+      @PathVariable ReservationType type,
+      @RequestBody MenusDto dto
+  ){
+    dto.setReservationType(type);
     MenusDto saved = menusService.createMenus(dto);
     return ResponseEntity.ok(saved);
   }
-
-  @PostMapping("/stay")
-  public ResponseEntity<MenusDto> createStayMenus(@RequestBody MenusDto dto){
-    dto.setOvernight(true);
-    MenusDto saved = menusService.createMenus(dto);
-    return ResponseEntity.ok(saved);
-  }
-
-
   @GetMapping
   public  ResponseEntity<List<MenusListDto>> getAllMenus(){
     List<MenusListDto> menus = menusService.getAllMenus();

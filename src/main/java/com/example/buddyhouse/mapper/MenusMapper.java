@@ -15,7 +15,7 @@ public class MenusMapper {
     dto.setId(entity.getId());
     dto.setName(entity.getName());
     dto.setFeature(entity.getFeature());
-    dto.setOvernight(entity.isOvernight());
+    dto.setReservationType(entity.getReservationType());
     dto.setActive(entity.isActive());
     dto.setDeleted(entity.isDeleted());
     dto.setCreatedAt(entity.getCreatedAt());
@@ -28,7 +28,7 @@ public class MenusMapper {
     entity.setId(dto.getId());
     entity.setName(dto.getName());
     if (dto.getActive() != null)  entity.setActive(dto.getActive());   // ← null のときは上書きしない
-    entity.setOvernight(dto.isOvernight());
+    entity.setReservationType(dto.getReservationType());
     entity.setFeature(dto.getFeature());
     entity.setDeleted(dto.isDeleted());
     entity.setCreatedAt(LocalDateTime.now());
