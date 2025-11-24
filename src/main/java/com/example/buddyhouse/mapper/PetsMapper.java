@@ -26,8 +26,6 @@ public class PetsMapper {
     dto.setAge(entity.getAge());
     dto.setFeature(entity.getFeature());
     dto.setDeleted(entity.isDeleted());
-    dto.setCreatedAt(entity.getCreatedAt());
-    dto.setUpdatedAt(entity.getUpdatedAt());
     return dto;
   }
   //DTOからEntityへ変換（全カラム）
@@ -40,8 +38,6 @@ public class PetsMapper {
     entity.setAge(dto.getAge());
     entity.setFeature(dto.getFeature());
     entity.setDeleted(dto.isDeleted());
-    entity.setCreatedAt(dto.getCreatedAt());
-    entity.setUpdatedAt(dto.getUpdatedAt());
     CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
     entity.setCustomer(customerRef);
 
@@ -57,15 +53,4 @@ public class PetsMapper {
     dto.setWeight(entity.getWeight());
     return dto;
   }
-//  //DTOからEntityへ変換（ペットリスト用）
-//  public PetsEntity toListEntity(PetsListDto dto)  {
-//    PetsEntity entity = new PetsEntity();
-//    entity.setId(dto.getId());
-//    entity.setName(dto.getName());
-//    entity.setBreed(dto.getBreed());
-//    entity.setWeight(dto.getWeight());
-//    CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
-//    entity.setCustomer(customerRef);
-//    return entity;
-//  }
 }

@@ -19,6 +19,4 @@ public class PetsDto {
   private Integer age; //年齢
   private String feature; //特徴や性格メモ
   private boolean deleted; //論理削除フラグ
-  private LocalDateTime createdAt; //登録日時
-  private LocalDateTime updatedAt; //更新日時
 }
