@@ -18,6 +18,6 @@ public class ReservationRequestDto {
   private Long customerId;
   private Long menuId;
   private List<Long> petIds;
-  private LocalDateTime startAt;
-  private LocalDateTime endAt;
+//  private LocalDateTime startAt;
+//  private LocalDateTime endAt;
 }

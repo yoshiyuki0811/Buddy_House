@@ -25,4 +25,6 @@ public class ReservationDto {
 
   private LocalDateTime endAt;
 
+  private boolean deleted;
+
 }

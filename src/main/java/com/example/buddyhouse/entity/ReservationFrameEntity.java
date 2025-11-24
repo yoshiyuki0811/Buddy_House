@@ -104,5 +104,10 @@ public class ReservationFrameEntity {
     }
     this.usedDogs += count;
   }
-
+public void removeDogs(int count){
+    if (this.usedDogs-count==0) {
+      throw new IllegalStateException("枠を戻す数が多すぎます");
+    }
+    this.usedDogs-=count;
+}
 }

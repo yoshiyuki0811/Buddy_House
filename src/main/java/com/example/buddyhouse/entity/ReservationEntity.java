@@ -1,9 +1,12 @@
 package com.example.buddyhouse.entity;
 
+import com.example.buddyhouse.enums.ReservationStatus;
 import com.example.buddyhouse.enums.ReservationType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -68,6 +71,11 @@ public class ReservationEntity {
   @Column(name = "end_at", nullable = false)
   private LocalDateTime endAt;
 
+  /**予約のステータス*/
+  @Enumerated(EnumType.STRING)//(RESERVED,CHECK_IN,CHECK_OUT,CANCELLED)
+  @Column(name = "status", nullable = false)
+  private ReservationStatus status;
+
   /** 削除フラグ */
   @Column(nullable = false)
   @Builder.Default
@@ -83,26 +91,26 @@ public class ReservationEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
-  public void delete() {
-    if (this.deleted) {
-      throw new IllegalStateException("すでに削除済みの予約枠です。");
+
+  public void cancel() {
+    if (this.status==ReservationStatus.CANCELLED) {
+      throw new IllegalStateException("すでにキャンセル済みの予約です。");
     }
-    this.deleted = true;
+   this.status=ReservationStatus.CANCELLED;
   }
-  public static ReservationEntity create(ReservationFrameEntity frame,
+
+public static ReservationEntity create(ReservationFrameEntity frame,
       CustomerEntity customer,
       MenuEntity menu,
-      List<PetsEntity> pets,
-      LocalDateTime startAt,
-      LocalDateTime endAt){
-    //開始と終了時間をチェック
-    if (startAt.isAfter(endAt)){
-      throw new IllegalArgumentException("開始時刻が終了時刻より後です");
-    }
-    //枠の範囲での予約かどうか
-    if (startAt.isBefore(frame.getStartAt())||endAt.isAfter(frame.getEndAt())){
-      throw new IllegalArgumentException("予約枠が予約枠の範囲外です");
-    }
+      List<PetsEntity> pets){
+//    //開始と終了時間をチェック
+//    if (startAt.isAfter(endAt)){
+//      throw new IllegalArgumentException("開始時刻が終了時刻より後です");
+//    }
+//    //枠の範囲での予約かどうか
+//    if (startAt.isBefore(frame.getStartAt())||endAt.isAfter(frame.getEndAt())){
+//      throw new IllegalArgumentException("予約枠が予約枠の範囲外です");
+//    }
     if (menu.getReservationType() != ReservationType.DAYCARE){
       throw new IllegalArgumentException("メニューと予約枠のタイプが違います");
     }
@@ -112,8 +120,9 @@ public class ReservationEntity {
         .frame(frame)
         .customer(customer)
         .menu(menu)
-        .startAt(startAt)
-        .endAt(endAt)
+        .startAt(frame.getStartAt())
+        .endAt(frame.getEndAt())
+        .status(ReservationStatus.RESERVED)
         .build();
 
 

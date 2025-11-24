@@ -8,6 +8,7 @@ import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.entity.ReservationEntity;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
 import com.example.buddyhouse.entity.ReservationPetEntity;
+import com.example.buddyhouse.enums.ReservationStatus;
 import com.example.buddyhouse.mapper.ReservationMapper;
 import com.example.buddyhouse.repository.CustomerRepository;
 import com.example.buddyhouse.repository.MenusRepository;
@@ -53,7 +54,7 @@ public class ReservationService {
     List<PetsEntity> pets = petsRepository.findAllById(requestDto.getPetIds());
 //予約のチェック
     ReservationEntity reservation = ReservationEntity.create(
-        frame, customer, menu, pets, requestDto.getStartAt(), requestDto.getEndAt());
+        frame, customer, menu, pets);
     //データベースに保存
     reservationRepository.save(reservation);
 
@@ -70,6 +71,39 @@ public class ReservationService {
 
 
   }
+  @Transactional
+ public ReservationDto cancelReservation(Long reservationId){
+    //予約のどの予約のなのかチェック
+    ReservationEntity reservation =reservationRepository.findById(reservationId)
+        .orElseThrow(() ->new RuntimeException("予約が見つかりません。id=" + reservationId) );
+
+    if (reservation.getStatus()== ReservationStatus.CANCELLED){
+      throw new IllegalStateException("すでにキャンセルされています。 id=" + reservationId);
+    }
+//キャンセル分の予約枠の確保
+    ReservationFrameEntity frame = reservation.getFrame();
+    int numDogs=reservation.getReservationPets().size();
+    frame.removeDogs(numDogs);
+    //ステータスをキャンセルに変更
+    reservation.cancel();
+    ReservationEntity saved=reservationRepository.save(reservation);
+
+  reservation.getReservationPets().clear();
+
+    return reservationMapper.toDto(saved);
+
+
+
+
+
+
+
+
+  }
+
+
+
+
 
 
 }
