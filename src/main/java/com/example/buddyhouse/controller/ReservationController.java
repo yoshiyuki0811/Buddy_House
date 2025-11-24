@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/reservation")
 @RequiredArgsConstructor
 public class ReservationController {
+
   private final ReservationService reservationService;
+
   @PostMapping
-  public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationRequestDto requestDto){
+  public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationRequestDto requestDto) {
     ReservationDto saved = reservationService.createReservation(requestDto);
     return ResponseEntity.ok(saved);
   }
+
   @PatchMapping("/{reservationId}/cancel")
-  public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Long reservationId){
+  public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Long reservationId) {
     ReservationDto deleted = reservationService.cancelReservation(reservationId);
     return ResponseEntity.ok(deleted);
   }

@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity,Long> {
-//顧客情報一覧取得用
-//  @Query("SELECT new com.example.buddyhouse.dto.CustomersListDto(c.id, c.name, c.phone)"+ "FROM CustomerEntity c")
-//  List<CustomersListDto> findAllForList();
+
 }

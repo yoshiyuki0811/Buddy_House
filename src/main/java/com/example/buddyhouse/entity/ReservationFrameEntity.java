@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -91,13 +90,7 @@ public class ReservationFrameEntity {
     this.closed = true;
   }
 
-  public void frameOpen() {
-    if (closed) {
-      throw new IllegalStateException("すでに空室です");
-    }
-    this.closed = false;
-  }
-//予約枠の空きチェックと予約のカウント
+  //予約枠の空きチェックと予約のカウント
   public void addUsedDogs(int count) {
     if (this.usedDogs + count > this.maxDogs) {
       throw new IllegalStateException("枠を超えています");

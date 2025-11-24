@@ -103,14 +103,7 @@ public static ReservationEntity create(ReservationFrameEntity frame,
       CustomerEntity customer,
       MenuEntity menu,
       List<PetsEntity> pets){
-//    //開始と終了時間をチェック
-//    if (startAt.isAfter(endAt)){
-//      throw new IllegalArgumentException("開始時刻が終了時刻より後です");
-//    }
-//    //枠の範囲での予約かどうか
-//    if (startAt.isBefore(frame.getStartAt())||endAt.isAfter(frame.getEndAt())){
-//      throw new IllegalArgumentException("予約枠が予約枠の範囲外です");
-//    }
+
     if (menu.getReservationType() != ReservationType.DAYCARE){
       throw new IllegalArgumentException("メニューと予約枠のタイプが違います");
     }

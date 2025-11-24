@@ -9,15 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PetsRepository extends JpaRepository<PetsEntity,Long> {
-//  @Query("SELECT new com.example.buddyhouse.dto.PetsListDto(p.id, p.customer.id, p.name, p.breed, p.weight )"+ "FROM PetsEntity p")
-//  List<PetsListDto> findAllPetsList();
-//  @Query("""
-//    SELECT new com.example.buddyhouse.dto.PetsListDto(
-//      p.id, p.customer.id, p.name, p.breed, p.weight
-//    )
-//    FROM PetsEntity p
-//    WHERE p.customer.id = :customerId
-//  """)
-//  List<PetsListDto> findPetsByCustomerId(Long customerId);
 List<PetsEntity> findAllByCustomerIdAndDeletedFalse(Long customerId);
 }

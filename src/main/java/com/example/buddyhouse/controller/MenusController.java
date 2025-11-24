@@ -21,25 +21,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MenusController {
 
-  private  final MenusService  menusService;
+  private final MenusService menusService;
 
   @PostMapping("/{type}")
   public ResponseEntity<MenusDto> createMenus(
       @PathVariable ReservationType type,
       @RequestBody MenusDto dto
-  ){
+  ) {
     dto.setReservationType(type);
     MenusDto saved = menusService.createMenus(dto);
     return ResponseEntity.ok(saved);
   }
+
   @GetMapping
-  public  ResponseEntity<List<MenusListDto>> getAllMenus(){
+  public ResponseEntity<List<MenusListDto>> getAllMenus() {
     List<MenusListDto> menus = menusService.getAllMenus();
     return ResponseEntity.ok(menus);
 
   }
+
   @PatchMapping("/{id}/deleted")
-  public  ResponseEntity<MenusDto> deletedMenusById(@PathVariable Long id){
+  public ResponseEntity<MenusDto> deletedMenusById(@PathVariable Long id) {
     MenusDto menusDeleted = menusService.deleteMenusById(id);
     return ResponseEntity.ok(menusDeleted);
   }

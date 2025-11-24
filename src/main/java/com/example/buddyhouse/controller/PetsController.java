@@ -1,9 +1,6 @@
 package com.example.buddyhouse.controller;
 
 
-
-
-
 import com.example.buddyhouse.dto.PetsDto;
 import com.example.buddyhouse.dto.PetsListDto;
 import com.example.buddyhouse.service.PetsService;
@@ -22,20 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pets")
 @RequiredArgsConstructor
 public class PetsController {
+
   private final PetsService petsService;
 
   @PostMapping
-  public ResponseEntity<PetsDto> createPets(@RequestBody PetsDto dto){
+  public ResponseEntity<PetsDto> createPets(@RequestBody PetsDto dto) {
     PetsDto saved = petsService.createPets(dto);
     return ResponseEntity.ok(saved);
   }
+
   @GetMapping
-  public ResponseEntity<List<PetsListDto>> getPetsList(){
-    List<PetsListDto> pets =petsService.getPetsList();
+  public ResponseEntity<List<PetsListDto>> getPetsList() {
+    List<PetsListDto> pets = petsService.getPetsList();
     return ResponseEntity.ok(pets);
   }
+
   @GetMapping("/{id}")
-  public ResponseEntity<PetsDto> getPetsById(@PathVariable Long id){
+  public ResponseEntity<PetsDto> getPetsById(@PathVariable Long id) {
     PetsDto pets = petsService.getPetsById(id);
     return ResponseEntity.ok(pets);
   }
@@ -45,13 +45,15 @@ public class PetsController {
     List<PetsListDto> petsList = petsService.getPetsListById(customerId);
     return ResponseEntity.ok(petsList);
   }
+
   @PatchMapping("/{id}")
-  public ResponseEntity<PetsDto> updatePetsById(@PathVariable Long id,@RequestBody PetsDto dto) {
-    PetsDto update = petsService.updatePetsById(id,dto);
+  public ResponseEntity<PetsDto> updatePetsById(@PathVariable Long id, @RequestBody PetsDto dto) {
+    PetsDto update = petsService.updatePetsById(id, dto);
     return ResponseEntity.ok(update);
   }
+
   @PatchMapping("/{id}/deleted")
-public  ResponseEntity<PetsDto> deletedPetsById(@PathVariable Long id){
+  public ResponseEntity<PetsDto> deletedPetsById(@PathVariable Long id) {
     PetsDto petsDeleted = petsService.deletePetsById(id);
     return ResponseEntity.ok(petsDeleted);
   }

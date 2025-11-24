@@ -27,14 +27,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "customers")
 public class CustomerEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id; //顧客ID（自動採番）
 
-  @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,orphanRemoval = true)
-  private List<PetsEntity> pets =new ArrayList<>();
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<PetsEntity> pets = new ArrayList<>();
 
-  @Column(nullable = false,length = 100)
+  @Column(nullable = false, length = 100)
   private String name; //顧客名
 
   @Column(nullable = false)
@@ -46,8 +47,8 @@ public class CustomerEntity {
   @Column(nullable = false, length = 20)
   private String phone; //電話番号
 
-  @Column(nullable = false,name ="deleted")
-  private boolean deleted=false;//デフォルトfalse(有効)　削除フラグ
+  @Column(nullable = false, name = "deleted")
+  private boolean deleted = false;//デフォルトfalse(有効)　削除フラグ
 
   @CreationTimestamp
   @Column(insertable = false)

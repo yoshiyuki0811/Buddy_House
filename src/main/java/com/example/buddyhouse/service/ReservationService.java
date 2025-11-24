@@ -71,39 +71,30 @@ public class ReservationService {
 
 
   }
-  @Transactional
- public ReservationDto cancelReservation(Long reservationId){
-    //予約のどの予約のなのかチェック
-    ReservationEntity reservation =reservationRepository.findById(reservationId)
-        .orElseThrow(() ->new RuntimeException("予約が見つかりません。id=" + reservationId) );
 
-    if (reservation.getStatus()== ReservationStatus.CANCELLED){
+  @Transactional
+  public ReservationDto cancelReservation(Long reservationId) {
+    //予約のどの予約のなのかチェック
+    ReservationEntity reservation = reservationRepository.findById(reservationId)
+        .orElseThrow(() -> new RuntimeException("予約が見つかりません。id=" + reservationId));
+
+    if (reservation.getStatus() == ReservationStatus.CANCELLED) {
       throw new IllegalStateException("すでにキャンセルされています。 id=" + reservationId);
     }
 //キャンセル分の予約枠の確保
     ReservationFrameEntity frame = reservation.getFrame();
-    int numDogs=reservation.getReservationPets().size();
+    int numDogs = reservation.getReservationPets().size();
     frame.removeDogs(numDogs);
     //ステータスをキャンセルに変更
     reservation.cancel();
-    ReservationEntity saved=reservationRepository.save(reservation);
+    ReservationEntity saved = reservationRepository.save(reservation);
 
-  reservation.getReservationPets().clear();
+    reservation.getReservationPets().clear();
 
     return reservationMapper.toDto(saved);
 
 
-
-
-
-
-
-
   }
-
-
-
-
 
 
 }

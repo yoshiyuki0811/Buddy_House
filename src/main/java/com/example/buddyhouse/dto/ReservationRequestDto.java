@@ -1,6 +1,5 @@
 package com.example.buddyhouse.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ReservationRequestDto {
+
   private Long reservationFrameId;
   private Long customerId;
   private Long menuId;
   private List<Long> petIds;
-//  private LocalDateTime startAt;
-//  private LocalDateTime endAt;
 }

@@ -20,8 +20,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name ="menus")
+@Table(name = "menus")
 public class MenuEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -56,9 +57,6 @@ public class MenuEntity {
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt = LocalDateTime.now();
-
-
-
 
 
 }

@@ -18,33 +18,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
-private  final CustomerService customerService;
-//
-@PostMapping
-  public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto dto){
-  CustomerDto saved = customerService.createCustomer(dto);
-  return ResponseEntity.ok(saved);
-}
 
+  private final CustomerService customerService;
 
-@GetMapping
-public ResponseEntity<List<CustomersListDto>> getCustomersList(){
-  List<CustomersListDto> customers =customerService.getCustomersList();
-  return ResponseEntity.ok(customers);
+  //
+  @PostMapping
+  public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto dto) {
+    CustomerDto saved = customerService.createCustomer(dto);
+    return ResponseEntity.ok(saved);
   }
+
+
+  @GetMapping
+  public ResponseEntity<List<CustomersListDto>> getCustomersList() {
+    List<CustomersListDto> customers = customerService.getCustomersList();
+    return ResponseEntity.ok(customers);
+  }
+
   @GetMapping("/{id}")
-  public ResponseEntity<CustomerDto> getCustomersById(@PathVariable Long id){
-  CustomerDto customer = customerService.getCustomersById(id);
-  return ResponseEntity.ok(customer);
+  public ResponseEntity<CustomerDto> getCustomersById(@PathVariable Long id) {
+    CustomerDto customer = customerService.getCustomersById(id);
+    return ResponseEntity.ok(customer);
   }
-@PatchMapping("/{id}/delete")
-public ResponseEntity<CustomerDto> deletedCustomersById(@PathVariable Long id) {
-  CustomerDto deleted = customerService.deleteCustomerById(id);
-  return ResponseEntity.ok(deleted);
-}
+
+  @PatchMapping("/{id}/delete")
+  public ResponseEntity<CustomerDto> deletedCustomersById(@PathVariable Long id) {
+    CustomerDto deleted = customerService.deleteCustomerById(id);
+    return ResponseEntity.ok(deleted);
+  }
+
   @PatchMapping("/{id}")
-  public ResponseEntity<CustomerDto> updateCustomersById(@PathVariable Long id,@RequestBody CustomerDto dto) {
-    CustomerDto update = customerService.updateCustomerById(id,dto);
+  public ResponseEntity<CustomerDto> updateCustomersById(@PathVariable Long id, @RequestBody CustomerDto dto) {
+    CustomerDto update = customerService.updateCustomerById(id, dto);
     return ResponseEntity.ok(update);
   }
 }

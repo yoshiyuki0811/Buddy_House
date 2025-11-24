@@ -25,6 +25,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "pets")
 public class PetsEntity {
+
   /** ペットを瞬時に判別するID（自動採番） */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,13 +70,6 @@ public class PetsEntity {
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt = LocalDateTime.now();
-
-
-
-
-
-
-
 
 
 }
