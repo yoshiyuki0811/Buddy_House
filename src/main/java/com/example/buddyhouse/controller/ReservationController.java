@@ -1,5 +1,6 @@
 package com.example.buddyhouse.controller;
 
+import com.example.buddyhouse.dto.ReservationCancelDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationRequestDto;
 import com.example.buddyhouse.service.ReservationService;
@@ -26,9 +27,9 @@ public class ReservationController {
   }
 
   @PatchMapping("/{reservationId}/cancel")
-  public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Long reservationId) {
-    ReservationDto deleted = reservationService.cancelReservation(reservationId);
-    return ResponseEntity.ok(deleted);
+  public ResponseEntity<ReservationCancelDto> cancelReservation(@PathVariable Long reservationId) {
+    ReservationCancelDto cancelled = reservationService.cancelReservation(reservationId);
+    return ResponseEntity.ok(cancelled);
   }
 
 

@@ -1,5 +1,6 @@
 package com.example.buddyhouse.mapper;
 
+import com.example.buddyhouse.dto.ReservationCancelDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.entity.ReservationEntity;
 import java.util.List;
@@ -24,6 +25,11 @@ public class ReservationMapper {
         .build();
 
   }
-
+public ReservationCancelDto toCancelDto(ReservationEntity entity){
+    return ReservationCancelDto.builder()
+        .reservationId(entity.getId())
+        .reservationType(entity.getFrame().getReservationType())
+        .build();
+}
 
 }

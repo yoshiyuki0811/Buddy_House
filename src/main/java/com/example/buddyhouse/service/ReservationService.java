@@ -1,5 +1,6 @@
 package com.example.buddyhouse.service;
 
+import com.example.buddyhouse.dto.ReservationCancelDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationRequestDto;
 import com.example.buddyhouse.entity.CustomerEntity;
@@ -73,7 +74,7 @@ public class ReservationService {
   }
 
   @Transactional
-  public ReservationDto cancelReservation(Long reservationId) {
+  public ReservationCancelDto cancelReservation(Long reservationId) {
     //予約のどの予約のなのかチェック
     ReservationEntity reservation = reservationRepository.findById(reservationId)
         .orElseThrow(() -> new RuntimeException("予約が見つかりません。id=" + reservationId));
@@ -91,7 +92,7 @@ public class ReservationService {
 
     reservation.getReservationPets().clear();
 
-    return reservationMapper.toDto(saved);
+    return reservationMapper.toCancelDto(saved);
 
 
   }
