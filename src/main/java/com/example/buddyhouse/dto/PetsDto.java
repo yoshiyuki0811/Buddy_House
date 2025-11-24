@@ -2,7 +2,6 @@ package com.example.buddyhouse.dto;
 
 
 import com.example.buddyhouse.enums.WeightCategory;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
