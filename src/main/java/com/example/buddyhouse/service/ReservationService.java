@@ -1,6 +1,7 @@
 package com.example.buddyhouse.service;
 
 import com.example.buddyhouse.dto.ReservationCancelDto;
+import com.example.buddyhouse.dto.ReservationDetailDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationRequestDto;
 import com.example.buddyhouse.dto.ReservationListDto;
@@ -102,6 +103,12 @@ public class ReservationService {
     return  reservationList.stream()
         .map(reservationMapper::toListDto)
         .toList();
+  }
+  public ReservationDetailDto getDetailReservation(Long reservationId){
+    ReservationEntity reservation =reservationRepository.findById(reservationId)
+        .orElseThrow(() -> new RuntimeException("予約が存在しません。"));
+    return reservationMapper.DetailDto(reservation);
+
   }
 
 

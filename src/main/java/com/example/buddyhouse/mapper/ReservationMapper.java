@@ -1,6 +1,7 @@
 package com.example.buddyhouse.mapper;
 
 import com.example.buddyhouse.dto.ReservationCancelDto;
+import com.example.buddyhouse.dto.ReservationDetailDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationFrameListDto;
 import com.example.buddyhouse.dto.ReservationListDto;
@@ -18,7 +19,7 @@ public class ReservationMapper {
    */
  private List<String> extractPetName(ReservationEntity entity){
   return entity.getReservationPets().stream()
-       .map(reservationPetEntity -> reservationPetEntity
+       .map(rp -> rp
            .getPets()
            .getName())
        .toList();
@@ -53,5 +54,25 @@ public ReservationListDto toListDto(ReservationEntity entity) {
       .startAt(entity.getStartAt())
       .endAt(entity.getEndAt())
       .build();
+}
+public ReservationDetailDto DetailDto(ReservationEntity entity){
+
+  List<Long> petsId = entity.getReservationPets().stream()
+      .map(rp -> rp.getPets().getId())
+      .toList();
+
+   return ReservationDetailDto.builder()
+       .id(entity.getId())
+       .customerId(entity.getCustomer().getId())
+       .customerName(entity.getCustomer().getName())
+       .customerPhone(entity.getCustomer().getPhone())
+       .menuName(entity.getMenu().getName())
+       .petsId(petsId)
+       .petsName(extractPetName(entity))
+       .startAt(entity.getStartAt())
+       .endAt(entity.getEndAt())
+       .createdAt(entity.getCreatedAt())
+       .updatedAt(entity.getUpdatedAt())
+       .build();
 }
 }

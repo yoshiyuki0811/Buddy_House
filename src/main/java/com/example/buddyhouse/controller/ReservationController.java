@@ -1,6 +1,7 @@
 package com.example.buddyhouse.controller;
 
 import com.example.buddyhouse.dto.ReservationCancelDto;
+import com.example.buddyhouse.dto.ReservationDetailDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationListDto;
 import com.example.buddyhouse.dto.ReservationRequestDto;
@@ -35,9 +36,12 @@ public class ReservationController {
     return ResponseEntity.ok(cancelled);
   }
 @GetMapping
-  public ResponseEntity<List<ReservationListDto>> getReservationList(){
-    List<ReservationListDto> reservationList =reservationService.getReservationList();
-    return ResponseEntity.ok(reservationList);
+  public List<ReservationListDto> getReservationList(){
+    return reservationService.getReservationList();
+}
+@GetMapping("/{reservationId}")
+  public ReservationDetailDto getDetailReservation(@PathVariable Long reservationId) {
+  return reservationService.getDetailReservation(reservationId);
 }
 
 }
