@@ -13,3 +13,4 @@ out/
 *.tar.gz
 *.rar
 /src/main/resources/
+/src/main/resources/
