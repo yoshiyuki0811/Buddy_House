@@ -25,7 +25,6 @@ public class PetsMapper {
     dto.setWeight(entity.getWeight());
     dto.setAge(entity.getAge());
     dto.setFeature(entity.getFeature());
-    dto.setDeleted(entity.isDeleted());
     return dto;
   }
   //DTOからEntityへ変換（全カラム）
@@ -37,7 +36,6 @@ public class PetsMapper {
     entity.setWeight(dto.getWeight());
     entity.setAge(dto.getAge());
     entity.setFeature(dto.getFeature());
-    entity.setDeleted(dto.isDeleted());
     CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
     entity.setCustomer(customerRef);
 
@@ -47,7 +45,6 @@ public class PetsMapper {
   public PetsListDto toListDto(PetsEntity entity) {
     PetsListDto dto = new PetsListDto();
     dto.setId(entity.getId());
-    dto.setCustomerId(entity.getCustomer().getId());
     dto.setName(entity.getName()) ;
     dto.setBreed(entity.getBreed());
     dto.setWeight(entity.getWeight());

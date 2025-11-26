@@ -13,6 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -32,6 +35,32 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Builder
 @Entity
 @Table(name ="reservation")
+@NamedEntityGraph(
+    name = "Reservation.withDetails",
+    attributeNodes = {
+        @NamedAttributeNode("frame"),
+        @NamedAttributeNode("customer"),
+        @NamedAttributeNode("menu"),
+        @NamedAttributeNode(value =  "reservationPets", subgraph = "reservationPetsSubgraph")
+    },
+    subgraphs = {
+        @NamedSubgraph(
+            name = "reservationPetsSubgraph",
+            attributeNodes = {
+                @NamedAttributeNode("pets")
+            }
+
+    )
+
+
+
+
+
+    }
+)
+
+
+
 public class ReservationEntity {
 
   /** 予約ID*/

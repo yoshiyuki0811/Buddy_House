@@ -3,6 +3,7 @@ package com.example.buddyhouse.service;
 import com.example.buddyhouse.dto.ReservationCancelDto;
 import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationRequestDto;
+import com.example.buddyhouse.dto.ReservationListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.MenuEntity;
 import com.example.buddyhouse.entity.PetsEntity;
@@ -15,7 +16,6 @@ import com.example.buddyhouse.repository.CustomerRepository;
 import com.example.buddyhouse.repository.MenusRepository;
 import com.example.buddyhouse.repository.PetsRepository;
 import com.example.buddyhouse.repository.ReservationFrameRepository;
-import com.example.buddyhouse.repository.ReservationPetRepository;
 import com.example.buddyhouse.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -31,7 +31,6 @@ public class ReservationService {
   private final CustomerRepository customerRepository;
   private final MenusRepository menusRepository;
   private final PetsRepository petsRepository;
-  private final ReservationPetRepository reservationPetRepository;
   private final ReservationMapper reservationMapper;
 
   @Transactional
@@ -56,18 +55,17 @@ public class ReservationService {
 //予約のチェック
     ReservationEntity reservation = ReservationEntity.create(
         frame, customer, menu, pets);
-    //データベースに保存
-    reservationRepository.save(reservation);
+
 
 //ペットの数だけDtoを生成→Entityにセーブ
-    for (Long petId : requestDto.getPetIds()) {
-      PetsEntity pet = petsRepository.findById(petId)
-          .orElseThrow(() -> new RuntimeException("ペットが存在しません"));
+    for (PetsEntity pet : pets) {
       //中間テーブルの生成
       ReservationPetEntity reservationPet = ReservationPetEntity.create(reservation, pet);
-      reservationPetRepository.save(reservationPet);
       reservation.getReservationPets().add(reservationPet);
     }
+    //データベースに保存( cascade = ALL設定しているため、reservationPetもsaveされる。)
+    reservationRepository.save(reservation);
+
     return reservationMapper.toDto(reservation);
 
 
@@ -90,11 +88,20 @@ public class ReservationService {
     reservation.cancel();
     ReservationEntity saved = reservationRepository.save(reservation);
 
-    reservation.getReservationPets().clear();
-
     return reservationMapper.toCancelDto(saved);
 
 
+  }
+
+  /**予約の一覧を取得するメソッドです。
+   * 予約の一覧リストを取得する
+   * @return 予約一覧のDtoリスト
+   */
+  public List<ReservationListDto> getReservationList(){
+    List<ReservationEntity> reservationList = reservationRepository.findAll();
+    return  reservationList.stream()
+        .map(reservationMapper::toListDto)
+        .toList();
   }
 
 

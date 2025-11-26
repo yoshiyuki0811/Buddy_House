@@ -7,14 +7,15 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ReservationDto {
+/**
+ * 予約一覧に使うDtoクラスです。
+ */
+public class ReservationListDto {
   private Long id;
-
-  private Long reservationFrameId;
 
   private String customerName;
 
-  private String  menuName;
+  private String menuName;
 
   private List<String> petsName;
 

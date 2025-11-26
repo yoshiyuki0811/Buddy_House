@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PetsListDto {
   private Long id; //ペットID
-  private Long customerId;
   private String name; //ペット名
   private String breed ; //犬種
   private WeightCategory weight; //　体重区分（Toy,Small,Medium,Large,Giant）

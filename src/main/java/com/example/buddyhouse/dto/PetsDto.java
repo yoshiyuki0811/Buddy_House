@@ -17,5 +17,4 @@ public class PetsDto {
   private WeightCategory weight; //　体重区分（Toy,Small,Medium,Large,Giant）
   private Integer age; //年齢
   private String feature; //特徴や性格メモ
-  private boolean deleted; //論理削除フラグ
 }
