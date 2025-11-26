@@ -12,5 +12,5 @@ out/
 *.zip
 *.tar.gz
 *.rar
-/src/main/resources/
-/src/main/resources/
+
+src/main/resources/application.properties
