@@ -19,6 +19,8 @@ import com.example.buddyhouse.repository.PetsRepository;
 import com.example.buddyhouse.repository.ReservationFrameRepository;
 import com.example.buddyhouse.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -98,11 +100,20 @@ public class ReservationService {
    * 予約の一覧リストを取得する
    * @return 予約一覧のDtoリスト
    */
-  public List<ReservationListDto> getReservationList(){
+  public List<ReservationListDto> getReservationList(LocalDate date){
+    if (date==null){
     List<ReservationEntity> reservationList = reservationRepository.findAll();
     return  reservationList.stream()
         .map(reservationMapper::toListDto)
         .toList();
+    }
+    LocalDateTime start = date.atStartOfDay();
+    LocalDateTime end = date.plusDays(1).atStartOfDay();
+    List<ReservationEntity> reservationDate =reservationRepository.findByStartAtBetween(start, end);
+    return reservationDate.stream()
+        .map(reservationMapper::toListDto)
+        .toList();
+
   }
   public ReservationDetailDto getDetailReservation(Long reservationId){
     ReservationEntity reservation =reservationRepository.findById(reservationId)

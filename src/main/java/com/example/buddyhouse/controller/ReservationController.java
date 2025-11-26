@@ -6,8 +6,11 @@ import com.example.buddyhouse.dto.ReservationDto;
 import com.example.buddyhouse.dto.ReservationListDto;
 import com.example.buddyhouse.dto.ReservationRequestDto;
 import com.example.buddyhouse.service.ReservationService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,10 +40,13 @@ public class ReservationController {
     return ResponseEntity.ok(cancelled);
   }
 @GetMapping
-  public List<ReservationListDto> getReservationList(){
-    return reservationService.getReservationList();
+  public List<ReservationListDto> getReservationList( @RequestParam(required = false)
+@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+LocalDate date){
+    return reservationService.getReservationList(date);
 }
 @GetMapping("/{reservationId}")
+
   public ReservationDetailDto getDetailReservation(@PathVariable Long reservationId) {
   return reservationService.getDetailReservation(reservationId);
 }
