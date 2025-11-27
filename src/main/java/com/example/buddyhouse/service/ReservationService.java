@@ -83,7 +83,7 @@ public class ReservationService {
     if (reservation.getStatus() == ReservationStatus.CANCELLED) {
       throw new IllegalStateException("すでにキャンセルされています。 id=" + reservationId);
     }
-//キャンセル分の予約枠の確保
+//キャンセル分の予約枠を空ける
     ReservationFrameEntity frame = reservation.getFrame();
     int numDogs = reservation.getReservationPets().size();
     frame.removeDogs(numDogs);

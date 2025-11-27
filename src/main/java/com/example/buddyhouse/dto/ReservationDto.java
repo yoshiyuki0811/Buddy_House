@@ -1,5 +1,6 @@
 package com.example.buddyhouse.dto;
 
+import com.example.buddyhouse.enums.ReservationStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
@@ -10,8 +11,6 @@ import lombok.Getter;
 public class ReservationDto {
   private Long id;
 
-  private Long reservationFrameId;
-
   private String customerName;
 
   private String  menuName;
@@ -21,6 +20,8 @@ public class ReservationDto {
   private LocalDateTime startAt;
 
   private LocalDateTime endAt;
+
+  private ReservationStatus status;
 
 
 }

@@ -105,11 +105,6 @@ public class ReservationEntity {
   @Column(name = "status", nullable = false)
   private ReservationStatus status;
 
-  /** 削除フラグ */
-  @Column(nullable = false)
-  @Builder.Default
-  private boolean deleted = false;
-
   /** 登録日時 */
   @CreationTimestamp
   @Column(name = "created_at", nullable = false)
@@ -119,7 +114,6 @@ public class ReservationEntity {
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
-
 
   public void cancel() {
     if (this.status==ReservationStatus.CANCELLED) {

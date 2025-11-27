@@ -36,13 +36,14 @@ public class ReservationMapper {
         .startAt(entity.getStartAt())
         .endAt(entity.getEndAt())
         .petsName(extractPetName(entity))
+        .status(entity.getStatus())
         .build();
 
   }
 public ReservationCancelDto toCancelDto(ReservationEntity entity){
     return ReservationCancelDto.builder()
         .reservationId(entity.getId())
-        .reservationType(entity.getFrame().getReservationType())
+        .status(entity.getStatus())
         .build();
 }
 public ReservationListDto toListDto(ReservationEntity entity) {
