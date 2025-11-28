@@ -33,13 +33,12 @@ public class MenusService {
 
   //メニューテーブルの削除フラグをtrueに変換して登録
   @Transactional
-  public MenusDto deleteMenusById(Long id) {
+  public void deleteMenusById(Long id) {
     MenuEntity entity = menusRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("メニューがみつかりません。"));
     entity.setDeleted(true);
-    MenuEntity menusDeleted = menusRepository.save(entity);
+    menusRepository.save(entity);
 
-    return menusMapper.toDto(menusDeleted);
 
 
   }

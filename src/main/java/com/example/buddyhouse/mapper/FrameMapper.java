@@ -1,16 +1,17 @@
 package com.example.buddyhouse.mapper;
 
-import com.example.buddyhouse.dto.ReservationFrameDto;
-import com.example.buddyhouse.dto.ReservationFrameListDto;
+import com.example.buddyhouse.dto.FrameDto;
+import com.example.buddyhouse.dto.FrameListDto;
+import com.example.buddyhouse.dto.FrameRequestDto;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
 import org.springframework.stereotype.Component;
 @Component
-public class ReservationFrameMapper {
+public class  FrameMapper {
 
   /** Entity → DTO */
-  public ReservationFrameDto toDto(ReservationFrameEntity entity) {
+  public FrameDto toDto(ReservationFrameEntity entity) {
 
-    ReservationFrameDto dto = new ReservationFrameDto();
+    FrameDto dto = new FrameDto();
 
     dto.setId(entity.getId());
     dto.setReservationType(entity.getReservationType());
@@ -26,9 +27,9 @@ public class ReservationFrameMapper {
     return dto;
   }
 
-  public ReservationFrameListDto toListDto(ReservationFrameEntity entity){
+  public FrameListDto toListDto(ReservationFrameEntity entity){
 
-    ReservationFrameListDto dto = new ReservationFrameListDto();
+    FrameListDto dto = new FrameListDto();
     dto.setId(entity.getId());
     dto.setReservationType(entity.getReservationType());
     dto.setStartAt(entity.getStartAt());
@@ -38,14 +39,15 @@ public class ReservationFrameMapper {
     return dto;
   }
   // DtoからEntityに変換
-  public ReservationFrameEntity toEntity(ReservationFrameDto dto){
+  public ReservationFrameEntity toEntity(FrameRequestDto requestDto){
     return ReservationFrameEntity
         .builder()
-        .reservationType(dto.getReservationType())
-        .startAt(dto.getStartAt())
-        .endAt(dto.getEndAt())
-        .maxDogs(dto.getMaxDogs())
+        .reservationType(requestDto.getReservationType())
+        .startAt(requestDto.getStartAt())
+        .endAt(requestDto.getEndAt())
+        .maxDogs(requestDto.getMaxDogs())
         .build();
 
   }
+
 }

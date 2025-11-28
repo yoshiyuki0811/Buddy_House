@@ -81,13 +81,12 @@ public class PetsService {
 
   //ペットテーブルの削除フラグをtrueに変換して登録
   @Transactional
-  public PetsDto deletePetsById(Long id) {
+  public void deletePetsById(Long id) {
     PetsEntity entity = petsRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("ペットがみつかりません。"));
     entity.setDeleted(true);
-    PetsEntity petsDeleted = petsRepository.save(entity);
+    petsRepository.save(entity);
 
-    return petsMapper.toDto(petsDeleted);
 
 
   }

@@ -41,9 +41,9 @@ public class MenusController {
   }
 
   @PatchMapping("/{id}/deleted")
-  public ResponseEntity<MenusDto> deletedMenusById(@PathVariable Long id) {
-    MenusDto menusDeleted = menusService.deleteMenusById(id);
-    return ResponseEntity.ok(menusDeleted);
+  public ResponseEntity<Void> deletedMenusById(@PathVariable Long id) {
+     menusService.deleteMenusById(id);
+    return ResponseEntity.noContent().build();
   }
 }
 

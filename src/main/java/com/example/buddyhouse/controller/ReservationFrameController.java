@@ -1,8 +1,10 @@
 package com.example.buddyhouse.controller;
 
-import com.example.buddyhouse.dto.ReservationFrameDto;
-import com.example.buddyhouse.dto.ReservationFrameListDto;
+import com.example.buddyhouse.dto.FrameDto;
+import com.example.buddyhouse.dto.FrameListDto;
+import com.example.buddyhouse.dto.FrameRequestDto;
 import com.example.buddyhouse.service.ReservationFrameService;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -25,32 +27,32 @@ public class ReservationFrameController {
   private final ReservationFrameService reservationFrameService;
 
   @PostMapping
-  public ResponseEntity<ReservationFrameDto> createReservationFrame(@RequestBody ReservationFrameDto dto) {
-    ReservationFrameDto saved = reservationFrameService.createReservationFrame(dto);
+  public ResponseEntity<FrameDto> createReservationFrame(@RequestBody FrameRequestDto requestDto) {
+    FrameDto saved = reservationFrameService.createReservationFrame(requestDto);
     return ResponseEntity.ok(saved);
   }
 
   @GetMapping
-  public ResponseEntity<List<ReservationFrameListDto>> getAllReservationFrame() {
-    List<ReservationFrameListDto> dtoList = reservationFrameService.getReservationFrameList();
+  public ResponseEntity<List<FrameListDto>> getAllReservationFrame() {
+    List<FrameListDto> dtoList = reservationFrameService.getReservationFrameList();
     return ResponseEntity.ok(dtoList);
   }
 
   @GetMapping("/by-date")
-  public ResponseEntity<List<ReservationFrameListDto>> getReservationFrameByDate(@RequestParam("dateTime")
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) {
+  public ResponseEntity<List<FrameListDto>> getReservationFrameByDate(@RequestParam("dateTime")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTime) {
     return ResponseEntity.ok(reservationFrameService.getReservationFrameListByDate(dateTime));
   }
 
 
   @PatchMapping("/{id}/deleted")
-  public ResponseEntity<ReservationFrameDto> deletedReservationFrameById(@PathVariable Long id) {
-    return ResponseEntity.ok(reservationFrameService.deletedReservationFrameById(id));
+  public ResponseEntity<Void> deletedReservationFrameById(@PathVariable Long id) {
+    return ResponseEntity.noContent().build();
   }
 
   @PatchMapping("/{id}/close")
-  public ResponseEntity<ReservationFrameDto> closeReservationFrame(@PathVariable Long id) {
-    return ResponseEntity.ok(reservationFrameService.closeReservationFrame(id));
+  public ResponseEntity<Void> closeReservationFrame(@PathVariable Long id) {
+    return ResponseEntity.noContent().build();
   }
 
 

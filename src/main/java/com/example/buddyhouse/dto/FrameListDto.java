@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationFrameListDto {
+public class FrameListDto {
   private Long id;
   private ReservationType reservationType;
   private LocalDateTime startAt;

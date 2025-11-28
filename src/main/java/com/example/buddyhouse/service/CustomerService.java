@@ -42,14 +42,13 @@ public class CustomerService {
 
   //顧客情報の論理削除変更して保存
   @Transactional
-  public CustomerDto deleteCustomerById(Long id) {
+  public void deleteCustomerById(Long id) {
     CustomerEntity entity = customerRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("顧客がみつかりません。"));
     entity.setDeleted(true);
-    CustomerEntity deleted = customerRepository.save(entity);
-
-    return customerMapper.toDto(deleted);
+    customerRepository.save(entity);
   }
+
 
   //顧客情報の編集　変更があった場合Dtoのセット
   public CustomerDto updateCustomerById(Long id, CustomerDto customerDto) {

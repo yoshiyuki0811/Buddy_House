@@ -54,7 +54,7 @@ public class PetsController {
 
   @PatchMapping("/{id}/deleted")
   public ResponseEntity<PetsDto> deletedPetsById(@PathVariable Long id) {
-    PetsDto petsDeleted = petsService.deletePetsById(id);
-    return ResponseEntity.ok(petsDeleted);
+     petsService.deletePetsById(id);
+    return ResponseEntity.noContent().build();
   }
 }

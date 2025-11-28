@@ -3,7 +3,6 @@ package com.example.buddyhouse.mapper;
 import com.example.buddyhouse.dto.ReservationCancelDto;
 import com.example.buddyhouse.dto.ReservationDetailDto;
 import com.example.buddyhouse.dto.ReservationDto;
-import com.example.buddyhouse.dto.ReservationFrameListDto;
 import com.example.buddyhouse.dto.ReservationListDto;
 import com.example.buddyhouse.entity.ReservationEntity;
 import java.util.List;

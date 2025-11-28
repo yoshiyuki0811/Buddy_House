@@ -42,9 +42,9 @@ public class CustomerController {
   }
 
   @PatchMapping("/{id}/delete")
-  public ResponseEntity<CustomerDto> deletedCustomersById(@PathVariable Long id) {
-    CustomerDto deleted = customerService.deleteCustomerById(id);
-    return ResponseEntity.ok(deleted);
+  public ResponseEntity<Void> deletedCustomersById(@PathVariable Long id) {
+    customerService.deleteCustomerById(id);
+    return ResponseEntity.noContent().build();
   }
 
   @PatchMapping("/{id}")

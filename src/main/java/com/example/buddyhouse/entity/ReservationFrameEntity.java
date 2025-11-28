@@ -44,12 +44,13 @@ public class ReservationFrameEntity {
   @Column(name = "max_dogs", nullable = false)
   private Integer maxDogs;
 
+  @Builder.Default
   @Column(name = "used_dogs", nullable = false)
-  private Integer usedDogs;
+  private Integer usedDogs=0;
 
   @Column(name = "is_open", nullable = false)
   @Builder.Default
-  private boolean closed = false;//trueが販売中falseが満室
+  private boolean closed =true;//trueが販売中falseが満室
 
   /**
    * 削除フラグ
