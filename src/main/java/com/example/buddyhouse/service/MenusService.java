@@ -10,6 +10,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * メニュードメインを扱うサービスクラスです。
+ */
 @Service
 @RequiredArgsConstructor
 public class MenusService {
@@ -36,7 +39,7 @@ public class MenusService {
   public void deleteMenusById(Long id) {
     MenuEntity entity = menusRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("メニューがみつかりません。"));
-    entity.setDeleted(true);
+    entity.delete();
     menusRepository.save(entity);
 
 

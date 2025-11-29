@@ -24,7 +24,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+/**
+ * 予約ドメインを扱うサービスクラスです。
+ */
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
@@ -36,6 +38,9 @@ public class ReservationService {
   private final PetsRepository petsRepository;
   private final ReservationMapper reservationMapper;
 
+  /**
+   * 予約を作成し、ペット数に応じて予約枠の利用数を更新します。
+   */
   @Transactional
   public ReservationDto createReservation(ReservationRequestDto requestDto) {
 
@@ -74,6 +79,9 @@ public class ReservationService {
 
   }
 
+  /**
+   * 予約のキャンセル処理をしてペット数応じて予約数を更新します。
+   */
   @Transactional
   public ReservationCancelDto cancelReservation(Long reservationId) {
     //予約のどの予約のなのかチェック
@@ -96,10 +104,6 @@ public class ReservationService {
 
   }
 
-  /**予約の一覧を取得するメソッドです。
-   * 予約の一覧リストを取得する
-   * @return 予約一覧のDtoリスト
-   */
   public List<ReservationListDto> getReservationList(LocalDate date){
     if (date==null){
     List<ReservationEntity> reservationList = reservationRepository.findAll();

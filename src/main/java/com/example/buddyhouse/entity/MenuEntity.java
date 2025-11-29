@@ -58,5 +58,11 @@ public class MenuEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt = LocalDateTime.now();
 
-
+  public void delete(){
+    if (deleted){
+      throw new RuntimeException("このメニューはすでに削除済みです");
+    }
+    this.deleted=true;
+  }
 }
+

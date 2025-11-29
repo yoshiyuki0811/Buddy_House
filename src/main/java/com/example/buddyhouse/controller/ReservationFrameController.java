@@ -33,25 +33,27 @@ public class ReservationFrameController {
   }
 
   @GetMapping
-  public ResponseEntity<List<FrameListDto>> getAllReservationFrame() {
+  public List<FrameListDto> getAllReservationFrame() {
     List<FrameListDto> dtoList = reservationFrameService.getReservationFrameList();
-    return ResponseEntity.ok(dtoList);
+    return dtoList;
   }
 
   @GetMapping("/by-date")
-  public ResponseEntity<List<FrameListDto>> getReservationFrameByDate(@RequestParam("dateTime")
+  public List<FrameListDto> getReservationFrameByDate(@RequestParam("dateTime")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTime) {
-    return ResponseEntity.ok(reservationFrameService.getReservationFrameListByDate(dateTime));
+    return reservationFrameService.getReservationFrameListByDate(dateTime);
   }
 
 
   @PatchMapping("/{id}/deleted")
   public ResponseEntity<Void> deletedReservationFrameById(@PathVariable Long id) {
+    reservationFrameService.deletedReservationFrameById(id);
     return ResponseEntity.noContent().build();
   }
 
   @PatchMapping("/{id}/close")
   public ResponseEntity<Void> closeReservationFrame(@PathVariable Long id) {
+    reservationFrameService.closeReservationFrame(id);
     return ResponseEntity.noContent().build();
   }
 

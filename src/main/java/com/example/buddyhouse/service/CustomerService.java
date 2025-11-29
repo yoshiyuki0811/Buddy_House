@@ -11,6 +11,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * 顧客ドメインのビジネスロジック扱うサービスです。
+ */
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -18,7 +21,6 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
   private final CustomerMapper customerMapper;
 
-  //顧客の登録
   public CustomerDto createCustomer(CustomerDto dto) {
     CustomerEntity entity = customerMapper.toEntity(dto);
     CustomerEntity saved = customerRepository.save(entity);// DB保存

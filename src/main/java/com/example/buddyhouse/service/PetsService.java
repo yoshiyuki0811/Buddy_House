@@ -13,6 +13,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * ペットドメインを扱うサービスクラスです。
+ */
 @Service
 @RequiredArgsConstructor
 public class PetsService {

@@ -29,9 +29,9 @@ public class PetsController {
   }
 
   @GetMapping
-  public ResponseEntity<List<PetsListDto>> getPetsList() {
+  public List<PetsListDto> getPetsList() {
     List<PetsListDto> pets = petsService.getPetsList();
-    return ResponseEntity.ok(pets);
+    return pets;
   }
 
   @GetMapping("/{id}")

@@ -30,15 +30,15 @@ public class CustomerController {
 
 
   @GetMapping
-  public ResponseEntity<List<CustomersListDto>> getCustomersList() {
+  public List<CustomersListDto> getCustomersList() {
     List<CustomersListDto> customers = customerService.getCustomersList();
-    return ResponseEntity.ok(customers);
+    return customers;
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<CustomerDto> getCustomersById(@PathVariable Long id) {
+  public CustomerDto getCustomersById(@PathVariable Long id) {
     CustomerDto customer = customerService.getCustomersById(id);
-    return ResponseEntity.ok(customer);
+    return customer;
   }
 
   @PatchMapping("/{id}/delete")
