@@ -1,11 +1,14 @@
 package com.example.buddyhouse.config;
 
 import com.example.buddyhouse.security.CustomUserDetailsService;
+import com.example.buddyhouse.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -13,12 +16,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 //セキュリティールールは基本的に全部ここに書く
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-  private final CustomUserDetailsService customUserDetailsService;
+
+  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
 
   /**
    * 認可・認証のルール本体。
@@ -49,7 +56,7 @@ public class SecurityConfig {
             // 認証不要
             .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/menus/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/reservation-frames/available/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/reservationFrame/**").permitAll()
 
             //ADMINのみOK
             .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -62,8 +69,7 @@ public class SecurityConfig {
             .anyRequest().authenticated()
         )
 
-        .httpBasic(Customizer.withDefaults())
-        .userDetailsService(customUserDetailsService);
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
     // ★最後にビルドしてFilterChainとして返す
@@ -71,11 +77,19 @@ public class SecurityConfig {
   }
   /**
    * パスワードのハッシュ化に使うエンコーダ。
-   * 実務でもほぼこれ一択。テンプレ。
    */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  /**
+   * 認証処理の本体。login API から使う。
+   */
+  @Bean
+  public AuthenticationManager authenticationManager(
+      AuthenticationConfiguration configuration) throws Exception {
+    return configuration.getAuthenticationManager();
   }
 
 }

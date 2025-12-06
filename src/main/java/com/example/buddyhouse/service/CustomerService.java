@@ -40,7 +40,7 @@ public class CustomerService {
   public CustomerDetailDto getCustomersById(Long id) {
     CustomerEntity entity = customerRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("顧客ががみつかりません。"));
-    return customerMapper.toDto(entity);
+    return customerMapper.DetailDto(entity);
   }
 
   //顧客情報の論理削除変更して保存
