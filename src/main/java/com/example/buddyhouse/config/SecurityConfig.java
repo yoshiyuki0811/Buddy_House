@@ -46,16 +46,16 @@ public class SecurityConfig {
                 "/v3/api-docs/**",
                 "/actuator/health"
             ).permitAll()
-               //ログインしてなくてもOK
-            .requestMatchers(HttpMethod.GET,"/reservationFrame").permitAll()
-            .requestMatchers(HttpMethod.POST,"/reservation").permitAll()
+            // 認証不要
+            .requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/menus/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/reservation-frames/available/**").permitAll()
 
             //ADMINのみOK
-            .requestMatchers(HttpMethod.GET,"/reservation").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET,"/pets").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET,"/customers").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.POST,"reservationFrame").hasRole("ADMIN")
-            .requestMatchers("menus").hasRole("ADMIN")
+            .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+            // 顧客のマイページ（会員）
+            .requestMatchers("/api/customers/me/**").hasRole("CUSTOMER")
 
 
             //上記以外はログインしてさえいればOK

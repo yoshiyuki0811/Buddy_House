@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/admin/menus")
 @RequiredArgsConstructor
-public class MenusController {
+public class AdminMenusController {
 
   private final MenusService menusService;
 
