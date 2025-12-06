@@ -7,9 +7,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-/**
- * 予約一覧に使うDtoクラスです。
- */
 public class ReservationListDto {
   private Long id;
 

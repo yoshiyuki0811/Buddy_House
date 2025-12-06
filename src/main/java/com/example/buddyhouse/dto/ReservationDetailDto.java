@@ -1,9 +1,7 @@
 package com.example.buddyhouse.dto;
 
-import com.example.buddyhouse.entity.CustomerEntity;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.LongSummaryStatistics;
 import lombok.Builder;
 import lombok.Getter;
 

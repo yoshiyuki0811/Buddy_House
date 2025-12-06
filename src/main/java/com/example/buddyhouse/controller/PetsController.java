@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/pets")
+@RequestMapping("/api/pets")
 @RequiredArgsConstructor
 public class PetsController {
 
@@ -28,33 +28,5 @@ public class PetsController {
     return ResponseEntity.ok(saved);
   }
 
-  @GetMapping
-  public List<PetsListDto> getPetsList() {
-    List<PetsListDto> pets = petsService.getPetsList();
-    return pets;
-  }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<PetsDto> getPetsById(@PathVariable Long id) {
-    PetsDto pets = petsService.getPetsById(id);
-    return ResponseEntity.ok(pets);
-  }
-
-  @GetMapping("/{customerId}/pets")
-  public ResponseEntity<List<PetsListDto>> getPetsListById(@PathVariable Long customerId) {
-    List<PetsListDto> petsList = petsService.getPetsListById(customerId);
-    return ResponseEntity.ok(petsList);
-  }
-
-  @PatchMapping("/{id}")
-  public ResponseEntity<PetsDto> updatePetsById(@PathVariable Long id, @RequestBody PetsDto dto) {
-    PetsDto update = petsService.updatePetsById(id, dto);
-    return ResponseEntity.ok(update);
-  }
-
-  @PatchMapping("/{id}/deleted")
-  public ResponseEntity<PetsDto> deletedPetsById(@PathVariable Long id) {
-     petsService.deletePetsById(id);
-    return ResponseEntity.noContent().build();
-  }
 }

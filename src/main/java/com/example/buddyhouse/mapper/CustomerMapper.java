@@ -1,8 +1,10 @@
 package com.example.buddyhouse.mapper;
 
+import com.example.buddyhouse.dto.CustomerDetailDto;
 import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.CustomersListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
+import com.example.buddyhouse.security.CustomUserDetails;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -44,6 +46,16 @@ public class CustomerMapper {
     dto.setName(entity.getName());
     dto.setPhone(entity.getPhone());
     return dto;
+  }
+
+  public CustomerDetailDto DetailDto(CustomerEntity entity){
+    return CustomerDetailDto.builder()
+        .id(entity.getId())
+        .email(entity.getEmail())
+        .name(entity.getName())
+        .phone(entity.getPhone())
+        .address(entity.getAddress())
+        .build();
   }
   }
 

@@ -11,11 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReservationMapper {
 
-  /**
-   *
-   * @param entity
-   * @return
-   */
  private List<String> extractPetName(ReservationEntity entity){
   return entity.getReservationPets().stream()
        .map(rp -> rp

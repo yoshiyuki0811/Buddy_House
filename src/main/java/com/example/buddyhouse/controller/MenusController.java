@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/menus")
+@RequestMapping("/api/admin/menus")
 @RequiredArgsConstructor
 public class MenusController {
 

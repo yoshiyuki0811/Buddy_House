@@ -1,6 +1,7 @@
 package com.example.buddyhouse.service;
 
 
+import com.example.buddyhouse.dto.CustomerDetailDto;
 import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.CustomersListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
@@ -36,7 +37,7 @@ public class CustomerService {
   }
 
   //特定の顧客の詳細取得
-  public CustomerDto getCustomersById(Long id) {
+  public CustomerDetailDto getCustomersById(Long id) {
     CustomerEntity entity = customerRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("顧客ががみつかりません。"));
     return customerMapper.toDto(entity);

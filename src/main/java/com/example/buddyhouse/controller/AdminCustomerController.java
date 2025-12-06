@@ -3,38 +3,44 @@ package com.example.buddyhouse.controller;
 import com.example.buddyhouse.dto.CustomerDetailDto;
 import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.CustomersListDto;
-import com.example.buddyhouse.security.CustomUserDetails;
 import com.example.buddyhouse.service.CustomerService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/admin/customers")
 @RequiredArgsConstructor
-public class CustomerController {
+public class AdminCustomerController {
 
   private final CustomerService customerService;
 
-
-  @PostMapping
-  public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto dto) {
-    CustomerDto saved = customerService.createCustomer(dto);
-    return ResponseEntity.ok(saved);
+  @GetMapping
+  public List<CustomersListDto> getCustomersList() {
+    return customerService.getCustomersList();
   }
-//  @GetMapping("/me")
-//  public CustomerDetailDto getCustomerMe(@AuthenticationPrincipal CustomUserDetails user){
-//    Long customerId = user.getcu
-//  }
+
+  @GetMapping("/{id}")
+  public CustomerDetailDto getCustomersById(@PathVariable Long id) {
+    return customerService.getCustomersById(id);
+  }
+
+  @PatchMapping("/{id}/delete")
+  public ResponseEntity<Void> deletedCustomersById(@PathVariable Long id) {
+    customerService.deleteCustomerById(id);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<CustomerDto> updateCustomersById(@PathVariable Long id, @RequestBody CustomerDto dto) {
+    CustomerDto update = customerService.updateCustomerById(id, dto);
+    return ResponseEntity.ok(update);
+  }
 
 }
-
-

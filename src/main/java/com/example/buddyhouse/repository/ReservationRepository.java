@@ -1,6 +1,5 @@
 package com.example.buddyhouse.repository;
 
-import com.example.buddyhouse.dto.ReservationListDto;
 import com.example.buddyhouse.entity.ReservationEntity;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
 
 public interface ReservationRepository extends JpaRepository<ReservationEntity,Long> {
   //予約一覧用
