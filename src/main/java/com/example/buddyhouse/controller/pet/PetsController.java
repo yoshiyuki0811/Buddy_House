@@ -18,11 +18,7 @@ public class PetsController {
 
   private final PetsService petsService;
 
-  @PostMapping
-  public ResponseEntity<PetsDto> createPets(@PathVariable Long customerId,@RequestBody PetsDto dto) {
-    PetsDto saved = petsService.createPets(dto);
-    return ResponseEntity.ok(saved);
-  }
+
 
 
 }
