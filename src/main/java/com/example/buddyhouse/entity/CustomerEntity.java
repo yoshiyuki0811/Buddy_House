@@ -11,6 +11,8 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +23,12 @@ import org.hibernate.annotations.UpdateTimestamp;
  * 顧客データ
  */
 
+@Entity
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
 @Table(name = "customers")
 public class CustomerEntity {
 
@@ -33,6 +37,7 @@ public class CustomerEntity {
   private Long id; //顧客ID（自動採番）
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Builder.Default
   private List<PetsEntity> pets = new ArrayList<>();
 
   @Column(nullable = false, length = 100)
@@ -48,6 +53,7 @@ public class CustomerEntity {
   private String phone; //電話番号
 
   @Column(nullable = false, name = "deleted")
+  @Builder.Default
   private boolean deleted = false;//デフォルトfalse(有効)　削除フラグ
 
   @CreationTimestamp

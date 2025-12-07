@@ -3,9 +3,8 @@ package com.example.buddyhouse.mapper;
 import com.example.buddyhouse.dto.CustomerDetailDto;
 import com.example.buddyhouse.dto.CustomerDto;
 import com.example.buddyhouse.dto.CustomersListDto;
+import com.example.buddyhouse.dto.SignupRequestDto;
 import com.example.buddyhouse.entity.CustomerEntity;
-import com.example.buddyhouse.security.CustomUserDetails;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -28,16 +27,15 @@ public class CustomerMapper {
   }
     //DTOからEntityへ変換
     public CustomerEntity toEntity(CustomerDto dto) {
-      CustomerEntity entity = new CustomerEntity();
-      entity.setId(dto.getId());
-      entity.setName(dto.getName());
-      entity.setEmail(dto.getEmail());
-      entity.setPhone(dto.getPhone());
-      entity.setAddress(dto.getAddress());
-      entity.setDeleted(dto.isDeleted());
-      entity.setCreatedAt(LocalDateTime.now());
-      entity.setUpdatedAt(LocalDateTime.now());
-      return entity;
+    return  CustomerEntity.builder()
+          .id(dto.getId())
+          .name(dto.getName())
+          .email(dto.getEmail())
+          .phone(dto.getPhone())
+          .address(dto.getAddress())
+          .build();
+          
+      
     }
   // Entity → DTO に変換する(顧客一覧取得用)
   public CustomersListDto toListDto(CustomerEntity entity) {
@@ -57,6 +55,17 @@ public class CustomerMapper {
         .address(entity.getAddress())
         .build();
   }
+
+
+  public CustomerEntity toEntity(SignupRequestDto dto) {
+
+    return CustomerEntity.builder()
+        .name(dto.getName())
+        .phone(dto.getPhone())
+        .address(dto.getAddress())
+        .email(dto.getEmail())
+        .build();
   }
+}
 
 
