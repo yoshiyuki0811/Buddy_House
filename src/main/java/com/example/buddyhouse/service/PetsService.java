@@ -1,8 +1,8 @@
 package com.example.buddyhouse.service;
 
 
-import com.example.buddyhouse.dto.PetsDto;
-import com.example.buddyhouse.dto.PetsListDto;
+import com.example.buddyhouse.dto.pet.PetsDto;
+import com.example.buddyhouse.dto.pet.PetsListDto;
 
 
 import com.example.buddyhouse.entity.PetsEntity;

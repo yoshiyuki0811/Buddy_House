@@ -1,7 +1,7 @@
 package com.example.buddyhouse.mapper;
 
-import com.example.buddyhouse.dto.MenusDto;
-import com.example.buddyhouse.dto.MenusListDto;
+import com.example.buddyhouse.dto.menu.MenusDto;
+import com.example.buddyhouse.dto.menu.MenusListDto;
 import com.example.buddyhouse.entity.MenuEntity;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;

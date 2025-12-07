@@ -1,8 +1,8 @@
 package com.example.buddyhouse.service;
 
-import com.example.buddyhouse.dto.LoginRequestDto;
-import com.example.buddyhouse.dto.SignupRequestDto;
-import com.example.buddyhouse.dto.TokenResponseDto;
+import com.example.buddyhouse.dto.auth.LoginRequestDto;
+import com.example.buddyhouse.dto.auth.SignupRequestDto;
+import com.example.buddyhouse.dto.auth.TokenResponseDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.UserEntity;
 import com.example.buddyhouse.mapper.CustomerMapper;

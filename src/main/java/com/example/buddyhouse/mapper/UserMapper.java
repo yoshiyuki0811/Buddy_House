@@ -1,6 +1,6 @@
 package com.example.buddyhouse.mapper;
 
-import com.example.buddyhouse.dto.SignupRequestDto;
+import com.example.buddyhouse.dto.auth.SignupRequestDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.UserEntity;
 import com.example.buddyhouse.enums.UserRole;

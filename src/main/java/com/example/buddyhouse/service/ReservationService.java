@@ -1,10 +1,10 @@
 package com.example.buddyhouse.service;
 
-import com.example.buddyhouse.dto.ReservationCancelDto;
-import com.example.buddyhouse.dto.ReservationDetailDto;
-import com.example.buddyhouse.dto.ReservationDto;
-import com.example.buddyhouse.dto.ReservationRequestDto;
-import com.example.buddyhouse.dto.ReservationListDto;
+import com.example.buddyhouse.dto.reservation.ReservationCancelDto;
+import com.example.buddyhouse.dto.reservation.ReservationDetailDto;
+import com.example.buddyhouse.dto.reservation.ReservationDto;
+import com.example.buddyhouse.dto.reservation.ReservationRequestDto;
+import com.example.buddyhouse.dto.reservation.ReservationListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.MenuEntity;
 import com.example.buddyhouse.entity.PetsEntity;

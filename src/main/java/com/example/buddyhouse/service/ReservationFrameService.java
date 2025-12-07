@@ -1,8 +1,8 @@
 package com.example.buddyhouse.service;
 
-import com.example.buddyhouse.dto.FrameDto;
-import com.example.buddyhouse.dto.FrameListDto;
-import com.example.buddyhouse.dto.FrameRequestDto;
+import com.example.buddyhouse.dto.resrvationFrame.FrameDto;
+import com.example.buddyhouse.dto.resrvationFrame.FrameListDto;
+import com.example.buddyhouse.dto.resrvationFrame.FrameRequestDto;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
 import com.example.buddyhouse.mapper.FrameMapper;
 import com.example.buddyhouse.repository.ReservationFrameRepository;

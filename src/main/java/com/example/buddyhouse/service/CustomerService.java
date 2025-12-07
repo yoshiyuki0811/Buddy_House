@@ -1,9 +1,9 @@
 package com.example.buddyhouse.service;
 
 
-import com.example.buddyhouse.dto.CustomerDetailDto;
-import com.example.buddyhouse.dto.CustomerDto;
-import com.example.buddyhouse.dto.CustomersListDto;
+import com.example.buddyhouse.dto.customer.CustomerDetailDto;
+import com.example.buddyhouse.dto.customer.CustomerDto;
+import com.example.buddyhouse.dto.customer.CustomersListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.mapper.CustomerMapper;
 import com.example.buddyhouse.repository.CustomerRepository;

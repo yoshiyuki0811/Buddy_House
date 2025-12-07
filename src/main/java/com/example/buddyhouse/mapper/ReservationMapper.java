@@ -1,9 +1,9 @@
 package com.example.buddyhouse.mapper;
 
-import com.example.buddyhouse.dto.ReservationCancelDto;
-import com.example.buddyhouse.dto.ReservationDetailDto;
-import com.example.buddyhouse.dto.ReservationDto;
-import com.example.buddyhouse.dto.ReservationListDto;
+import com.example.buddyhouse.dto.reservation.ReservationCancelDto;
+import com.example.buddyhouse.dto.reservation.ReservationDetailDto;
+import com.example.buddyhouse.dto.reservation.ReservationDto;
+import com.example.buddyhouse.dto.reservation.ReservationListDto;
 import com.example.buddyhouse.entity.ReservationEntity;
 import java.util.List;
 import org.springframework.stereotype.Component;
