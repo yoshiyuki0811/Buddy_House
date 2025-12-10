@@ -125,7 +125,19 @@ public class ReservationService {
     return reservationMapper.DetailDto(reservation);
 
   }
+public List<ReservationListDto> getMyReservations(Long customerId){
+List<ReservationEntity> reservations =reservationRepository.findByCustomerIdOrderByStartAtDesc(customerId);
+return reservations.stream()
+    .map(reservationMapper::toListDto)
+    .toList();
 
+
+
+
+
+
+
+}
 
 }
 

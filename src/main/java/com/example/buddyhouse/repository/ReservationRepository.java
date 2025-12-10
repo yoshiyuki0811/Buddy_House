@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface ReservationRepository extends JpaRepository<ReservationEntity,Long> {
   //予約一覧用
@@ -22,6 +23,8 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity,L
   List<ReservationEntity> findByStartAtBetween(
       LocalDateTime start, LocalDateTime end
   );
+  @EntityGraph(value ="Reservation.withDetails",type = EntityGraphType.LOAD )
+  List<ReservationEntity> findByCustomerIdOrderByStartAtDesc(@Param("customerId") Long customersId);
 
 
 

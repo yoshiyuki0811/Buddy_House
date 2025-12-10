@@ -41,6 +41,9 @@ public class AdminReservationController {
   public ReservationDetailDto getDetailReservation(@PathVariable Long reservationId) {
     return reservationService.getDetailReservation(reservationId);
   }
-
+@GetMapping("/{customerId}")
+  public List<ReservationListDto> getReservationListByCustomer(@PathVariable Long customerId){
+    return reservationService.getMyReservations(customerId);
+}
 
 }
