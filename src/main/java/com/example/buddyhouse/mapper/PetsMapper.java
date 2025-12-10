@@ -1,11 +1,11 @@
 package com.example.buddyhouse.mapper;
 
+import com.example.buddyhouse.dto.pet.PetDetailDto;
 import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.PetsEntity;
-import com.example.buddyhouse.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 
 public class PetsMapper {
-
-  private final CustomerRepository customerRepository;
 
   // Entity → DTO に変換するコンストラクタ(全カラム)
   public PetsDto toDto(PetsEntity entity) {
@@ -49,5 +47,16 @@ public class PetsMapper {
     return dto;
   }
 
+  public PetDetailDto petDetailDto(PetsEntity entity){
+    return PetDetailDto.builder()
+        .name(entity.getName())
+        .breed(entity.getBreed())
+        .weight(entity.getWeight())
+        .age(entity.getAge())
+        .feature(entity.getFeature())
+        .createdAt(entity.getCreatedAt())
+        .build();
 
+
+  }
 }

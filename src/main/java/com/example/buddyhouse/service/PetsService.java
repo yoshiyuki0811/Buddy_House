@@ -1,6 +1,7 @@
 package com.example.buddyhouse.service;
 
 
+import com.example.buddyhouse.dto.pet.PetDetailDto;
 import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
@@ -14,6 +15,7 @@ import com.example.buddyhouse.repository.PetsRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,8 +38,6 @@ private final CustomerRepository customerRepository;
     PetsEntity pet =petsMapper.toEntity(customer,dto);
 
     petsRepository.save(pet);
-
-
   }
 
   //現在登録されているペットの一覧を取る
@@ -51,10 +51,14 @@ private final CustomerRepository customerRepository;
   }
 
   //ペットの詳細情報を取得
-  public PetsDto getPetsById(Long id) {
+  public PetDetailDto getPetsById(Long customerId,Long id) {
     PetsEntity entity = petsRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("ペットがみつかりません。"));
-    return petsMapper.toDto(entity);
+
+    if (!entity.getCustomer().getId().equals(customerId)) {
+      throw new AccessDeniedException("このペットにアクセスする権限がありません");
+    }
+    return petsMapper.petDetailDto(entity);
   }
 
   //特定の顧客が登録したペットの一覧を取得

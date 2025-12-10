@@ -1,5 +1,6 @@
 package com.example.buddyhouse.controller.pet;
 
+import com.example.buddyhouse.dto.pet.PetDetailDto;
 import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
@@ -36,9 +37,8 @@ public class AdminPetsController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<PetsDto> getPetsById(@PathVariable Long id) {
-    PetsDto pets = petsService.getPetsById(id);
-    return ResponseEntity.ok(pets);
+  public PetDetailDto getPetsById(@PathVariable Long customerId,@PathVariable Long id) {
+    return petsService.getPetsById(customerId, id);
   }
 
   @GetMapping("/{customerId}/pets")
