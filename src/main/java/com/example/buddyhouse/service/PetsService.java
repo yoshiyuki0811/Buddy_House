@@ -1,12 +1,15 @@
 package com.example.buddyhouse.service;
 
 
+import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
 
 
+import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.mapper.PetsMapper;
+import com.example.buddyhouse.repository.CustomerRepository;
 import com.example.buddyhouse.repository.PetsRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -20,16 +23,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PetsService {
 
-
+private final CustomerRepository customerRepository;
   private final PetsRepository petsRepository;
   private final PetsMapper petsMapper;
 
   //ペットの登録
   @Transactional
-  public PetsDto createPets(PetsDto dto) {
-    PetsEntity entity = petsMapper.toEntity(dto);
-    PetsEntity saved = petsRepository.save(entity);// DB保存
-    return petsMapper.toDto(saved);
+  public void createPets(Long customerId,PetRequestDto dto) {
+    CustomerEntity customer =customerRepository.findById(customerId)
+        .orElseThrow(() -> new IllegalArgumentException("顧客が存在しません。"));
+
+    PetsEntity pet =petsMapper.toEntity(customer,dto);
+
+    petsRepository.save(pet);
+
+
   }
 
   //現在登録されているペットの一覧を取る
@@ -50,7 +58,7 @@ public class PetsService {
   }
 
   //特定の顧客が登録したペットの一覧を取得
-  public List<PetsListDto> getPetsListById(Long customerId) {
+  public List<PetsListDto> getPetsListByCustomerId(Long customerId) {
     List<PetsEntity> entity = petsRepository.findAllByCustomerIdAndDeletedFalse(customerId);
     return entity.stream()
         .map(petsMapper::toListDto)

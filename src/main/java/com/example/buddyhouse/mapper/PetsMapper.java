@@ -1,5 +1,6 @@
 package com.example.buddyhouse.mapper;
 
+import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
@@ -28,18 +29,15 @@ public class PetsMapper {
     return dto;
   }
   //DTOからEntityへ変換（全カラム）
-  public PetsEntity toEntity(PetsDto dto)  {
-    PetsEntity entity = new PetsEntity();
-    entity.setId(dto.getId());
-    entity.setName(dto.getName());
-    entity.setBreed(dto.getBreed());
-    entity.setWeight(dto.getWeight());
-    entity.setAge(dto.getAge());
-    entity.setFeature(dto.getFeature());
-    CustomerEntity customerRef = customerRepository.getReferenceById(dto.getCustomerId());
-    entity.setCustomer(customerRef);
-
-    return entity;
+  public PetsEntity toEntity(CustomerEntity customer, PetRequestDto dto)  {
+   return PetsEntity.builder()
+       .customer(customer)
+       .name(dto.getName())
+       .breed(dto.getBreed())
+       .age(dto.getAge())
+       .weight(dto.getWeight())
+       .feature(dto.getFeature())
+       .build();
   }
   //EntityからDtoに変換（ペットリスト用）
   public PetsListDto toListDto(PetsEntity entity) {
@@ -50,4 +48,6 @@ public class PetsMapper {
     dto.setWeight(entity.getWeight());
     return dto;
   }
+
+
 }

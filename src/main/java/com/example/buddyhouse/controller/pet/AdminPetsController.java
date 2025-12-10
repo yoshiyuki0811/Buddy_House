@@ -1,10 +1,12 @@
 package com.example.buddyhouse.controller.pet;
 
+import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
 import com.example.buddyhouse.service.PetsService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,10 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminPetsController {
   private final PetsService petsService;
 
-  @PostMapping
-  public ResponseEntity<PetsDto> createPets(@PathVariable Long customerId,@RequestBody PetsDto dto) {
-    PetsDto saved = petsService.createPets(dto);
-    return ResponseEntity.ok(saved);
+  @PostMapping("/{customerId}/pets")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void createPetsForCustomer(@PathVariable Long customerId,@RequestBody PetRequestDto dto) {
+    petsService.createPets(customerId,dto);
+
   }
 
   @GetMapping
@@ -38,9 +42,8 @@ public class AdminPetsController {
   }
 
   @GetMapping("/{customerId}/pets")
-  public ResponseEntity<List<PetsListDto>> getPetsListById(@PathVariable Long customerId) {
-    List<PetsListDto> petsList = petsService.getPetsListById(customerId);
-    return ResponseEntity.ok(petsList);
+  public List<PetsListDto> getPetsListByCustomerId(@PathVariable Long customerId) {
+    return petsService.getPetsListByCustomerId(customerId);
   }
 
   @PatchMapping("/{id}")

@@ -70,4 +70,11 @@ public class AuthService {
         .accessToken(token)
         .build();
   }
+  //ログイン後だれが作るのか確認用
+  public Long getLoggedInCustomerId(String email) {
+    return userRepository.findByEmail(email)
+        .orElseThrow(() -> new IllegalStateException("顧客が存在しません"))
+        .getCustomer()
+        .getId();
+  }
 }

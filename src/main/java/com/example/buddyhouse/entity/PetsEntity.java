@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +24,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "pets")
 public class PetsEntity {
 
@@ -58,16 +62,19 @@ public class PetsEntity {
   private String feature;
 
   /** 削除フラグ */
+  @Builder.Default
   @Column(nullable = false)
   private boolean deleted = false;
 
   /** 登録日時 */
   @CreationTimestamp
+  @Builder.Default
   @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt = LocalDateTime.now();
 
   /** 更新日時 */
   @UpdateTimestamp
+  @Builder.Default
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt = LocalDateTime.now();
 
