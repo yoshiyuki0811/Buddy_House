@@ -19,7 +19,7 @@ public class  FrameMapper {
     dto.setEndAt(entity.getEndAt());
     dto.setMaxDogs(entity.getMaxDogs());
     dto.setUsedDogs(entity.getUsedDogs());
-    dto.setClose(entity.isClosed());
+    dto.setClose(entity.isOpen());
     dto.setDeleted(entity.isDeleted());
     dto.setCreatedAt(entity.getCreatedAt());
     dto.setUpdatedAt(entity.getUpdatedAt());

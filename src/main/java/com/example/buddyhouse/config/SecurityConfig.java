@@ -48,7 +48,9 @@ public class SecurityConfig {
             // Swagger や API ドキュメントは誰でも見れるようにする
             .requestMatchers(
                 "/swagger-ui/**",
+                "/swagger-ui.html",
                 "/v3/api-docs/**",
+                "/v3/api-docs.yaml",
                 "/actuator/health"
             ).permitAll()
             // 認証不要
