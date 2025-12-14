@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/reservation/me")
+@RequestMapping("/api/reservation")
 @RequiredArgsConstructor
 public class ReservationController {
 
@@ -30,7 +30,7 @@ public class ReservationController {
     return ResponseEntity.ok(saved);
   }
 
-  @GetMapping
+  @GetMapping("/me")
   public List<ReservationListDto> getMyReservationList(@AuthenticationPrincipal UserDetails userDetails){
     Long customerId = authService.getLoggedInCustomerId(userDetails.getUsername());
     return reservationService.getMyReservations(customerId);

@@ -37,7 +37,6 @@ public class AdminReservationController {
   }
 
   @GetMapping("/{reservationId}")
-
   public ReservationDetailDto getDetailReservation(@PathVariable Long reservationId) {
     return reservationService.getDetailReservation(reservationId);
   }

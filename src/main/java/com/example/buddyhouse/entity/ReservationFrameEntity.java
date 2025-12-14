@@ -50,7 +50,7 @@ public class ReservationFrameEntity {
 
   @Column(name = "is_open", nullable = false)
   @Builder.Default
-  private boolean closed =true;//trueが販売中falseが満室
+  private boolean open =true;//trueが販売中falseが満室
 
   /**
    * 削除フラグ
@@ -85,10 +85,10 @@ public class ReservationFrameEntity {
   }
 
   public void frameClose() {
-    if (closed) {
+    if (open) {
       throw new IllegalStateException("すでに満室です");
     }
-    this.closed = true;
+    this.open = true;
   }
 
   //予約枠の空きチェックと予約のカウント
@@ -99,7 +99,7 @@ public class ReservationFrameEntity {
     this.usedDogs += count;
   }
 public void removeDogs(int count){
-    if (this.usedDogs-count==0) {
+    if (this.usedDogs-count<0) {
       throw new IllegalStateException("枠を戻す数が多すぎます");
     }
     this.usedDogs-=count;

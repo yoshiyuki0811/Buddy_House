@@ -26,6 +26,7 @@ public class ReservationMapper {
     return ReservationDto.builder()
         .id(entity.getId())
         .customerName(entity.getCustomer().getName())
+        .reservationFrameId(entity.getFrame().getId())
         .menuName(entity.getMenu().getName())
         .startAt(entity.getStartAt())
         .endAt(entity.getEndAt())
