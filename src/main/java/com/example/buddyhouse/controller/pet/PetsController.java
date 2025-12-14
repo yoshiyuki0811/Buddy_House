@@ -37,7 +37,7 @@ public class PetsController {
     petsService.createPets(customerId, dto);
   }
 
-  @GetMapping
+  @GetMapping("/me")
   public List<PetsListDto> getMyPets(@AuthenticationPrincipal UserDetails userDetails){
     Long customerId = authService.getLoggedInCustomerId(userDetails.getUsername());
     return petsService.getPetsListByCustomerId(customerId);
