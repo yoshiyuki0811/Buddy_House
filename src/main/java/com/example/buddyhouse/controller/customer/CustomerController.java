@@ -2,6 +2,7 @@ package com.example.buddyhouse.controller.customer;
 
 import com.example.buddyhouse.dto.customer.CustomerDetailDto;
 import com.example.buddyhouse.dto.customer.CustomerDto;
+import com.example.buddyhouse.dto.customer.CustomerRequestDto;
 import com.example.buddyhouse.security.CustomUserDetails;
 import com.example.buddyhouse.service.AuthService;
 import com.example.buddyhouse.service.CustomerService;
@@ -24,8 +25,8 @@ public class CustomerController {
 
 
   @PostMapping
-  public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto dto) {
-    CustomerDto saved = customerService.createCustomer(dto);
+  public ResponseEntity<CustomerRequestDto> createCustomer(@RequestBody CustomerRequestDto dto) {
+    CustomerRequestDto saved = customerService.createCustomer(dto);
     return ResponseEntity.ok(saved);
   }
   @GetMapping("/me")

@@ -2,6 +2,7 @@ package com.example.buddyhouse.mapper;
 
 import com.example.buddyhouse.dto.customer.CustomerDetailDto;
 import com.example.buddyhouse.dto.customer.CustomerDto;
+import com.example.buddyhouse.dto.customer.CustomerRequestDto;
 import com.example.buddyhouse.dto.customer.CustomersListDto;
 import com.example.buddyhouse.dto.auth.SignupRequestDto;
 import com.example.buddyhouse.entity.CustomerEntity;
@@ -26,9 +27,8 @@ public class CustomerMapper {
     return dto;
   }
     //DTOからEntityへ変換
-    public CustomerEntity toEntity(CustomerDto dto) {
+    public CustomerEntity toEntity(CustomerRequestDto dto) {
     return  CustomerEntity.builder()
-          .id(dto.getId())
           .name(dto.getName())
           .email(dto.getEmail())
           .phone(dto.getPhone())
@@ -66,6 +66,16 @@ public class CustomerMapper {
         .email(dto.getEmail())
         .build();
   }
+  public CustomerRequestDto toRequestDto(CustomerEntity entity){
+    return CustomerRequestDto.builder()
+        .name(entity.getName())
+        .address(entity.getAddress())
+        .email(entity.getEmail())
+        .phone(entity.getPhone())
+        .build();
+  }
+
+
 }
 
 

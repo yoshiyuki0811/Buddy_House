@@ -3,6 +3,7 @@ package com.example.buddyhouse.service;
 
 import com.example.buddyhouse.dto.customer.CustomerDetailDto;
 import com.example.buddyhouse.dto.customer.CustomerDto;
+import com.example.buddyhouse.dto.customer.CustomerRequestDto;
 import com.example.buddyhouse.dto.customer.CustomersListDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.mapper.CustomerMapper;
@@ -22,10 +23,10 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
   private final CustomerMapper customerMapper;
 
-  public CustomerDto createCustomer(CustomerDto dto) {
+  public CustomerRequestDto createCustomer(CustomerRequestDto dto) {
     CustomerEntity entity = customerMapper.toEntity(dto);
     CustomerEntity saved = customerRepository.save(entity);// DB保存
-    return customerMapper.toDto(saved);
+    return customerMapper.toRequestDto(saved);
   }
 
   //顧客の一覧を取得
