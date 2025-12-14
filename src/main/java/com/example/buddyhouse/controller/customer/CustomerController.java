@@ -1,7 +1,6 @@
 package com.example.buddyhouse.controller.customer;
 
 import com.example.buddyhouse.dto.customer.CustomerDetailDto;
-import com.example.buddyhouse.dto.customer.CustomerDto;
 import com.example.buddyhouse.dto.customer.CustomerRequestDto;
 import com.example.buddyhouse.security.CustomUserDetails;
 import com.example.buddyhouse.service.AuthService;
