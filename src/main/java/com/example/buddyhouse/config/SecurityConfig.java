@@ -62,7 +62,14 @@ public class SecurityConfig {
             .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
             // 顧客のマイページ
-            .requestMatchers("/api/**/me", "/api/**/me/**").hasRole("CUSTOMER")
+            .requestMatchers(
+                "/api/customers/me",
+                "/api/customers/me/**",
+                "/api/reservations/me",
+                "/api/reservations/me/**",
+                "/api/pets/me",
+                "/api/pets/me/**"
+            ).hasRole("CUSTOMER")
 
 
 
