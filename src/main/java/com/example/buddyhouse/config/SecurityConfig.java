@@ -69,7 +69,7 @@ public class SecurityConfig {
                 "/api/reservations/me/**",
                 "/api/pets/me",
                 "/api/pets/me/**"
-            ).hasRole("CUSTOMER")
+            ).hasAuthority("CUSTOMER")
 
 
 
