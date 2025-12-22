@@ -1,6 +1,6 @@
 package com.example.buddyhouse.controller.auth;
 
-import com.example.buddyhouse.dto.auth.LoginRequestDto;
+import com.example.buddyhouse.dto.auth.AuthRequestDto;
 import com.example.buddyhouse.dto.auth.SignupRequestDto;
 import com.example.buddyhouse.dto.auth.TokenResponseDto;
 import com.example.buddyhouse.service.AuthService;
@@ -19,7 +19,7 @@ public class AuthController {
   private final AuthService authService;
 
   @PostMapping("/login")
-  public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto request) {
+  public ResponseEntity<TokenResponseDto> login(@RequestBody AuthRequestDto request) {
     TokenResponseDto response = authService.login(request);
     return ResponseEntity.ok(response);
   }

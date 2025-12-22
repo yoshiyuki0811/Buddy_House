@@ -1,6 +1,6 @@
 package com.example.buddyhouse.service;
 
-import com.example.buddyhouse.dto.auth.LoginRequestDto;
+import com.example.buddyhouse.dto.auth.AuthRequestDto;
 import com.example.buddyhouse.dto.auth.SignupRequestDto;
 import com.example.buddyhouse.dto.auth.TokenResponseDto;
 import com.example.buddyhouse.entity.CustomerEntity;
@@ -43,18 +43,16 @@ public class AuthService {
           "このメールアドレスは既に登録されています。"
       );
     }
-
-    // CustomerEntity 作成
-    CustomerEntity customer = customerMapper.toEntity(dto);
-    customerRepository.save(customer);
+    CustomerEntity customer = customerMapper.toEntityForSignup(dto);
+    CustomerEntity savedCustomer = customerRepository.save(customer);
 
     //UserEntity 作成
-    UserEntity user = userMapper.toEntity(dto, customer, passwordEncoder);
+    UserEntity user = userMapper.toEntity(dto,savedCustomer, passwordEncoder);
 
     userRepository.save(user);
   }
 
-  public TokenResponseDto login(LoginRequestDto dto) {
+  public TokenResponseDto login(AuthRequestDto dto) {
 
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(

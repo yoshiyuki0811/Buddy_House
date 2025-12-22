@@ -5,6 +5,7 @@ import com.example.buddyhouse.dto.customer.CustomerRequestDto;
 import com.example.buddyhouse.security.CustomUserDetails;
 import com.example.buddyhouse.service.AuthService;
 import com.example.buddyhouse.service.CustomerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/customers/me")
 @RequiredArgsConstructor
 public class CustomerController {
 
@@ -28,8 +29,11 @@ public class CustomerController {
     CustomerRequestDto saved = customerService.createCustomer(dto);
     return ResponseEntity.ok(saved);
   }
-  @GetMapping("/me")
+  @SecurityRequirement(name="bearerAuth")
+  @GetMapping
   public CustomerDetailDto getCustomerMe(@AuthenticationPrincipal CustomUserDetails user){
+    System.out.println("AUTHORITIES=" + user.getAuthorities());
+    System.out.println("USERNAME=" + user.getUsername());
     Long customerId = authService.getLoggedInCustomerId(user.getUsername());
     return customerService.getCustomersById(customerId);
   }

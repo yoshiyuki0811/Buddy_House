@@ -53,6 +53,10 @@ public class SecurityConfig {
                 "/v3/api-docs.yaml",
                 "/actuator/health"
             ).permitAll()
+
+            .requestMatchers("/error").permitAll()
+
+
             // 認証不要
             .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/menus/**").permitAll()
@@ -69,7 +73,7 @@ public class SecurityConfig {
                 "/api/reservations/me/**",
                 "/api/pets/me",
                 "/api/pets/me/**"
-            ).hasAuthority("CUSTOMER")
+            ).hasRole("CUSTOMER")
 
 
 

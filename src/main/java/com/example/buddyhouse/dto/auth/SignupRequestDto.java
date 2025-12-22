@@ -1,23 +1,29 @@
 package com.example.buddyhouse.dto.auth;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class SignupRequestDto{
+public class SignupRequestDto {
+  // ===== User用 =====
+  @NotBlank
+  @Email
+  String email;
 
-  private String name;
-  private String email;
-  private String password;
-  private String phone;
-  private String address;
+  @NotBlank
+  @Size(min = 8)
+  String password;
+
+  // ===== Customer用 =====
+  @NotBlank
+  String name;
+
+  // 任意
+  String phone;
+  String address;
 
 }
-

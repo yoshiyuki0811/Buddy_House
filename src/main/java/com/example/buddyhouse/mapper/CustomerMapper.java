@@ -1,10 +1,10 @@
 package com.example.buddyhouse.mapper;
 
+import com.example.buddyhouse.dto.auth.SignupRequestDto;
 import com.example.buddyhouse.dto.customer.CustomerDetailDto;
 import com.example.buddyhouse.dto.customer.CustomerDto;
 import com.example.buddyhouse.dto.customer.CustomerRequestDto;
 import com.example.buddyhouse.dto.customer.CustomersListDto;
-import com.example.buddyhouse.dto.auth.SignupRequestDto;
 import com.example.buddyhouse.entity.CustomerEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -57,13 +57,13 @@ public class CustomerMapper {
   }
 
 
-  public CustomerEntity toEntity(SignupRequestDto dto) {
-
+  public CustomerEntity toEntityForSignup(SignupRequestDto dto) {
     return CustomerEntity.builder()
         .name(dto.getName())
+        .email(dto.getEmail())
         .phone(dto.getPhone())
         .address(dto.getAddress())
-        .email(dto.getEmail())
+        .deleted(false)
         .build();
   }
   public CustomerRequestDto toRequestDto(CustomerEntity entity){
