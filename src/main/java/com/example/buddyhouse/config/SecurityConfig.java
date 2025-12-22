@@ -48,9 +48,7 @@ public class SecurityConfig {
             // Swagger や API ドキュメントは誰でも見れるようにする
             .requestMatchers(
                 "/swagger-ui/**",
-                "/swagger-ui.html",
                 "/v3/api-docs/**",
-                "/v3/api-docs.yaml",
                 "/actuator/health"
             ).permitAll()
             // 認証不要
@@ -61,10 +59,8 @@ public class SecurityConfig {
             //ADMINのみOK
             .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-            // 顧客のマイページ
-            .requestMatchers("/api/**/me", "/api/**/me/**").hasRole("CUSTOMER")
-
-
+            // 顧客のマイページ（会員）
+            .requestMatchers("/api/customers/me/**").hasRole("CUSTOMER")
 
 
             //上記以外はログインしてさえいればOK
