@@ -1,8 +1,9 @@
 package com.example.buddyhouse.service;
 
-import com.example.buddyhouse.dto.menu.MenusDto;
+import com.example.buddyhouse.dto.menu.CreateMenuDto;
 import com.example.buddyhouse.dto.menu.MenusListDto;
 import com.example.buddyhouse.entity.MenuEntity;
+import com.example.buddyhouse.enums.ReservationType;
 import com.example.buddyhouse.mapper.MenusMapper;
 import com.example.buddyhouse.repository.MenusRepository;
 import jakarta.transaction.Transactional;
@@ -21,9 +22,8 @@ public class MenusService {
   private final MenusRepository menusRepository;
 
   //メニューの登録
-  public MenusDto createMenus(MenusDto dto) {
-    MenuEntity saved = menusRepository.save(menusMapper.toEntity(dto));// DB保存
-    return menusMapper.toDto(saved);
+  public void createMenus(ReservationType type,CreateMenuDto dto) {
+    menusRepository.save(menusMapper.toCreateEntity(type,dto));// DB保存
   }
 
   public List<MenusListDto> getAllMenus() {

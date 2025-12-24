@@ -1,11 +1,12 @@
 package com.example.buddyhouse.controller.menu;
 
-import com.example.buddyhouse.dto.menu.MenusDto;
+import com.example.buddyhouse.dto.menu.CreateMenuDto;
 import com.example.buddyhouse.dto.menu.MenusListDto;
 import com.example.buddyhouse.enums.ReservationType;
 import com.example.buddyhouse.service.MenusService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,14 +25,14 @@ public class AdminMenusController {
   private final MenusService menusService;
 
   @PostMapping("/{type}")
-  public ResponseEntity<MenusDto> createMenus(
+  public ResponseEntity<Void> createMenus(
       @PathVariable ReservationType type,
-      @RequestBody MenusDto dto
+      @RequestBody CreateMenuDto dto
   ) {
-    dto.setReservationType(type);
-    MenusDto saved = menusService.createMenus(dto);
-    return ResponseEntity.ok(saved);
+    menusService.createMenus(type, dto);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
+
 
   @GetMapping
   public List<MenusListDto> getAllMenus() {

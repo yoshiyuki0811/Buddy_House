@@ -55,6 +55,8 @@ public class SecurityConfig {
             ).permitAll()
 
             .requestMatchers("/error").permitAll()
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
 
 
             // 認証不要
