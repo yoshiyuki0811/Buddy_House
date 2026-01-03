@@ -15,6 +15,11 @@ https://buddy-house-app.com/swagger-ui/index.html#/
 
 ---
 
+## ER図
+<img src="docs/images/er-diagram.png" width="900">
+
+---
+
 ## 使用技術
 
 ### バックエンド
