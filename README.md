@@ -11,8 +11,7 @@
 ---
 
 ## アプリURL
-※現在はローカル環境での起動を想定しています  
-（AWSデプロイ後に追記予定）
+https://buddy-house-app.com/swagger-ui/index.html#/
 
 ---
 
