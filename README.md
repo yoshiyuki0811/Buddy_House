@@ -20,7 +20,7 @@ https://buddy-house-app.com/swagger-ui/index.html#/
 
 ---
 ## インフラ構成図
-<img src="docs/images/er-diagram.png" width="900">
+<img src="images/infrastructure-diagram.png" width="900">
 
 
 ---
