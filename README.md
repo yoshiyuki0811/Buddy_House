@@ -25,13 +25,12 @@ https://buddy-house-app.com/swagger-ui/index.html#/
 Swagger UI上でJWT認証を行い、APIを実行する手順は以下の通りです。
 
 1. **ログイン**: 01. Authの /api/auth/loginを開き、上記のアカウント情報を入力して Executeをクリックします。
+<img src="docs/images/loginAPI.png" width="900">
 2. **トークンのコピー**: レスポンスボディに含まれる accessToken（文字列）をコピーします。
+<img src="docs/images/Token.png" width="900">
 3. **認証の有効化**: 画面右上の **「Authorize」** ボタンを押し、コピーしたトークンと入力して Authorizeをクリックします。
+<img src="docs/images/loginToken.png" width="900">
 
-![認証手順のスクリーンショット](docs/images/ss-auth-steps.png)
-*※ここにAuthorizeボタンの押し方や入力例のスクショを貼ってください*
-
----
 
 ---
 
