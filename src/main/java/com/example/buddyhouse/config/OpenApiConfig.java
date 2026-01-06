@@ -6,16 +6,16 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-import java.util.ArrayList;
 import java.util.List;
-import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.tags.Tag;
-import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class OpenApiConfig {
+
+  private static final String BEARER_AUTH = "bearerAuth";
 
   @Bean
   public OpenAPI openAPI() {
@@ -56,6 +56,21 @@ public class OpenApiConfig {
                     .scheme("bearer")
                     .bearerFormat("JWT")));
 
+  }
+  // 全ての API に対して JWT 認証を必須とする設定
+  @Bean
+  public OpenApiCustomizer forceSecurityForAllOperations() {
+    return openApi -> {
+      if (openApi.getPaths() == null) return;
+
+      openApi.getPaths().values().forEach(pathItem ->
+          pathItem.readOperations().forEach(op -> {
+            if (op.getSecurity() == null || op.getSecurity().isEmpty()) {
+              op.addSecurityItem(new SecurityRequirement().addList(BEARER_AUTH));
+            }
+          })
+      );
+    };
   }
 
 }
