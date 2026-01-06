@@ -13,6 +13,26 @@
 ## アプリURL
 https://buddy-house-app.com/swagger-ui/index.html#/
 
+### 動作確認用テストアカウント
+アプリの全機能をすぐに確認いただけるよう、テスト用のアカウントを用意しています。
+
+| ロール | メールアドレス | パスワード |
+| :--- | :--- | :--- |
+| **管理者(ADMIN)** | `admin` | `password123` |
+| **会員(CUSTOMER)** | `user@example.com` | `password123` |
+
+### クイックスタート（動作確認手順）
+Swagger UI上でJWT認証を行い、APIを実行する手順は以下の通りです。
+
+1. **ログイン**: 01. Authの /api/auth/loginを開き、上記のアカウント情報を入力して Executeをクリックします。
+2. **トークンのコピー**: レスポンスボディに含まれる accessToken（文字列）をコピーします。
+3. **認証の有効化**: 画面右上の **「Authorize」** ボタンを押し、コピーしたトークンと入力して Authorizeをクリックします。
+
+![認証手順のスクリーンショット](docs/images/ss-auth-steps.png)
+*※ここにAuthorizeボタンの押し方や入力例のスクショを貼ってください*
+
+---
+
 ---
 
 ## ER図
