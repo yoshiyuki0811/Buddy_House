@@ -44,7 +44,6 @@ public class OpenApiConfig {
 
         // ② サーバURL（必要なら）
         .servers(List.of(
-            new Server().url("http://localhost:8080").description("Local"),
             new Server().url("https://buddy-house-app.com").description("Production")
         ))
 
