@@ -4,6 +4,8 @@
 サービスの概要は、実家で営むペットホテルの業務を効率化するために開発した
 ペットホテル向けWeb予約管理アプリケーションです。
 
+予約管理を紙やカレンダーで行っており、  
+「予約状況の把握がしづらい」「過去の予約履歴をすぐに確認できない」といった課題がありました。
 
 顧客・ペット・予約・予約枠・メニューを一元管理し、  
 管理者と会員（顧客）それぞれの立場で操作できる構成になっています。
@@ -21,16 +23,29 @@ https://buddy-house-app.com/swagger-ui/index.html#/
 | **管理者(ADMIN)** | `admin` | `password123` |
 | **会員(CUSTOMER)** | `user@example.com` | `password123` |
 
-### クイックスタート（動作確認手順）
-Swagger UI上でJWT認証を行い、APIを実行する手順は以下の通りです。
+## 🚀 クイックスタート (Quick Start)
 
-1. **ログイン**: 01. Authの /api/auth/loginを開き、上記のアカウント情報を入力して Executeをクリックします。
-<img src="docs/images/loginAPI.png" width="900">
-2. **トークンのコピー**: レスポンスボディに含まれる accessToken（文字列）をコピーします。
-<img src="docs/images/Token.png" width="900">
-3. **認証の有効化**: 画面右上の **「Authorize」** ボタンを押し、コピーしたトークンと入力して Authorizeをクリックします。
-<img src="docs/images/loginToken.png" width="900">
+Swagger UI 上でログインを行い、JWT 認証を有効化することで、ロール毎の API を実行できます。
 
+1. **Login**: `POST /auth/login` を実行し、検証用アカウントでログインします。
+2. **Copy**: レスポンスに含まれる `accessToken` をコピーします。
+3. **Authorize**: 画面右上の `Authorize` ボタンにトークンを設定します。
+
+<details>
+<summary>📸 スクリーンショット付きの詳細手順を見る（クリックで展開）</summary>
+
+### 1. ログイン
+Authの **Login**: `POST /auth/login` を開き、アカウント情報を入力して `Execute` をクリックします。
+<img src="docs/images/loginAPI.png" width="600">
+
+### 2. トークンのコピー
+レスポンスボディに含まれる `accessToken`（文字列）をコピーします。
+<img src="docs/images/Token.png" width="600">
+### 3. 認証の有効化
+画面右上の **Authorize** ボタンを押し、コピーしたトークンを入力して `Authorize` をクリックします。
+<img src="docs/images/loginToken.png" width="600">
+
+</details>
 
 ---
 
@@ -86,11 +101,13 @@ Swagger UI上でJWT認証を行い、APIを実行する手順は以下の通り�
 | 顧客情報の検索・閲覧 | 条件検索および詳細閲覧 |
 | 顧客管理 | 登録・編集・検索・閲覧・論理削除 |
 
-※ CUSTOMER は `/me` 系APIで自分のデータのみ操作可能、ADMIN は全顧客データを管理可能。
+## 設計上のポイント
+
+- JWT + ロールベース認可により、管理者と会員の責務を明確に分離
+- `/me` 系 API を用意し、ログインユーザー自身のデータ操作を安全に実現
+- 論理削除を採用し、業務データの履歴を保持
 
 
 ---
 
-## 画面・API仕様
-
-- Swagger UI  
+## 何ができるか
