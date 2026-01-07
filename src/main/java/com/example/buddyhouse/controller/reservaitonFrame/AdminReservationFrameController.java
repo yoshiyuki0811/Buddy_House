@@ -3,6 +3,7 @@ package com.example.buddyhouse.controller.reservaitonFrame;
 import com.example.buddyhouse.dto.resrvationFrame.FrameDto;
 import com.example.buddyhouse.dto.resrvationFrame.FrameRequestDto;
 import com.example.buddyhouse.service.ReservationFrameService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+@Tag(name = "09.Admin　-　ReservationFrame", description = "予約枠管理(管理者)")
 @RestController
 @RequestMapping("/api/admin/reservationFrame")
 @RequiredArgsConstructor

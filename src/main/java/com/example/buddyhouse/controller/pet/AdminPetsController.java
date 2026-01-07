@@ -5,6 +5,7 @@ import com.example.buddyhouse.dto.pet.PetRequestDto;
 import com.example.buddyhouse.dto.pet.PetsDto;
 import com.example.buddyhouse.dto.pet.PetsListDto;
 import com.example.buddyhouse.service.PetsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
+@Tag(name = "05.Admin　-　Pets", description = "ペット管理(管理者)")
 @RestController
 @RequestMapping("/api/admin/pets")
 @RequiredArgsConstructor

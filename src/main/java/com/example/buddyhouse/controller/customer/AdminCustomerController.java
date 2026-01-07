@@ -1,9 +1,10 @@
-package com.example.buddyhouse.controller;
+package com.example.buddyhouse.controller.customer;
 
 import com.example.buddyhouse.dto.customer.CustomerDetailDto;
 import com.example.buddyhouse.dto.customer.CustomerDto;
 import com.example.buddyhouse.dto.customer.CustomersListDto;
 import com.example.buddyhouse.service.CustomerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+@Tag(name = "03.Admin　-　Customers", description = "顧客管理(管理者)")
 @RestController
 @RequestMapping("/api/admin/customers")
 @RequiredArgsConstructor
