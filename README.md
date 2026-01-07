@@ -21,7 +21,7 @@ https://buddy-house-app.com/swagger-ui/index.html#/
 | ロール | メールアドレス | パスワード |
 | :--- | :--- | :--- |
 | **管理者(ADMIN)** | `admin` | `password123` |
-| **会員(CUSTOMER)** | `user@example.com` | `password123` |
+| **会員(CUSTOMER)** | `test@example.com` | `password123` |
 
 ## 🚀 クイックスタート (Quick Start)
 
@@ -110,4 +110,52 @@ Authの **Login**: `POST /auth/login` を開き、アカウント情報を入力
 
 ---
 
-## 何ができるか
+## 工夫したポイント
+
+### 1. JWT とロールベース認可による責務分離
+JWT とロールベース認可を採用し、管理者（ADMIN）と会員（CUSTOMER）の操作範囲を明確に分離しました。
+管理者は全体管理、会員は自分自身のデータのみ操作できる構成とすることで、実運用に近い権限制御を意識しています。
+
+```java
+.authorizeHttpRequests(auth -> auth
+    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+    .requestMatchers("/api/**/me/**").hasRole("CUSTOMER")
+    .anyRequest().authenticated()
+);
+```
+
+### 2. Reservation の取得戦略を EntityGraph で制御
+
+Reservation は顧客・予約枠・メニュー・ペットなど関連エンティティが多く、
+一覧・詳細・/me API で必要な取得粒度が異なります。
+
+そのため、クエリに JOIN を固定せず、EntityGraph を用いてユースケースごとに取得戦略を切り替える設計としました。
+これにより N+1 問題を回避しつつ、保守性の高い実装を意識しています。
+```java
+@NamedEntityGraph(
+    name = "Reservation.withDetails",
+    attributeNodes = {
+        @NamedAttributeNode("frame"),
+        @NamedAttributeNode("customer"),
+        @NamedAttributeNode("menu"),
+        @NamedAttributeNode(value =  "reservationPets", subgraph = "reservationPetsSubgraph")
+    },
+    subgraphs = {
+        @NamedSubgraph(
+            name = "reservationPetsSubgraph",
+            attributeNodes = {
+                @NamedAttributeNode("pets")
+            }
+    )
+    }
+)
+```
+
+### 3. PetReservation による予約とペットの正規化
+
+予約とペットを直接結びつけるのではなく、PetReservation を中間エンティティとして切り出しました。
+これにより、複数ペットの同時予約や、ペット単位での予約履歴の管理が可能になっています。
+
+
+
+
