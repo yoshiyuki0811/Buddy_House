@@ -155,6 +155,24 @@ Reservation は顧客・予約枠・メニュー・ペットなど関連エン�
 
 予約とペットを直接結びつけるのではなく、PetReservation を中間エンティティとして切り出しました。
 これにより、複数ペットの同時予約や、ペット単位での予約履歴の管理が可能になっています。
+```Java
+@Entity
+@Table(name = "reservation_pet")
+public class ReservationPet {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pets_id")
+    private Pets pet;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
+}
+```
 
 
 
