@@ -174,6 +174,17 @@ public class ReservationPet {
 }
 ```
 
+## 何ができるのか
+1.ペットの登録(CUSTOMER)
+<img src="docs/images/post-pets.png" width="900">
+2.予約の登録(CUSTOMER)
+<img src="docs/images/post-reservation.png" width="900">
+3.予約の参照(CUSTOMER)
+<img src="docs/images/get-reservation.png" width="900">
+4.予約の参照(ADMIN)
+<img src="docs/images/admin-get-reservation.png" width="900">
+
+
 
 
 
