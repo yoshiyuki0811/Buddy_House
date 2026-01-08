@@ -222,4 +222,23 @@ public class ReservationPet {
     private Menu menu;
 }
 ```
+---
+
+## 今後の拡張予定（Roadmap）
+
+- [ ] テストコードの実装
+  - [ ] JUnit 5 を用いた単体テスト（Service 層）
+  - [ ] Spring Boot Test による結合テスト
+  - [ ] Testcontainers + JUnit による DB を含めたテスト
+
+- [ ] CI/CD の整備（GitHub Actions）
+  - [ ] main への push / PR をトリガーに自動ビルド・テスト
+  - [ ] 成果物（Jar）の作成とデプロイ自動化（EC2 への反映）
+
+- [ ] フロントエンド（React）の実装
+  - [ ] ログイン（JWT）・ロール別画面の切り替え
+  - [ ] 会員：ペット管理 / 予約作成 / 予約確認（/me）
+  - [ ] 管理者：予約・顧客・メニュー・予約枠の管理 UI
+
+
 
