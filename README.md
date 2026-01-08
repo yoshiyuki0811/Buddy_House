@@ -175,14 +175,53 @@ public class ReservationPet {
 ```
 
 ## 何ができるのか
-1.ペットの登録(CUSTOMER)
+
+> ※ 以降の操作は JWT 認証を前提としています  
+> ※ (CUSTOMER) / (ADMIN) はログインユーザーのロールです
+> 
+### 1.ペットの登録(CUSTOMER)
+
+ログイン中の会員が自分のペット情報を登録します。
+
+※weightに関しては下記のキーワードでの入力をお願いいたします。
+| 入力値 | 体重 |
+| ------ | ---- |
+| Toy    | ～5kg |
+| Small | 5～10kg |
+| Medium | 10～15kg |
+| Large | 15～20kg |
+| Giant | 20kg～ |
+
+
 <img src="docs/images/post-pets.png" width="900">
-2.予約の登録(CUSTOMER)
+
+---
+
+### 2.予約の登録(CUSTOMER)
+
+登録済みのペット,予約枠,メニューを指定して予約を作成します。
+
 <img src="docs/images/post-reservation.png" width="900">
-3.予約の参照(CUSTOMER)
+
+---
+
+### 3.予約の参照(CUSTOMER)
+
+会員が自分の予約一覧を確認します（/me 系の想定）。
+他者の予約を確認することはできません。
+
 <img src="docs/images/get-reservation.png" width="900">
-4.予約の参照(ADMIN)
+
+---
+
+### 4.予約の参照(ADMIN)
+
+管理者が予約済みの予約を確認することができます。
+今回はcustomerIdを元に特定の顧客の予約を取得しています。
+
 <img src="docs/images/admin-get-reservation.png" width="900">
+
+---
 
 
 
