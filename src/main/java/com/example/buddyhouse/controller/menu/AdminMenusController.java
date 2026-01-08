@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "10.Admin　-　Menus", description = "メニュー操作(管理者)")
+@Tag(name = "11.Admin　-　Menus", description = "メニュー操作(管理者)")
 @RestController
 @RequestMapping("/api/admin/menus")
 @RequiredArgsConstructor

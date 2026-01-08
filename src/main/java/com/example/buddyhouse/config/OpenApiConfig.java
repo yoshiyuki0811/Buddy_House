@@ -20,7 +20,7 @@ public class OpenApiConfig {
   @Bean
   public OpenAPI openAPI() {
     return new OpenAPI()
-        // ① 見た目（タイトル・説明・バージョン）
+        // 見た目（タイトル・説明・バージョン）
         .info(new Info()
             .title("Buddy House API")
             .description("""
@@ -39,15 +39,12 @@ public class OpenApiConfig {
             new Tag().name("07.Admin　-　Reservations").description("予約管理(管理者)"),
             new Tag().name("08.ReservationFrames").description("予約枠参照(会員)"),
             new Tag().name("09.Admin　-　ReservationFrame").description("予約枠管理(管理者)"),
-            new Tag().name("10.Admin　-　Menus").description("メニュー管理(管理者)")
+            new Tag().name("10.Menus").description("メニュー管理(会員)"),
+            new Tag().name("11.Admin　-　Menus").description("メニュー管理(管理者)")
+
         ))
 
-        // ② サーバURL（必要なら）
-        .servers(List.of(
-            new Server().url("https://buddy-house-app.com").description("Production")
-        ))
-
-                // ③ Authorize（JWT）
+                //  Authorize（JWT）
         .components(new Components()
             .addSecuritySchemes("bearerAuth",
                 new SecurityScheme()
