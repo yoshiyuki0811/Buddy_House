@@ -15,7 +15,6 @@ import lombok.Setter;
 public class ReservationRequestDto {
 
   private Long reservationFrameId;
-  private Long customerId;
   private Long menuId;
   private List<Long> petIds;
 }

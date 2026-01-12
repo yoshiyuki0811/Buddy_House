@@ -5,24 +5,25 @@ import com.example.buddyhouse.dto.reservation.ReservationDetailDto;
 import com.example.buddyhouse.dto.reservation.ReservationDto;
 import com.example.buddyhouse.dto.reservation.ReservationRequestDto;
 import com.example.buddyhouse.dto.reservation.ReservationListDto;
-import com.example.buddyhouse.entity.CustomerEntity;
 import com.example.buddyhouse.entity.MenuEntity;
 import com.example.buddyhouse.entity.PetsEntity;
 import com.example.buddyhouse.entity.ReservationEntity;
 import com.example.buddyhouse.entity.ReservationFrameEntity;
 import com.example.buddyhouse.entity.ReservationPetEntity;
+import com.example.buddyhouse.entity.UserEntity;
 import com.example.buddyhouse.enums.ReservationStatus;
 import com.example.buddyhouse.mapper.ReservationMapper;
-import com.example.buddyhouse.repository.CustomerRepository;
 import com.example.buddyhouse.repository.MenusRepository;
 import com.example.buddyhouse.repository.PetsRepository;
 import com.example.buddyhouse.repository.ReservationFrameRepository;
 import com.example.buddyhouse.repository.ReservationRepository;
+import com.example.buddyhouse.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 /**
  * 予約ドメインを扱うサービスクラスです。
@@ -33,9 +34,9 @@ public class ReservationService {
 
   private final ReservationRepository reservationRepository;
   private final ReservationFrameRepository reservationFrameRepository;
-  private final CustomerRepository customerRepository;
   private final MenusRepository menusRepository;
   private final PetsRepository petsRepository;
+  private final UserRepository userRepository;
   private final ReservationMapper reservationMapper;
 
   /**
@@ -53,7 +54,9 @@ public class ReservationService {
     ReservationFrameEntity frame = reservationFrameRepository.findById(requestDto.getReservationFrameId())
         .orElseThrow(() -> new RuntimeException("予約枠が見つかりません"));
 
-    CustomerEntity customer = customerRepository.findById(requestDto.getCustomerId())
+    //ログイン中ユーザー => user を取得
+    String email = SecurityContextHolder.getContext().getAuthentication().getName(); // JWTのsub/email想定
+    UserEntity user = userRepository.findByEmail(email)
         .orElseThrow(() -> new RuntimeException("顧客が見つかりません。"));
 
     MenuEntity menu = menusRepository.findById(requestDto.getMenuId())
@@ -62,7 +65,7 @@ public class ReservationService {
     List<PetsEntity> pets = petsRepository.findAllById(requestDto.getPetIds());
 //予約のチェック
     ReservationEntity reservation = ReservationEntity.create(
-        frame, customer, menu, pets);
+        frame, user, menu, pets);
 
 
 //ペットの数だけDtoを生成→Entityにセーブ
@@ -84,6 +87,8 @@ public class ReservationService {
    */
   @Transactional
   public ReservationCancelDto cancelReservation(Long reservationId) {
+
+
     //予約のどの予約のなのかチェック
     ReservationEntity reservation = reservationRepository.findById(reservationId)
         .orElseThrow(() -> new RuntimeException("予約が見つかりません。id=" + reservationId));

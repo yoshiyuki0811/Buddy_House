@@ -124,7 +124,7 @@ public class ReservationEntity {
   }
 
 public static ReservationEntity create(ReservationFrameEntity frame,
-      CustomerEntity customer,
+      UserEntity user,
       MenuEntity menu,
       List<PetsEntity> pets){
 
@@ -135,7 +135,7 @@ public static ReservationEntity create(ReservationFrameEntity frame,
 
     return ReservationEntity.builder()
         .frame(frame)
-        .customer(customer)
+        .customer(user.getCustomer())
         .menu(menu)
         .startAt(frame.getStartAt())
         .endAt(frame.getEndAt())
