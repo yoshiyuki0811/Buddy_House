@@ -3,6 +3,7 @@ package com.example.buddyhouse.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,19 +35,18 @@ class ReservationServiceTest {
   @InjectMocks
   private ReservationService reservationService;
 
+  Long reservationId = 1L;
+
+  ReservationFrameEntity frame = ReservationFrameEntity.builder()
+      .maxDogs(10)
+      .usedDogs(5)
+      .build();
 
   @Test
   @DisplayName("予約をキャンセルした場合、予約枠の使用頭数が減る")
   void cancel_shouldDecreaseUsedDogs(){
 
     //Arrange(準備)
-
-    Long reservationId = 1L;
-
-    ReservationFrameEntity frame = ReservationFrameEntity.builder()
-        .maxDogs(10)
-        .usedDogs(5)
-        .build();
 
     ReservationPetEntity rp1 = ReservationPetEntity.builder().build();
     ReservationPetEntity rp2 = ReservationPetEntity.builder().build();
@@ -70,10 +70,10 @@ class ReservationServiceTest {
     when(reservationMapper.toCancelDto(any(ReservationEntity.class)))
         .thenReturn(dummyDto);
 
-    // ===== Act =====
+    // Act
     ReservationCancelDto result = reservationService.cancelReservation(reservationId);
 
-    // ===== Assert =====
+    // Assert
     assertEquals(3, frame.getUsedDogs());
     assertEquals(ReservationStatus.CANCELLED, reservation.getStatus());
     assertSame (dummyDto, result);
@@ -81,14 +81,38 @@ class ReservationServiceTest {
     verify(reservationRepository).save(reservation);
     verify(reservationMapper).toCancelDto(reservation);
 
-    //Act(実行)
-
-    //Assert(検証)
-
-
-
-
-
   }
+
+  @Test
+  @DisplayName("すでにキャンセル済みの予約を再度キャンセルすると例外が発生する")
+  void cancel_alreadyCancelled_shouldThrowException() {
+
+    // Arrange
+
+    ReservationEntity reservation = ReservationEntity.builder()
+        .id(reservationId)
+        .status(ReservationStatus.CANCELLED) // ← すでにキャンセル済み
+        .frame(frame)
+        .reservationPets(List.of(
+            ReservationPetEntity.builder().build()
+        ))
+        .build();
+
+    when(reservationRepository.findById(reservationId))
+        .thenReturn(Optional.of(reservation));
+
+    IllegalStateException exception =
+        assertThrows(
+            IllegalStateException.class,
+            () -> reservationService.cancelReservation(reservationId)
+        );
+
+    assertEquals(
+        "すでにキャンセルされています。 id=" + reservationId,
+        exception.getMessage()
+    );
+    verify(reservationRepository, never()).save(any());
+  }
+
 
 }

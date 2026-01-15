@@ -91,7 +91,7 @@ public class ReservationService {
 
     //予約のどの予約のなのかチェック
     ReservationEntity reservation = reservationRepository.findById(reservationId)
-        .orElseThrow(() -> new RuntimeException("予約が見つかりません。id=" + reservationId));
+        .orElseThrow(() -> new RuntimeException("予約が見つかりません。 id=" + reservationId));
 
     if (reservation.getStatus() == ReservationStatus.CANCELLED) {
       throw new IllegalStateException("すでにキャンセルされています。 id=" + reservationId);
