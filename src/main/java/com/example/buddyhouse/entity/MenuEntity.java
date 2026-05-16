@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +22,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
+@Builder
 @Table(name = "menus")
 public class MenuEntity {
 
@@ -41,19 +45,23 @@ public class MenuEntity {
   private String feature;
 
   /** 販売状況フラグ  true＝販売中、false=販売停止中*/
+  @Builder.Default
   @Column(nullable = false)
   private boolean active = true;
 
   /** 削除フラグ */
+  @Builder.Default
   @Column(nullable = false)
   private boolean deleted = false;
 
   /** 登録日時 */
   @CreationTimestamp
+  @Builder.Default
   @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt = LocalDateTime.now();
 
   /** 更新日時 */
+  @Builder.Default
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt = LocalDateTime.now();

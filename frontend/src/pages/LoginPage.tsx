@@ -75,7 +75,7 @@ export default function LoginPage() {
               メールアドレス
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
               name="email"
               value={formData.email}
