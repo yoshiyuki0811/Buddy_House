@@ -128,7 +128,7 @@ public static ReservationEntity create(ReservationFrameEntity frame,
       MenuEntity menu,
       List<PetsEntity> pets){
 
-    if (menu.getReservationType() != ReservationType.DAYCARE){
+    if (menu.getReservationType() != frame.getReservationType()){
       throw new IllegalArgumentException("メニューと予約枠のタイプが違います");
     }
     frame.addUsedDogs(pets.size());

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { TokenResponse, AuthRequest, SignupRequest } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://buddy-house-app.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 const createAxiosInstance = (): AxiosInstance => {
   const instance = axios.create({
@@ -113,6 +113,11 @@ export const menuAPI = {
 
 // Reservation Frame APIs
 export const frameAPI = {
+  getList: () => apiClient.get('/api/reservationFrame'),
+
+  getListByDate: (date: string) =>
+    apiClient.get('/api/reservationFrame/by-date', { params: { dateTime: date } }),
+
   create: (data: any) =>
     apiClient.post('/api/admin/reservationFrame', data),
 

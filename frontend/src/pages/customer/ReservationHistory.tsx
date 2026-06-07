@@ -1,71 +1,84 @@
 import { useQuery } from '@tanstack/react-query';
 import { reservationAPI } from '../../services/api';
+import { CalendarDays } from 'lucide-react';
+
+const statusConfig: Record<string, { label: string; cls: string }> = {
+  RESERVED:    { label: '予約済',     cls: 'bg-sky-400/10 text-sky-400 border-sky-400/20' },
+  CHECKED_IN:  { label: '滞在中',     cls: 'bg-green-400/10 text-green-400 border-green-400/20' },
+  CHECKED_OUT: { label: 'チェックアウト済', cls: 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20' },
+  CANCELLED:   { label: 'キャンセル', cls: 'bg-red-400/10 text-red-400 border-red-400/20' },
+};
 
 export default function ReservationHistory() {
   const { data: reservations, isLoading } = useQuery({
     queryKey: ['myReservations'],
-    queryFn: () => reservationAPI.getMyList().then((res) => res.data),
+    queryFn: () => reservationAPI.getMyList().then((r) => r.data),
   });
 
-  if (isLoading) {
-    return <div className="text-center py-8">ロード中...</div>;
-  }
+  const fmt = (dt: string) =>
+    new Date(dt).toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
+
+  if (isLoading) return (
+    <div className="flex items-center justify-center py-24">
+      <div className="w-6 h-6 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
+    </div>
+  );
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-800">予約履歴</h1>
 
-      {reservations?.length === 0 ? (
-        <div className="bg-white rounded-lg shadow p-6 text-center text-gray-600">
-          予約はまだありません
+      {/* Header */}
+      <div>
+        <p className="text-xs font-mono text-zinc-500 mb-1">// {reservations?.length ?? 0} 件の予約</p>
+        <h1 className="text-2xl font-bold text-zinc-100">予約履歴</h1>
+      </div>
+
+      {!reservations || reservations.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-zinc-700 p-16 text-center">
+          <CalendarDays className="w-10 h-10 text-zinc-600 mx-auto mb-3" />
+          <p className="text-zinc-500 text-sm">まだ予約がありません</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6">
-          {reservations?.map((reservation: any) => (
-            <div key={reservation.id} className="bg-white rounded-lg shadow p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {reservation.menuName}
-                  </h3>
-                  <p className="text-gray-600 mb-2">
-                    予約ID: {reservation.id}
-                  </p>
+        <div className="space-y-3">
+          {reservations.map((r: any) => {
+            const sc = statusConfig[r.status] ?? statusConfig['RESERVED'];
+            return (
+              <div
+                key={r.id}
+                className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-5 hover:border-sky-400/50 transition-all duration-200"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <p className="text-sm font-semibold text-zinc-100">{r.menuName}</p>
+                    <p className="text-xs font-mono text-zinc-500 mt-0.5">#{r.id}</p>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-md text-xs font-mono border ${sc.cls}`}>
+                    {sc.label}
+                  </span>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p className="text-sm text-gray-600">開始日時</p>
-                  <p className="font-semibold text-gray-800">
-                    {new Date(reservation.startAt).toLocaleString('ja-JP')}
-                  </p>
+                <div className="flex items-center gap-1.5 text-xs text-zinc-400 mb-3">
+                  <span className="font-mono">{fmt(r.startAt)}</span>
+                  <span className="text-zinc-600">→</span>
+                  <span className="font-mono">{fmt(r.endAt)}</span>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-600">終了日時</p>
-                  <p className="font-semibold text-gray-800">
-                    {new Date(reservation.endAt).toLocaleString('ja-JP')}
-                  </p>
-                </div>
-              </div>
 
-              <div>
-                <p className="text-sm text-gray-600 mb-2">予約ペット</p>
-                <div className="flex flex-wrap gap-2">
-                  {reservation.petsName?.map((petName: string, idx: number) => (
+                <div className="flex gap-1.5 flex-wrap">
+                  {r.petsName?.map((name: string, i: number) => (
                     <span
-                      key={idx}
-                      className="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm"
+                      key={i}
+                      className="px-2 py-0.5 rounded-md bg-zinc-700/50 text-zinc-300 text-xs"
                     >
-                      {petName}
+                      {name}
                     </span>
                   ))}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
+
     </div>
   );
 }

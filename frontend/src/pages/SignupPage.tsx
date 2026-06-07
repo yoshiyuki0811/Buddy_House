@@ -2,40 +2,23 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authAPI } from '../services/api';
 import { AxiosError } from 'axios';
-
-interface SignupFormData {
-  email: string;
-  password: string;
-  name: string;
-  address: string;
-  phone: string;
-}
+import { Dog, AlertCircle } from 'lucide-react';
 
 export default function SignupPage() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<SignupFormData>({
-    email: '',
-    password: '',
-    name: '',
-    address: '',
-    phone: '',
+  const [formData, setFormData] = useState({
+    email: '', password: '', name: '', address: '', phone: '',
   });
-  const [error, setError] = useState('');
+  const [error,   setError]   = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       await authAPI.signup(formData);
       navigate('/login');
@@ -47,113 +30,66 @@ export default function SignupPage() {
     }
   };
 
+  const fields = [
+    { label: 'お名前',         field: 'name',     type: 'text',     placeholder: '山田 太郎' },
+    { label: 'メールアドレス', field: 'email',    type: 'email',    placeholder: 'you@example.com' },
+    { label: 'パスワード',     field: 'password', type: 'password', placeholder: '8文字以上' },
+    { label: '住所',           field: 'address',  type: 'text',     placeholder: '東京都渋谷区...' },
+    { label: '電話番号',       field: 'phone',    type: 'tel',      placeholder: '090-0000-0000' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-md p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-purple-600 mb-2">🐾 Buddy House</h1>
-          <p className="text-gray-600">会員登録</p>
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-6">
+      <div className="w-full max-w-sm">
+
+        {/* Logo */}
+        <div className="flex items-center gap-2 mb-10">
+          <Dog className="w-6 h-6 text-sky-400" />
+          <span className="text-lg font-semibold text-zinc-100">
+            Buddy <span className="text-sky-400 font-mono">House</span>
+          </span>
         </div>
 
+        <h1 className="text-2xl font-bold text-zinc-100 mb-1">新規登録</h1>
+        <p className="text-zinc-500 text-sm mb-8">新しいアカウントを作成</p>
+
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
+          <div className="flex items-center gap-2 bg-red-400/10 border border-red-400/20 text-red-400 px-4 py-3 rounded-lg text-sm mb-5">
+            <AlertCircle className="w-4 h-4 shrink-0" />
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              メールアドレス
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              パスワード
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              お名前
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-              住所
-            </label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-              電話番号
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              required
-            />
-          </div>
-
+          {fields.map(({ label, field, type, placeholder }) => (
+            <div key={field}>
+              <label className="text-xs font-mono text-zinc-400 mb-1.5 block">{label}</label>
+              <input
+                type={type}
+                value={formData[field as keyof typeof formData]}
+                onChange={set(field)}
+                placeholder={placeholder}
+                className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
+                required
+              />
+            </div>
+          ))}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 disabled:opacity-50"
+            className="w-full py-2.5 rounded-lg bg-sky-500 text-white font-medium hover:bg-sky-400 active:bg-sky-600 transition-colors disabled:opacity-50 mt-1"
           >
-            {loading ? '登録中...' : '登録'}
+            {loading ? '登録中...' : 'アカウントを作成'}
           </button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-          <p className="text-sm text-gray-600">
-            すでにアカウントをお持ちですか？
-            <Link to="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
-              ログイン
-            </Link>
-          </p>
-        </div>
+        <p className="text-center text-sm text-zinc-500 mt-6">
+          すでにアカウントをお持ちですか？{' '}
+          <Link to="/login" className="text-sky-400 hover:text-sky-300 font-medium transition-colors">
+            ログイン
+          </Link>
+        </p>
+
       </div>
     </div>
   );

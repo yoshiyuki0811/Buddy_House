@@ -52,6 +52,10 @@ export default function App() {
             </>
           ) : (
             <>
+              {/* Authenticated users visiting login/signup → home */}
+              <Route path="/login"  element={<Navigate to="/" replace />} />
+              <Route path="/signup" element={<Navigate to="/" replace />} />
+
               {/* Customer Routes */}
               {role === 'CUSTOMER' && (
                 <Route element={<DashboardLayout />}>

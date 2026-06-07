@@ -50,14 +50,21 @@ private final CustomerRepository customerRepository;
 
   }
 
-  //ペットの詳細情報を取得
-  public PetDetailDto getPetsById(Long customerId,Long id) {
+  //ペットの詳細情報を取得（顧客用：所有者チェックあり）
+  public PetDetailDto getPetsById(Long customerId, Long id) {
     PetsEntity entity = petsRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("ペットがみつかりません。"));
 
     if (!entity.getCustomer().getId().equals(customerId)) {
       throw new AccessDeniedException("このペットにアクセスする権限がありません");
     }
+    return petsMapper.petDetailDto(entity);
+  }
+
+  //ペットの詳細情報を取得（管理者用：所有者チェックなし）
+  public PetDetailDto getPetsByIdForAdmin(Long id) {
+    PetsEntity entity = petsRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("ペットがみつかりません。"));
     return petsMapper.petDetailDto(entity);
   }
 

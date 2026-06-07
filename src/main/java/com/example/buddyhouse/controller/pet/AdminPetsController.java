@@ -38,8 +38,8 @@ public class AdminPetsController {
   }
 
   @GetMapping("/{id}")
-  public PetDetailDto getPetsById(@PathVariable Long customerId,@PathVariable Long id) {
-    return petsService.getPetsById(customerId, id);
+  public PetDetailDto getPetsById(@PathVariable Long id) {
+    return petsService.getPetsByIdForAdmin(id);
   }
 
   @GetMapping("/{customerId}/pets")

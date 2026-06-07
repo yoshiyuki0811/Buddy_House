@@ -51,7 +51,8 @@ public class SecurityConfig {
                 "/swagger-ui.html",
                 "/v3/api-docs/**",
                 "/v3/api-docs.yaml",
-                "/actuator/health"
+                "/actuator/health",
+                "/favicon.ico"
             ).permitAll()
             .requestMatchers("/error").permitAll()
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -67,8 +68,8 @@ public class SecurityConfig {
             .requestMatchers(
                 "/api/customers/me",
                 "/api/customers/me/**",
-                "/api/reservations/me",
-                "/api/reservations/me/**",
+                "/api/reservation/me",
+                "/api/reservation/me/**",
                 "/api/pets/me",
                 "/api/pets/me/**"
             ).hasRole("CUSTOMER")

@@ -85,10 +85,10 @@ public class ReservationFrameEntity {
   }
 
   public void frameClose() {
-    if (open) {
+    if (!open) {
       throw new IllegalStateException("すでに満室です");
     }
-    this.open = true;
+    this.open = false;
   }
 
   //予約枠の空きチェックと予約のカウント

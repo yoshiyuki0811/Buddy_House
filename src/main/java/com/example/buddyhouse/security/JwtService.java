@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,8 +40,13 @@ public class JwtService {
     Instant now = Instant.now();
     Instant expiry = now.plusMillis(accessTokenValidityMs);
 
+    List<String> roles = userDetails.getAuthorities().stream()
+        .map(a -> a.getAuthority())
+        .toList();
+
     return Jwts.builder()
         .subject(userDetails.getUsername())
+        .claim("roles", roles)
         .issuedAt(Date.from(now))
         .expiration(Date.from(expiry))
         .signWith(signingKey)
