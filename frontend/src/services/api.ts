@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { TokenResponse, AuthRequest, SignupRequest } from '../types';
+import { TokenResponse, AuthRequest, SignupRequest, PetRequest } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -80,6 +80,9 @@ export const petAPI = {
 
   create: (data: any) =>
     apiClient.post('/api/pets/me', data),
+
+  updateMe: (id: number, data: PetRequest) =>
+    apiClient.patch(`/api/pets/me/${id}`, data),
 
   // Admin
   getList: () => apiClient.get('/api/admin/pets'),
