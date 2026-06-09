@@ -76,7 +76,24 @@ private final CustomerRepository customerRepository;
         .toList();
   }
 
-  //ペット情報の編集、更新
+  //ペット情報の編集（顧客用：所有者チェックあり）
+  @Transactional
+  public PetsDto updatePetsByIdForCustomer(Long customerId, Long id, PetRequestDto dto) {
+    PetsEntity entity = petsRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("ペットがみつかりません。"));
+    if (!entity.getCustomer().getId().equals(customerId)) {
+      throw new AccessDeniedException("このペットにアクセスする権限がありません");
+    }
+    if (dto.getName() != null) entity.setName(dto.getName());
+    if (dto.getBreed() != null) entity.setBreed(dto.getBreed());
+    if (dto.getWeight() != null) entity.setWeight(dto.getWeight());
+    if (dto.getAge() != null) entity.setAge(dto.getAge());
+    if (dto.getFeature() != null) entity.setFeature(dto.getFeature());
+    return petsMapper.toDto(petsRepository.save(entity));
+  }
+
+  //ペット情報の編集（管理者用）
+  @Transactional
   public PetsDto updatePetsById(Long id, PetsDto petsDto) {
     PetsEntity entity = petsRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("顧客がみつかりません。"));
