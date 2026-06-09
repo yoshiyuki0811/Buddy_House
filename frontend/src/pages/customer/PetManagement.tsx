@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { petAPI } from '../../services/api';
-import { PetRequest, WeightCategory } from '../../types';
+import { Pet, PetRequest, WeightCategory } from '../../types';
 import { Plus, X, PawPrint, AlertCircle, Pencil } from 'lucide-react';
 
 const weightLabels: Record<WeightCategory, string> = {
@@ -24,7 +24,7 @@ export default function PetManagement() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editData, setEditData] = useState<PetRequest>(emptyForm());
 
-  const { data: pets, isLoading } = useQuery({
+  const { data: pets, isLoading } = useQuery<Pet[]>({
     queryKey: ['myPets'],
     queryFn: () => petAPI.getMyList().then((r) => r.data),
   });
@@ -54,7 +54,7 @@ export default function PetManagement() {
     setShowAddForm(false);
   };
 
-  const openEdit = (pet: any) => {
+  const openEdit = (pet: Pet) => {
     setEditingId(pet.id);
     setEditData({
       name: pet.name,
@@ -104,15 +104,15 @@ export default function PetManagement() {
             className="space-y-4"
           >
             <div className="grid grid-cols-2 gap-3">
-              {[
-                { label: 'ペット名', field: 'name',  placeholder: 'ポチ' },
-                { label: '犬種',    field: 'breed', placeholder: 'トイプードル' },
-              ].map(({ label, field, placeholder }) => (
+              {([
+                { label: 'ペット名', field: 'name'  as keyof PetRequest, placeholder: 'ポチ' },
+                { label: '犬種',    field: 'breed' as keyof PetRequest, placeholder: 'トイプードル' },
+              ] as { label: string; field: keyof PetRequest; placeholder: string }[]).map(({ label, field, placeholder }) => (
                 <div key={field}>
                   <label className="text-xs font-mono text-zinc-400 mb-1.5 block">{label}</label>
                   <input
                     type="text"
-                    value={(addData as any)[field]}
+                    value={addData[field] as string ?? ''}
                     onChange={(e) => setAddData({ ...addData, [field]: e.target.value })}
                     placeholder={placeholder}
                     className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
@@ -185,7 +185,7 @@ export default function PetManagement() {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-3">
-          {pets.map((pet: any) => {
+          {pets.map((pet) => {
             const isEditing = editingId === pet.id;
             const isExpanded = expandedId === pet.id;
 
@@ -265,15 +265,15 @@ export default function PetManagement() {
                       className="space-y-4"
                     >
                       <div className="grid grid-cols-2 gap-3">
-                        {[
-                          { label: 'ペット名', field: 'name',  placeholder: 'ポチ' },
-                          { label: '犬種',    field: 'breed', placeholder: 'トイプードル' },
-                        ].map(({ label, field, placeholder }) => (
+                        {([
+                          { label: 'ペット名', field: 'name'  as keyof PetRequest, placeholder: 'ポチ' },
+                          { label: '犬種',    field: 'breed' as keyof PetRequest, placeholder: 'トイプードル' },
+                        ] as { label: string; field: keyof PetRequest; placeholder: string }[]).map(({ label, field, placeholder }) => (
                           <div key={field}>
                             <label className="text-xs font-mono text-zinc-400 mb-1.5 block">{label}</label>
                             <input
                               type="text"
-                              value={(editData as any)[field]}
+                              value={editData[field] as string ?? ''}
                               onChange={(e) => setEditData({ ...editData, [field]: e.target.value })}
                               placeholder={placeholder}
                               className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
