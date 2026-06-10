@@ -36,22 +36,22 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-6">
 
-      <div className="w-full max-w-sm rounded-2xl border border-zinc-700 bg-zinc-900 overflow-hidden shadow-xl shadow-sky-400/10">
+      <div className="w-full max-w-sm rounded-xl border border-zinc-700 bg-zinc-900 overflow-hidden shadow-xl shadow-sky-500/10">
 
-        {/* Gradient banner */}
-        <div className="bg-gradient-to-br from-sky-400 to-blue-600 px-6 pt-8 pb-12 text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-sm mb-3">
+        {/* Solid accent banner */}
+        <div className="bg-sky-500 px-6 pt-8 pb-10 text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-950/15 mb-3">
             <Dog className="w-6 h-6 text-white" />
           </div>
           <h1 className="text-lg font-bold text-white">
             Buddy House
           </h1>
-          <p className="text-xs font-mono text-sky-100 mt-1">// ペットホテル予約管理</p>
+          <p className="text-xs font-mono text-sky-50 mt-1">ペットホテル予約管理</p>
         </div>
 
         {/* Form card (overlaps banner) */}
         <div className="px-6 pb-6 -mt-6">
-          <div className="rounded-xl bg-zinc-800/80 border border-zinc-700 p-5">
+          <div className="rounded-lg bg-zinc-800/80 border border-zinc-700 p-5">
 
             {error && (
               <div className="flex items-center gap-2 bg-red-400/10 border border-red-400/20 text-red-400 px-3 py-2.5 rounded-lg text-xs mb-4">
@@ -70,7 +70,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
+                  className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-md text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
                   required
                 />
               </div>
@@ -83,14 +83,14 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
+                  className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-md text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
                   required
                 />
               </div>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 text-white font-semibold hover:opacity-90 active:opacity-80 transition-opacity disabled:opacity-50 mt-1"
+                className="w-full py-2.5 rounded-md bg-sky-500 text-white font-semibold hover:bg-sky-400 active:bg-sky-600 transition-colors disabled:opacity-50 mt-1"
               >
                 {loading ? 'ログイン中...' : 'ログイン'}
               </button>
@@ -116,7 +116,7 @@ export default function LoginPage() {
                 key={role}
                 type="button"
                 onClick={() => { setEmail(e); setPassword(pass); }}
-                className="px-2.5 py-1 rounded-md bg-sky-400/10 text-sky-400 text-xs font-mono border border-sky-400/20 hover:bg-sky-400/20 transition-colors"
+                className="px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 hover:bg-sky-500/20 transition-colors"
               >
                 {role}
               </button>
