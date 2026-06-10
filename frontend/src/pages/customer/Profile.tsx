@@ -27,7 +27,7 @@ export default function CustomerProfile() {
 
       {/* Header */}
       <div>
-        <p className="text-xs font-mono text-zinc-500 mb-1">// アカウント</p>
+        <p className="text-xs font-mono text-zinc-500 mb-1">アカウント</p>
         <h1 className="text-2xl font-bold text-zinc-100">プロフィール</h1>
       </div>
 

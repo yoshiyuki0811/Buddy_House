@@ -27,7 +27,7 @@ export default function PetListAdmin() {
 
       {/* Header */}
       <div>
-        <p className="text-xs font-mono text-zinc-500 mb-1">// {pets?.length ?? 0} 頭登録中</p>
+        <p className="text-xs font-mono text-zinc-500 mb-1">{pets?.length ?? 0} 頭登録中</p>
         <h1 className="text-2xl font-bold text-zinc-100">ペット一覧</h1>
       </div>
 

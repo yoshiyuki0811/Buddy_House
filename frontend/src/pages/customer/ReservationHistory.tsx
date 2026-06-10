@@ -29,7 +29,7 @@ export default function ReservationHistory() {
 
       {/* Header */}
       <div>
-        <p className="text-xs font-mono text-zinc-500 mb-1">// {reservations?.length ?? 0} 件の予約</p>
+        <p className="text-xs font-mono text-zinc-500 mb-1">{reservations?.length ?? 0} 件の予約</p>
         <h1 className="text-2xl font-bold text-zinc-100">予約履歴</h1>
       </div>
 

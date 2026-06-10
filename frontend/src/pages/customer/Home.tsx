@@ -39,7 +39,7 @@ export default function CustomerHome() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-mono text-zinc-500 mb-1">// ようこそ</p>
+          <p className="text-xs font-mono text-zinc-500 mb-1">ようこそ</p>
           <h1 className="text-2xl font-bold text-zinc-100">
             {customer?.name ?? '...'}
           </h1>

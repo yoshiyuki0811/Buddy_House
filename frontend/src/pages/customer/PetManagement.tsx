@@ -77,7 +77,7 @@ export default function PetManagement() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-mono text-zinc-500 mb-1">// {pets?.length ?? 0} 頭登録中</p>
+          <p className="text-xs font-mono text-zinc-500 mb-1">{pets?.length ?? 0} 頭登録中</p>
           <h1 className="text-2xl font-bold text-zinc-100">ペット管理</h1>
         </div>
         <button
