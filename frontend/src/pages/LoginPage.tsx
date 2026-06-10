@@ -35,89 +35,97 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-6">
-      <div className="w-full max-w-sm">
 
-        {/* Logo */}
-        <div className="flex items-center gap-2 mb-10">
-          <Dog className="w-6 h-6 text-sky-400" />
-          <span className="text-lg font-semibold text-zinc-100">
-            Buddy <span className="text-sky-400 font-mono">House</span>
-          </span>
+      <div className="w-full max-w-sm rounded-xl border border-zinc-700 bg-zinc-900 overflow-hidden shadow-xl shadow-sky-500/10">
+
+        {/* Solid accent banner */}
+        <div className="bg-sky-500 px-6 pt-8 pb-10 text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-950/15 mb-3">
+            <Dog className="w-6 h-6 text-white" />
+          </div>
+          <h1 className="text-lg font-bold text-white">
+            Buddy House
+          </h1>
+          <p className="text-xs font-mono text-sky-50 mt-1">ペットホテル予約管理</p>
         </div>
 
-        <h1 className="text-2xl font-bold text-zinc-100 mb-1">ログイン</h1>
-        <p className="text-zinc-500 text-sm mb-8">アカウントにサインイン</p>
+        {/* Form card (overlaps banner) */}
+        <div className="px-6 pb-6 -mt-6">
+          <div className="rounded-lg bg-zinc-800/80 border border-zinc-700 p-5">
 
-        {error && (
-          <div className="flex items-center gap-2 bg-red-400/10 border border-red-400/20 text-red-400 px-4 py-3 rounded-lg text-sm mb-5">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            {error}
+            {error && (
+              <div className="flex items-center gap-2 bg-red-400/10 border border-red-400/20 text-red-400 px-3 py-2.5 rounded-lg text-xs mb-4">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div>
+                <label className="text-xs font-mono text-zinc-400 mb-1.5 block">
+                  メールアドレス
+                </label>
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-md text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
+                  required
+                />
+              </div>
+              <div>
+                <label className="text-xs font-mono text-zinc-400 mb-1.5 block">
+                  パスワード
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full px-3.5 py-2.5 bg-zinc-900 border border-zinc-700 rounded-md text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 rounded-md bg-sky-500 text-white font-semibold hover:bg-sky-400 active:bg-sky-600 transition-colors disabled:opacity-50 mt-1"
+              >
+                {loading ? 'ログイン中...' : 'ログイン'}
+              </button>
+            </form>
           </div>
-        )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="text-xs font-mono text-zinc-400 mb-1.5 block">メールアドレス</label>
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
-              required
-            />
-          </div>
-          <div>
-            <label className="text-xs font-mono text-zinc-400 mb-1.5 block">パスワード</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-400 transition"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2.5 rounded-lg bg-sky-500 text-white font-medium hover:bg-sky-400 active:bg-sky-600 transition-colors disabled:opacity-50"
-          >
-            {loading ? 'ログイン中...' : 'ログイン'}
-          </button>
-        </form>
+          {/* New registration */}
+          <p className="text-center text-xs text-zinc-500 mt-4">
+            アカウントをお持ちでない方は{' '}
+            <Link to="/signup" className="text-sky-400 hover:text-sky-300 font-medium transition-colors">
+              新規登録
+            </Link>
+          </p>
 
-        <p className="text-center text-sm text-zinc-500 mt-6">
-          アカウントをお持ちでない方は{' '}
-          <Link to="/signup" className="text-sky-400 hover:text-sky-300 font-medium transition-colors">
-            新規登録
-          </Link>
-        </p>
-
-        {/* Demo accounts */}
-        <div className="mt-8 rounded-xl border border-zinc-700 bg-zinc-800/50 p-4">
-          <p className="text-xs font-mono text-zinc-500 mb-3">// デモアカウント</p>
-          <div className="space-y-1.5">
+          {/* Demo accounts */}
+          <div className="mt-4 pt-4 border-t border-zinc-800 flex items-center justify-center gap-2">
+            <span className="text-xs font-mono text-zinc-600">demo:</span>
             {[
-              { role: 'ADMIN', email: 'admin', pass: 'password123' },
+              { role: 'ADMIN',    email: 'admin',           pass: 'password123' },
               { role: 'CUSTOMER', email: 'test@example.com', pass: 'password123' },
             ].map(({ role, email: e, pass }) => (
               <button
                 key={role}
                 type="button"
                 onClick={() => { setEmail(e); setPassword(pass); }}
-                className="w-full text-left px-3 py-2 rounded-lg hover:bg-zinc-700/50 transition-colors"
+                className="px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 hover:bg-sky-500/20 transition-colors"
               >
-                <span className="px-2 py-0.5 rounded-md bg-sky-400/10 text-sky-400 text-xs font-mono border border-sky-400/20 mr-2">
-                  {role}
-                </span>
-                <span className="text-xs text-zinc-400">{e}</span>
+                {role}
               </button>
             ))}
           </div>
         </div>
 
       </div>
+
     </div>
   );
 }

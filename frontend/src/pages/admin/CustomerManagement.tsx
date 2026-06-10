@@ -19,7 +19,7 @@ export default function CustomerManagement() {
 
       {/* Header */}
       <div>
-        <p className="text-xs font-mono text-zinc-500 mb-1">// {customers?.length ?? 0} 名登録中</p>
+        <p className="text-xs font-mono text-zinc-500 mb-1">{customers?.length ?? 0} 名登録中</p>
         <h1 className="text-2xl font-bold text-zinc-100">顧客管理</h1>
       </div>
 

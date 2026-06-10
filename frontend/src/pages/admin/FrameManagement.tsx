@@ -59,7 +59,7 @@ export default function FrameManagement() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-mono text-zinc-500 mb-1">// {frames?.length ?? 0} 枠</p>
+          <p className="text-xs font-mono text-zinc-500 mb-1">{frames?.length ?? 0} 枠</p>
           <h1 className="text-2xl font-bold text-zinc-100">予約枠管理</h1>
         </div>
         <button

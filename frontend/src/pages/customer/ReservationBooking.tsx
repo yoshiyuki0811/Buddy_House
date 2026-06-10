@@ -58,7 +58,7 @@ export default function ReservationBooking() {
 
       {/* Header */}
       <div>
-        <p className="text-xs font-mono text-zinc-500 mb-1">// 予約フォーム</p>
+        <p className="text-xs font-mono text-zinc-500 mb-1">予約フォーム</p>
         <h1 className="text-2xl font-bold text-zinc-100">予約作成</h1>
       </div>
 

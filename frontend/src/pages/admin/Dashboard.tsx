@@ -38,7 +38,7 @@ export default function AdminDashboard() {
 
       {/* Header */}
       <div>
-        <p className="text-xs font-mono text-zinc-500 mb-1">// 管理ポータル</p>
+        <p className="text-xs font-mono text-zinc-500 mb-1">管理ポータル</p>
         <h1 className="text-2xl font-bold text-zinc-100">ダッシュボード</h1>
       </div>
 
